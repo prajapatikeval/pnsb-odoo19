@@ -1,5 +1,4 @@
 #!/bin/bash
-
 set -e
 
 echo "========================================"
@@ -32,50 +31,21 @@ done
 
 echo "==> PostgreSQL reachable"
 
-echo "========================================"
-echo " Checking addons"
-echo "========================================"
+echo "==> Odoo addons path:"
+echo "/usr/lib/python3/dist-packages/odoo/addons,/mnt/extra-addons"
 
-ODOO_ADDONS="/usr/lib/python3/dist-packages/odoo/addons"
-CUSTOM_ADDONS="/mnt/extra-addons"
+echo "==> Checking custom addon..."
 
-if [ ! -d "$ODOO_ADDONS" ]; then
-    echo "ERROR: Odoo addons directory not found!"
-    echo "$ODOO_ADDONS"
-    exit 1
-fi
-
-echo "==> Odoo addons found:"
-echo "$ODOO_ADDONS"
-
-if [ ! -d "$CUSTOM_ADDONS" ]; then
-    echo "ERROR: Custom addons directory not found!"
-    echo "$CUSTOM_ADDONS"
-    exit 1
-fi
-
-echo "==> Custom addons found:"
-echo "$CUSTOM_ADDONS"
-
-if [ -d "$CUSTOM_ADDONS/pnsb_website" ]; then
-    echo "==> pnsb_website module found"
+if [ -d "/mnt/extra-addons/pnsb_website" ]; then
+    echo "==> pnsb_website addon found"
 else
-    echo "WARNING: pnsb_website module not found"
+    echo "==> pnsb_website addon not found"
 fi
 
-echo "========================================"
-echo " Odoo addons path"
-echo "========================================"
-
-echo "$ODOO_ADDONS,$CUSTOM_ADDONS"
-
-echo "========================================"
-echo " Starting Odoo HTTP server"
-echo "========================================"
+echo "==> Starting Odoo..."
 
 exec odoo \
     --config=/etc/odoo/odoo.conf \
-    --addons-path="$ODOO_ADDONS,$CUSTOM_ADDONS" \
     --http-port="${PORT:-10000}" \
     --db_host="${DB_HOST}" \
     --db_port="${DB_PORT}" \
