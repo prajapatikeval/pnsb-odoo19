@@ -2,8 +2,6 @@
 
 set -e
 
-DB_NAME="${DB_NAME:-pnsb}"
-
 echo "========================================"
 echo " PNSB ODOO 19 STARTUP"
 echo "========================================"
@@ -18,7 +16,7 @@ host = os.environ["DB_HOST"]
 port = int(os.environ.get("DB_PORT", "5432"))
 
 s = socket.socket()
-s.settimeout(3)
+s.settimeout(2)
 
 try:
     s.connect((host, port))
@@ -34,114 +32,34 @@ done
 
 echo "==> PostgreSQL reachable"
 
-echo "==> Checking database: ${DB_NAME}"
+echo "========================================"
+echo " Checking custom addons"
+echo "========================================"
 
-DB_EXISTS=$(python3 - <<'PY'
-import os
-import psycopg2
-
-conn = psycopg2.connect(
-    host=os.environ["DB_HOST"],
-    port=os.environ.get("DB_PORT", "5432"),
-    user=os.environ["DB_USER"],
-    password=os.environ["DB_PASSWORD"],
-    dbname="postgres",
-)
-
-conn.autocommit = True
-
-cur = conn.cursor()
-
-cur.execute(
-    "SELECT 1 FROM pg_database WHERE datname = %s",
-    (os.environ.get("DB_NAME", "pnsb"),)
-)
-
-print("yes" if cur.fetchone() else "no")
-
-cur.close()
-conn.close()
-PY
-)
-
-if [ "$DB_EXISTS" = "no" ]; then
-
-    echo "==> Database does not exist"
-    echo "==> Creating and initializing ${DB_NAME}..."
-
-    odoo \
-        --config=/etc/odoo/odoo.conf \
-        --db_host="${DB_HOST}" \
-        --db_port="${DB_PORT:-5432}" \
-        --db_user="${DB_USER}" \
-        --db_password="${DB_PASSWORD}" \
-        db init "${DB_NAME}"
-
-    echo "==> Database initialization completed"
-
+if [ -d "/mnt/extra-addons" ]; then
+    echo "==> Custom addons directory found:"
+    ls -la /mnt/extra-addons
 else
-
-    echo "==> Database ${DB_NAME} already exists"
-
-    INITIALIZED=$(python3 - <<'PY'
-import os
-import psycopg2
-
-conn = psycopg2.connect(
-    host=os.environ["DB_HOST"],
-    port=os.environ.get("DB_PORT", "5432"),
-    user=os.environ["DB_USER"],
-    password=os.environ["DB_PASSWORD"],
-    dbname=os.environ.get("DB_NAME", "pnsb"),
-)
-
-cur = conn.cursor()
-
-cur.execute("""
-    SELECT EXISTS (
-        SELECT 1
-        FROM information_schema.tables
-        WHERE table_schema = 'public'
-        AND table_name = 'ir_module_module'
-    )
-""")
-
-print("yes" if cur.fetchone()[0] else "no")
-
-cur.close()
-conn.close()
-PY
-)
-
-    if [ "$INITIALIZED" = "no" ]; then
-
-        echo "==> Database exists but is NOT initialized"
-        echo "==> Initializing database..."
-
-        odoo \
-            --config=/etc/odoo/odoo.conf \
-            --db_host="${DB_HOST}" \
-            --db_port="${DB_PORT:-5432}" \
-            --db_user="${DB_USER}" \
-            --db_password="${DB_PASSWORD}" \
-            db init "${DB_NAME}"
-
-        echo "==> Database initialization completed"
-
-    else
-
-        echo "==> Database is already initialized"
-
-    fi
-
+    echo "WARNING: /mnt/extra-addons does not exist"
 fi
 
-echo "==> Starting Odoo HTTP server..."
+echo "========================================"
+echo " Odoo configuration"
+echo "========================================"
+
+echo "==> Database Host: ${DB_HOST}"
+echo "==> Database Port: ${DB_PORT}"
+echo "==> Database User: ${DB_USER}"
+echo "==> HTTP Port: ${PORT:-10000}"
+
+echo "========================================"
+echo " Starting Odoo"
+echo "========================================"
 
 exec odoo \
     --config=/etc/odoo/odoo.conf \
     --http-port="${PORT:-10000}" \
     --db_host="${DB_HOST}" \
-    --db_port="${DB_PORT:-5432}" \
+    --db_port="${DB_PORT}" \
     --db_user="${DB_USER}" \
     --db_password="${DB_PASSWORD}"
