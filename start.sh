@@ -1,7 +1,6 @@
 #!/bin/bash
-set -e
 
-DB_NAME="${DB_NAME:-pnsb}"
+set -e
 
 echo "========================================"
 echo " PNSB ODOO 19 STARTUP"
@@ -33,73 +32,50 @@ done
 
 echo "==> PostgreSQL reachable"
 
-echo "==> Checking module files..."
+echo "========================================"
+echo " Checking addons"
+echo "========================================"
 
-if [ ! -f "/mnt/extra-addons/pnsb_website/__manifest__.py" ]; then
-    echo "ERROR: pnsb_website manifest not found!"
+ODOO_ADDONS="/usr/lib/python3/dist-packages/odoo/addons"
+CUSTOM_ADDONS="/mnt/extra-addons"
+
+if [ ! -d "$ODOO_ADDONS" ]; then
+    echo "ERROR: Odoo addons directory not found!"
+    echo "$ODOO_ADDONS"
     exit 1
 fi
 
-echo "==> pnsb_website manifest found"
+echo "==> Odoo addons found:"
+echo "$ODOO_ADDONS"
 
-echo "==> Odoo addons path:"
-echo "/usr/lib/python3/dist-packages/odoo/addons,/mnt/extra-addons"
+if [ ! -d "$CUSTOM_ADDONS" ]; then
+    echo "ERROR: Custom addons directory not found!"
+    echo "$CUSTOM_ADDONS"
+    exit 1
+fi
 
-echo "==> Initializing/updating Odoo modules..."
+echo "==> Custom addons found:"
+echo "$CUSTOM_ADDONS"
 
-odoo \
-    --config=/etc/odoo/odoo.conf \
-    --db_host="${DB_HOST}" \
-    --db_port="${DB_PORT}" \
-    --db_user="${DB_USER}" \
-    --db_password="${DB_PASSWORD}" \
-    -d "${DB_NAME}" \
-    --init=base,web,website,pnsb_website \
-    --stop-after-init
+if [ -d "$CUSTOM_ADDONS/pnsb_website" ]; then
+    echo "==> pnsb_website module found"
+else
+    echo "WARNING: pnsb_website module not found"
+fi
 
-echo "==> Odoo module initialization completed"
+echo "========================================"
+echo " Odoo addons path"
+echo "========================================"
 
-echo "==> Checking installed module states..."
+echo "$ODOO_ADDONS,$CUSTOM_ADDONS"
 
-python3 - <<'PY'
-import os
-import psycopg2
-
-conn = psycopg2.connect(
-    host=os.environ["DB_HOST"],
-    port=os.environ.get("DB_PORT", "5432"),
-    user=os.environ["DB_USER"],
-    password=os.environ["DB_PASSWORD"],
-    dbname=os.environ.get("DB_NAME", "pnsb"),
-)
-
-cur = conn.cursor()
-
-cur.execute("""
-    SELECT name, state
-    FROM ir_module_module
-    WHERE name IN ('base')
-    ORDER BY name
-""")
-
-rows = cur.fetchall()
-
-print("")
-print("========== MODULE STATUS ==========")
-
-for name, state in rows:
-    print(f"{name}: {state}")
-
-print("===================================")
-print("")
-
-conn.close()
-PY
-
-echo "==> Starting Odoo HTTP server..."
+echo "========================================"
+echo " Starting Odoo HTTP server"
+echo "========================================"
 
 exec odoo \
     --config=/etc/odoo/odoo.conf \
+    --addons-path="$ODOO_ADDONS,$CUSTOM_ADDONS" \
     --http-port="${PORT:-10000}" \
     --db_host="${DB_HOST}" \
     --db_port="${DB_PORT}" \
