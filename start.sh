@@ -1,4 +1,5 @@
 #!/bin/bash
+
 set -e
 
 DB_NAME="${DB_NAME:-pnsb}"
@@ -33,19 +34,89 @@ done
 
 echo "==> PostgreSQL reachable"
 
-echo "==> Checking module files..."
+echo "========================================"
+echo " Checking PNSB module"
+echo "========================================"
 
-if [ ! -f "/mnt/extra-addons/pnsb_website/__manifest__.py" ]; then
-    echo "ERROR: pnsb_website manifest not found!"
+MODULE_PATH="/mnt/extra-addons/pnsb_website"
+MANIFEST_PATH="${MODULE_PATH}/__manifest__.py"
+INIT_PATH="${MODULE_PATH}/__init__.py"
+
+echo "Module path: ${MODULE_PATH}"
+
+if [ ! -d "${MODULE_PATH}" ]; then
+    echo "ERROR: pnsb_website directory not found!"
     exit 1
 fi
 
-echo "==> pnsb_website manifest found"
+if [ ! -f "${MANIFEST_PATH}" ]; then
+    echo "ERROR: pnsb_website __manifest__.py not found!"
+    exit 1
+fi
 
-echo "==> Odoo addons path:"
+if [ ! -f "${INIT_PATH}" ]; then
+    echo "ERROR: pnsb_website __init__.py not found!"
+    exit 1
+fi
+
+echo "==> pnsb_website directory found"
+echo "==> __manifest__.py found"
+echo "==> __init__.py found"
+
+echo "==> Module directory contents:"
+find "${MODULE_PATH}" -maxdepth 2 -type f -print | sort
+
+echo "========================================"
+echo " Checking Odoo manifest"
+echo "========================================"
+
+python3 - <<'PY'
+import os
+import sys
+
+module_path = "/mnt/extra-addons/pnsb_website"
+manifest_path = os.path.join(module_path, "__manifest__.py")
+
+print("Manifest:", manifest_path)
+
+try:
+    with open(manifest_path, "r", encoding="utf-8") as f:
+        source = f.read()
+
+    manifest = eval(
+        compile(source, manifest_path, "exec"),
+        {"__builtins__": {}},
+        {}
+    )
+
+    print("==> Manifest parsed successfully")
+    print("Name:", manifest.get("name"))
+    print("Version:", manifest.get("version"))
+    print("Depends:", manifest.get("depends"))
+    print("Installable:", manifest.get("installable"))
+    print("Application:", manifest.get("application"))
+
+    if not manifest.get("installable", False):
+        print("ERROR: Module is not marked installable!")
+        sys.exit(1)
+
+except Exception as e:
+    print("========================================")
+    print("MANIFEST LOAD ERROR")
+    print("========================================")
+    print(repr(e))
+    sys.exit(1)
+PY
+
+echo "========================================"
+echo " Odoo addons path"
+echo "========================================"
+
 echo "/usr/lib/python3/dist-packages/odoo/addons,/mnt/extra-addons"
 
-echo "==> Initializing/updating Odoo modules..."
+echo "========================================"
+echo " Initializing Odoo modules"
+echo "========================================"
 
 odoo \
     --config=/etc/odoo/odoo.conf \
@@ -54,12 +125,30 @@ odoo \
     --db_user="${DB_USER}" \
     --db_password="${DB_PASSWORD}" \
     -d "${DB_NAME}" \
-    --init=base,web,website,pnsb_website \
+    --update=base \
     --stop-after-init
 
-echo "==> Odoo module initialization completed"
+echo "==> Base module update completed"
 
-echo "==> Checking installed module states..."
+echo "========================================"
+echo " Installing PNSB Website module"
+echo "========================================"
+
+odoo \
+    --config=/etc/odoo/odoo.conf \
+    --db_host="${DB_HOST}" \
+    --db_port="${DB_PORT}" \
+    --db_user="${DB_USER}" \
+    --db_password="${DB_PASSWORD}" \
+    -d "${DB_NAME}" \
+    --init=pnsb_website \
+    --stop-after-init
+
+echo "==> pnsb_website initialization completed"
+
+echo "========================================"
+echo " Checking installed module states"
+echo "========================================"
 
 python3 - <<'PY'
 import os
@@ -96,7 +185,9 @@ print("")
 conn.close()
 PY
 
-echo "==> Starting Odoo HTTP server..."
+echo "========================================"
+echo " Starting Odoo HTTP server"
+echo "========================================"
 
 exec odoo \
     --config=/etc/odoo/odoo.conf \
