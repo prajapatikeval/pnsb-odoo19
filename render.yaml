@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: pnsb-odoo19
+    runtime: docker
+    plan: free
+    healthCheckPath: /
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: DB_HOST
+        fromDatabase:
+          name: pnsb-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: pnsb-db
+          property: port
+      - key: DB_USER
+        fromDatabase:
+          name: pnsb-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: pnsb-db
+          property: password
+databases:
+  - name: pnsb-db
+    plan: free
+    databaseName: pnsb
+    user: pnsb
