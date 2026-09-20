@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-
-    <!-- Reusable PNSB navigation -->
-    <template id="pnsb_nav" name="PNSB Navigation">
-        <header class="pnsb-nav">
+    <record id="pnsb_nav" model="ir.ui.view">
+        <field name="name">PNSB Navigation</field>
+        <field name="type">qweb</field>
+        <field name="arch" type="xml">
+            <t t-name="pnsb_website.pnsb_nav">
+<header class="pnsb-nav">
             <div class="pnsb-container pnsb-nav-inner">
                 <a href="/" class="pnsb-brand">
                     PNSB
@@ -18,11 +20,16 @@
                 </nav>
             </div>
         </header>
-    </template>
 
-    <!-- Reusable PNSB footer -->
-    <template id="pnsb_footer" name="PNSB Footer">
-        <footer class="pnsb-footer">
+            </t>
+        </field>
+    </record>
+    <record id="pnsb_footer" model="ir.ui.view">
+        <field name="name">PNSB Footer</field>
+        <field name="type">qweb</field>
+        <field name="arch" type="xml">
+            <t t-name="pnsb_website.pnsb_footer">
+<footer class="pnsb-footer">
             <div class="pnsb-container pnsb-footer-grid">
                 <div>
                     <div class="pnsb-brand">PNSB</div>
@@ -43,12 +50,16 @@
             </div>
             <div class="pnsb-bottom">© 2026 PNSB Machinery Industries. All rights reserved.</div>
         </footer>
-    </template>
 
-    <!-- Home -->
-    <template id="home_page" name="PNSB Home Page">
-        <t t-call="website.layout">
-            <div id="wrap">
+            </t>
+        </field>
+    </record>
+    <record id="home_page" model="ir.ui.view">
+        <field name="name">PNSB Home Page</field>
+        <field name="type">qweb</field>
+        <field name="arch" type="xml">
+            <t t-name="pnsb_website.home_page">
+<div id="wrap">
                 <t t-call="pnsb_website.pnsb_nav"/>
 
                 <main>
@@ -127,9 +138,7 @@
                                 <t t-foreach="request.env['pnsb.product'].sudo().search([('published', '=', True)], order='sequence,id')[:3]" t-as="product">
                                     <article class="pnsb-product">
                                         <div class="pnsb-product-media">
-                                            <img t-if="product.image"
-                                                 t-att-src="'/web/image/pnsb.product/%s/image' % product.id"
-                                                 t-att-alt="product.name"/>
+                                            <img t-if="product.image" t-att-src="'/web/image/pnsb.product/%s/image' % product.id" t-att-alt="product.name"/>
                                             <span t-if="not product.image">PNSB</span>
                                         </div>
                                         <div class="pnsb-product-body">
@@ -146,9 +155,7 @@
                     <section class="pnsb-cta">
                         <div class="pnsb-container pnsb-cta-inner">
                             <h2>Let's build something precise.</h2>
-                            <a href="/contact"
-                               class="pnsb-btn pnsb-outline"
-                               style="color:#fff;border-color:#fff">
+                            <a href="/contact" class="pnsb-btn pnsb-outline" style="color:#fff;border-color:#fff">
                                 Start a Conversation →
                             </a>
                         </div>
@@ -157,12 +164,16 @@
 
                 <t t-call="pnsb_website.pnsb_footer"/>
             </div>
-        </t>
-    </template>
 
-    <!-- Products -->
-    <template id="products_page" name="PNSB Products Page">
-        <t t-call="website.layout">
+            </t>
+        </field>
+    </record>
+    <record id="products_page" model="ir.ui.view">
+        <field name="name">PNSB Products Page</field>
+        <field name="type">qweb</field>
+        <field name="arch" type="xml">
+            <t t-name="pnsb_website.products_page">
+<t t-call="website.layout">
             <div id="wrap">
                 <t t-call="pnsb_website.pnsb_nav"/>
 
@@ -175,9 +186,7 @@
                             <t t-foreach="products" t-as="product">
                                 <article class="pnsb-product">
                                     <div class="pnsb-product-media">
-                                        <img t-if="product.image"
-                                             t-att-src="'/web/image/pnsb.product/%s/image' % product.id"
-                                             t-att-alt="product.name"/>
+                                        <img t-if="product.image" t-att-src="'/web/image/pnsb.product/%s/image' % product.id" t-att-alt="product.name"/>
                                         <span t-if="not product.image">PNSB</span>
                                     </div>
                                     <div class="pnsb-product-body">
@@ -194,11 +203,16 @@
                 <t t-call="pnsb_website.pnsb_footer"/>
             </div>
         </t>
-    </template>
 
-    <!-- About -->
-    <template id="about_page" name="PNSB About Page">
-        <t t-call="website.layout">
+            </t>
+        </field>
+    </record>
+    <record id="about_page" model="ir.ui.view">
+        <field name="name">PNSB About Page</field>
+        <field name="type">qweb</field>
+        <field name="arch" type="xml">
+            <t t-name="pnsb_website.about_page">
+<t t-call="website.layout">
             <div id="wrap">
                 <t t-call="pnsb_website.pnsb_nav"/>
 
@@ -222,11 +236,16 @@
                 <t t-call="pnsb_website.pnsb_footer"/>
             </div>
         </t>
-    </template>
 
-    <!-- Process -->
-    <template id="process_page" name="PNSB Process Page">
-        <t t-call="website.layout">
+            </t>
+        </field>
+    </record>
+    <record id="process_page" model="ir.ui.view">
+        <field name="name">PNSB Process Page</field>
+        <field name="type">qweb</field>
+        <field name="arch" type="xml">
+            <t t-name="pnsb_website.process_page">
+<t t-call="website.layout">
             <div id="wrap">
                 <t t-call="pnsb_website.pnsb_nav"/>
 
@@ -263,11 +282,16 @@
                 <t t-call="pnsb_website.pnsb_footer"/>
             </div>
         </t>
-    </template>
 
-    <!-- Contact -->
-    <template id="contact_page" name="PNSB Contact Page">
-        <t t-call="website.layout">
+            </t>
+        </field>
+    </record>
+    <record id="contact_page" model="ir.ui.view">
+        <field name="name">PNSB Contact Page</field>
+        <field name="type">qweb</field>
+        <field name="arch" type="xml">
+            <t t-name="pnsb_website.contact_page">
+<t t-call="website.layout">
             <div id="wrap">
                 <t t-call="pnsb_website.pnsb_nav"/>
 
@@ -287,9 +311,7 @@
                             </t>
 
                             <form method="post" class="pnsb-form">
-                                <input type="hidden"
-                                       name="csrf_token"
-                                       t-att-value="request.csrf_token()"/>
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
 
                                 <label>
                                     Name
@@ -327,6 +349,8 @@
                 <t t-call="pnsb_website.pnsb_footer"/>
             </div>
         </t>
-    </template>
 
+            </t>
+        </field>
+    </record>
 </odoo>

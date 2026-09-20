@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="0">
+    <!-- Replace Odoo's default homepage with the PNSB homepage. -->
+    <record id="website.homepage" model="ir.ui.view">
+        <field name="active" eval="False"/>
+    </record>
+
+    <record id="page_home" model="website.page">
+        <field name="name">PNSB Home</field>
+        <field name="is_published" eval="True"/>
+        <field name="is_homepage" eval="True"/>
+        <field name="key">pnsb_website.page_home</field>
+        <field name="url">/</field>
+        <field name="type">qweb</field>
+        <field name="website_id" ref="website.default_website"/>
+        <field name="arch" type="xml">
+            <t t-name="pnsb_website.page_home">
+                <t t-call="website.layout" pageName.f="homepage"
+                   additional_title.translate="PNSB Machinery Industries">
+                    <t t-call="pnsb_website.home_page"/>
+                </t>
+            </t>
+        </field>
+    </record>
+</odoo>

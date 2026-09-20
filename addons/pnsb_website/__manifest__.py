@@ -1,24 +1,25 @@
 {
     "name": "PNSB Machinery Website",
-    "version": "19.1",
+    "version": "19.0.1.0.0",
     "category": "Website",
     "summary": "PNSB Machinery Industries Website",
     "author": "PNSB Machinery Industries",
     "license": "LGPL-3",
     "depends": [
-        "website",
+        "website"
     ],
     "data": [
         "security/ir.model.access.csv",
         "views/enquiry_views.xml",
         "views/website_templates.xml",
+        "data/pages.xml"
     ],
     "assets": {
         "web.assets_frontend": [
             "pnsb_website/static/src/css/pnsb.css",
-            "pnsb_website/static/src/js/pnsb.js",
-        ],
+            "pnsb_website/static/src/js/pnsb.js"
+        ]
     },
-    "installable": True,
-    "application": True,
+    "installable": true,
+    "application": true
 }

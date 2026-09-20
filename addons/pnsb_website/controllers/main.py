@@ -4,11 +4,7 @@ from odoo.http import request
 
 class PNSBWebsiteController(http.Controller):
 
-    @http.route("/", type="http", auth="public", website=True)
-    def home(self, **kwargs):
-        return request.render("pnsb_website.home_page")
-
-    @http.route("/products", type="http", auth="public", website=True)
+    @http.route("/products", type="http", auth="public", website=True, sitemap=True)
     def products(self, **kwargs):
         products = request.env["pnsb.product"].sudo().search(
             [("published", "=", True)],
@@ -19,11 +15,11 @@ class PNSBWebsiteController(http.Controller):
             {"products": products},
         )
 
-    @http.route("/about", type="http", auth="public", website=True)
+    @http.route("/about", type="http", auth="public", website=True, sitemap=True)
     def about(self, **kwargs):
         return request.render("pnsb_website.about_page")
 
-    @http.route("/process", type="http", auth="public", website=True)
+    @http.route("/process", type="http", auth="public", website=True, sitemap=True)
     def process(self, **kwargs):
         return request.render("pnsb_website.process_page")
 
@@ -34,6 +30,7 @@ class PNSBWebsiteController(http.Controller):
         website=True,
         methods=["GET", "POST"],
         csrf=True,
+        sitemap=True,
     )
     def contact(self, **post):
         success = False
