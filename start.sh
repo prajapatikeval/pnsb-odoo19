@@ -36,22 +36,32 @@ echo "========================================"
 echo " ODOO CONFIGURATION"
 echo "========================================"
 
-echo "==> Config file: /etc/odoo/odoo.conf"
-
-echo "==> Addons paths:"
+echo "==> Odoo addons paths:"
 echo "    /usr/lib/python3/dist-packages/odoo/addons"
-echo "    /var/lib/odoo/.local/share/Odoo/addons/19.0"
 echo "    /mnt/extra-addons"
+
+echo "==> Custom addons directory:"
+
+if [ -d "/mnt/extra-addons" ]; then
+    ls -la /mnt/extra-addons
+else
+    echo "WARNING: /mnt/extra-addons does not exist"
+fi
 
 echo "========================================"
 echo " STARTING ODOO"
 echo "========================================"
 
 # IMPORTANT:
-# No database is selected here.
-# No module is installed here.
-# Website must be installed manually.
-# Custom modules must be installed manually.
+#
+# Do NOT use --init here.
+# Do NOT use -d here.
+#
+# Odoo Database Manager will create and initialize
+# new databases itself.
+#
+# Website will NOT be pre-installed.
+# Custom modules will NOT be pre-installed.
 
 exec odoo \
     --config=/etc/odoo/odoo.conf \
