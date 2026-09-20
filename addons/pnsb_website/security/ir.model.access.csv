@@ -1,3 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_pnsb_enquiry_user,pnsb.enquiry.user,model_pnsb_enquiry,base.group_user,1,1,1,1
-access_pnsb_product_user,pnsb.product.user,model_pnsb_product,base.group_user,1,1,1,1
