@@ -1,7 +1,5 @@
-# PNSB Odoo 19 V4
+# PNSB Odoo 19 V5
 
-Odoo 19 Community + PNSB website addon + Render/PostgreSQL startup initialization.
+Render deployment fix: if the PostgreSQL database already exists but the PNSB module was never installed, startup explicitly runs Odoo module initialization for `pnsb_website` instead of assuming the database is complete.
 
-The deployment initializes a fresh PostgreSQL database before starting the Odoo HTTP server. The website addon is installed automatically with `--init=pnsb_website`.
-
-Important: this package is intended for temporary testing on Render, not production hosting.
+This keeps the existing database and ensures the `website` dependency and `pnsb_website` module are installed before the HTTP server starts.
