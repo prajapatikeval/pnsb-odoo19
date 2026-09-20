@@ -1,8 +1,11 @@
 from odoo import fields, models
+
+
 class PNSBProduct(models.Model):
     _name = "pnsb.product"
     _description = "PNSB Product"
     _order = "sequence, id"
+
     name = fields.Char(required=True)
     category = fields.Char()
     description = fields.Text()
