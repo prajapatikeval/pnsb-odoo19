@@ -5,7 +5,7 @@
     "summary": "PNSB Machinery Industries public website",
     "author": "PNSB Machinery Industries",
     "license": "LGPL-3",
-    "depends": ["base"],
+    "depends": ["website"],
     "installable": True,
     "application": True,
 }
