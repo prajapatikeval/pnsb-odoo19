@@ -1,6 +1,6 @@
 {
     "name": "PNSB Machinery Website",
-    "version": "19.0.1.0.0",
+    "version": "19.1",
     "category": "Website",
     "summary": "PNSB Machinery Industries Website",
     "author": "PNSB Machinery Industries",

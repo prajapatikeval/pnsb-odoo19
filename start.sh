@@ -34,13 +34,13 @@ done
 
 echo "==> PostgreSQL reachable"
 
-echo "========================================"
-echo " Checking PNSB module"
-echo "========================================"
-
 MODULE_PATH="/mnt/extra-addons/pnsb_website"
 MANIFEST_PATH="${MODULE_PATH}/__manifest__.py"
 INIT_PATH="${MODULE_PATH}/__init__.py"
+
+echo "========================================"
+echo " Checking PNSB module"
+echo "========================================"
 
 echo "Module path: ${MODULE_PATH}"
 
@@ -73,6 +73,7 @@ echo "========================================"
 python3 - <<'PY'
 import os
 import sys
+import ast
 
 module_path = "/mnt/extra-addons/pnsb_website"
 manifest_path = os.path.join(module_path, "__manifest__.py")
@@ -83,11 +84,19 @@ try:
     with open(manifest_path, "r", encoding="utf-8") as f:
         source = f.read()
 
-    manifest = eval(
-        compile(source, manifest_path, "exec"),
-        {"__builtins__": {}},
-        {}
-    )
+    tree = ast.parse(source, filename=manifest_path)
+
+    manifest = None
+
+    for node in tree.body:
+        if isinstance(node, ast.Assign):
+            for target in node.targets:
+                if isinstance(target, ast.Name) and target.id == "__manifest__":
+                    manifest = ast.literal_eval(node.value)
+
+    if not isinstance(manifest, dict):
+        print("ERROR: __manifest__ does not contain a valid dictionary")
+        sys.exit(1)
 
     print("==> Manifest parsed successfully")
     print("Name:", manifest.get("name"))
@@ -115,7 +124,7 @@ echo "========================================"
 echo "/usr/lib/python3/dist-packages/odoo/addons,/mnt/extra-addons"
 
 echo "========================================"
-echo " Initializing Odoo modules"
+echo " Updating Odoo base modules"
 echo "========================================"
 
 odoo \
