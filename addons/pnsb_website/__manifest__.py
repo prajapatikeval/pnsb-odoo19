@@ -1,6 +1,6 @@
 {
     "name": "PNSB Machinery Website",
-    "version": "19.0.1.0.0",
+    "version": "19.0.2.0.0",
     "summary": "PNSB Machinery Industries website",
     "category": "Website",
     "license": "LGPL-3",
@@ -16,6 +16,6 @@
             "pnsb_website/static/src/js/pnsb.js"
         ]
     },
-    "installable": True,
-    "application": True
+    "installable": true,
+    "application": true
 }

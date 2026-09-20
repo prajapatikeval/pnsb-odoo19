@@ -1,13 +1,7 @@
-# PNSB Odoo 19 Community Website
+# PNSB Odoo 19 V4
 
-Temporary Odoo 19 Community testing setup for Render.
+Odoo 19 Community + PNSB website addon + Render/PostgreSQL startup initialization.
 
-## GitHub
-Extract this ZIP and push the files/folders inside it to the ROOT of your GitHub repository.
+The deployment initializes a fresh PostgreSQL database before starting the Odoo HTTP server. The website addon is installed automatically with `--init=pnsb_website`.
 
-## Render
-Create a Render Blueprint/Web Service from the GitHub repository. The included `render.yaml` creates the Odoo web service and PostgreSQL database and passes the database connection values into the Odoo container.
-
-The `Dockerfile` builds the Odoo 19 container and installs the `pnsb_website` custom module.
-
-This setup is intended for testing, not production data.
+Important: this package is intended for temporary testing on Render, not production hosting.

@@ -8,5 +8,7 @@ class PNSBEnquiry(models.Model):
     phone = fields.Char()
     company = fields.Char()
     message = fields.Text()
-    state = fields.Selection([("new","New"),("contacted","Contacted"),("closed","Closed")],
-                             default="new", required=True)
+    state = fields.Selection(
+        [("new","New"),("contacted","Contacted"),("closed","Closed")],
+        default="new", required=True
+    )
