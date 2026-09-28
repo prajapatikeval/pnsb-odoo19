@@ -1,0 +1,699 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Materials -->
+        <record id="mat_88" model="industrial.material">
+            <field name="name">Carbon Steel, Class 8.8</field>
+            <field name="code">8.8</field>
+            <field name="sequence">10</field>
+            <field name="family">carbon</field>
+            <field name="swatch">steel</field>
+            <field name="tensile_strength">800</field>
+            <field name="yield_strength">640</field>
+            <field name="max_temperature">300</field>
+            <field name="density">7.85</field>
+            <field name="strength_rating">3</field>
+            <field name="corrosion_rating">1</field>
+            <field name="cost_rating">1</field>
+            <field name="description">Quenched and tempered medium-carbon steel. The default choice for general engineering joints.</field>
+        </record>
+        <record id="mat_109" model="industrial.material">
+            <field name="name">Alloy Steel, Class 10.9</field>
+            <field name="code">10.9</field>
+            <field name="sequence">20</field>
+            <field name="family">alloy</field>
+            <field name="swatch">black</field>
+            <field name="tensile_strength">1040</field>
+            <field name="yield_strength">940</field>
+            <field name="max_temperature">300</field>
+            <field name="density">7.85</field>
+            <field name="strength_rating">4</field>
+            <field name="corrosion_rating">1</field>
+            <field name="cost_rating">2</field>
+            <field name="description">Boron or Cr-Mo alloyed and hardened for high-preload structural and automotive joints.</field>
+        </record>
+        <record id="mat_129" model="industrial.material">
+            <field name="name">Alloy Steel, Class 12.9</field>
+            <field name="code">12.9</field>
+            <field name="sequence">30</field>
+            <field name="family">alloy</field>
+            <field name="swatch">black</field>
+            <field name="tensile_strength">1220</field>
+            <field name="yield_strength">1100</field>
+            <field name="max_temperature">300</field>
+            <field name="density">7.85</field>
+            <field name="strength_rating">5</field>
+            <field name="corrosion_rating">1</field>
+            <field name="cost_rating">3</field>
+            <field name="description">The highest strength class, used for socket screws in tooling, dies and compact designs.</field>
+        </record>
+        <record id="mat_a2" model="industrial.material">
+            <field name="name">Stainless Steel A2 (304)</field>
+            <field name="code">A2-70</field>
+            <field name="sequence">40</field>
+            <field name="family">stainless</field>
+            <field name="swatch">stainless</field>
+            <field name="tensile_strength">700</field>
+            <field name="yield_strength">450</field>
+            <field name="max_temperature">400</field>
+            <field name="density">7.9</field>
+            <field name="strength_rating">3</field>
+            <field name="corrosion_rating">4</field>
+            <field name="cost_rating">3</field>
+            <field name="description">Austenitic 18/8 stainless steel for food processing, architecture and outdoor use.</field>
+        </record>
+        <record id="mat_a4" model="industrial.material">
+            <field name="name">Stainless Steel A4 (316)</field>
+            <field name="code">A4-80</field>
+            <field name="sequence">50</field>
+            <field name="family">stainless</field>
+            <field name="swatch">stainless</field>
+            <field name="tensile_strength">800</field>
+            <field name="yield_strength">600</field>
+            <field name="max_temperature">400</field>
+            <field name="density">8.0</field>
+            <field name="strength_rating">3</field>
+            <field name="corrosion_rating">5</field>
+            <field name="cost_rating">4</field>
+            <field name="description">Molybdenum-alloyed stainless for marine, chemical and offshore environments.</field>
+        </record>
+        <record id="mat_brass" model="industrial.material">
+            <field name="name">Brass CW614N</field>
+            <field name="code">CuZn39Pb3</field>
+            <field name="sequence">60</field>
+            <field name="family">nonferrous</field>
+            <field name="swatch">brass</field>
+            <field name="tensile_strength">430</field>
+            <field name="yield_strength">250</field>
+            <field name="max_temperature">200</field>
+            <field name="density">8.47</field>
+            <field name="strength_rating">2</field>
+            <field name="corrosion_rating">4</field>
+            <field name="cost_rating">3</field>
+            <field name="description">Free-machining brass: conductive, non-sparking and naturally decorative.</field>
+        </record>
+        <record id="mat_ti" model="industrial.material">
+            <field name="name">Titanium Grade 5</field>
+            <field name="code">Ti-6Al-4V</field>
+            <field name="sequence">70</field>
+            <field name="family">titanium</field>
+            <field name="swatch">titanium</field>
+            <field name="tensile_strength">950</field>
+            <field name="yield_strength">880</field>
+            <field name="max_temperature">400</field>
+            <field name="density">4.43</field>
+            <field name="strength_rating">4</field>
+            <field name="corrosion_rating">5</field>
+            <field name="cost_rating">5</field>
+            <field name="description">44% lighter than steel with outstanding fatigue and corrosion resistance.</field>
+        </record>
+        <!-- Finishes -->
+        <record id="fin_plain" model="industrial.finish">
+            <field name="name">Plain (self colour)</field>
+            <field name="sequence">10</field>
+            <field name="swatch">none</field>
+            <field name="thickness">-</field>
+            <field name="salt_spray_hours">0</field>
+            <field name="corrosion_rating">1</field>
+            <field name="nut_factor">0.2</field>
+            <field name="description">Lightly oiled for transport. For dry indoor use or further coating.</field>
+        </record>
+        <record id="fin_zinc" model="industrial.finish">
+            <field name="name">Zinc plated</field>
+            <field name="code">Fe/Zn 8</field>
+            <field name="sequence">20</field>
+            <field name="swatch">zinc</field>
+            <field name="thickness">5 - 12 µm</field>
+            <field name="salt_spray_hours">120</field>
+            <field name="corrosion_rating">2</field>
+            <field name="nut_factor">0.18</field>
+            <field name="description">Electroplated zinc with trivalent passivation, RoHS compliant.</field>
+        </record>
+        <record id="fin_hdg" model="industrial.finish">
+            <field name="name">Hot-dip galvanised</field>
+            <field name="code">HDG</field>
+            <field name="sequence">30</field>
+            <field name="swatch">hdg</field>
+            <field name="thickness">45 - 85 µm</field>
+            <field name="salt_spray_hours">1000</field>
+            <field name="corrosion_rating">5</field>
+            <field name="nut_factor">0.22</field>
+            <field name="description">Thick metallurgical zinc layer for outdoor steel structures.</field>
+        </record>
+        <record id="fin_flake" model="industrial.finish">
+            <field name="name">Zinc flake</field>
+            <field name="code">Geomet 321</field>
+            <field name="sequence">40</field>
+            <field name="swatch">flake</field>
+            <field name="thickness">8 - 12 µm</field>
+            <field name="salt_spray_hours">720</field>
+            <field name="corrosion_rating">4</field>
+            <field name="nut_factor">0.14</field>
+            <field name="description">Non-electrolytic zinc-aluminium flake: no hydrogen embrittlement, ideal for 10.9 and 12.9.</field>
+        </record>
+        <record id="fin_znni" model="industrial.finish">
+            <field name="name">Zinc-nickel</field>
+            <field name="code">Zn-Ni</field>
+            <field name="sequence">50</field>
+            <field name="swatch">zinc_nickel</field>
+            <field name="thickness">8 - 12 µm</field>
+            <field name="salt_spray_hours">720</field>
+            <field name="corrosion_rating">4</field>
+            <field name="nut_factor">0.16</field>
+            <field name="description">Automotive-grade alloy plating with high corrosion and heat resistance.</field>
+        </record>
+        <record id="fin_black" model="industrial.finish">
+            <field name="name">Black oxide</field>
+            <field name="code">Blk Ox</field>
+            <field name="sequence">60</field>
+            <field name="swatch">black</field>
+            <field name="thickness">~1 µm</field>
+            <field name="salt_spray_hours">48</field>
+            <field name="corrosion_rating">1</field>
+            <field name="nut_factor">0.16</field>
+            <field name="description">Oiled conversion coating for mild protection and a dark, non-reflective finish.</field>
+        </record>
+        <!-- Categories -->
+        <record id="cat_hex" model="industrial.product.category">
+            <field name="name">Hex Bolts &amp; Screws</field>
+            <field name="sequence">10</field>
+            <field name="tagline">Partially and fully threaded, from M5 to M48.</field>
+            <field name="size_range">M5 – M48</field>
+            <field name="standards">DIN 931 · 933 · ISO 4014 · 4017</field>
+            <field name="description">Hexagon head bolts and screws in property classes 8.8 to 12.9 and stainless steel, stocked in thousands of size and length combinations.</field>
+            <field name="image_url">https://images.pexels.com/photos/30496227/pexels-photo-30496227.jpeg</field>
+            <field name="is_published" eval="True"/>
+        </record>
+        <record id="cat_socket" model="industrial.product.category">
+            <field name="name">Socket Screws</field>
+            <field name="sequence">20</field>
+            <field name="tagline">Cap, button and countersunk heads in class 12.9.</field>
+            <field name="size_range">M3 – M30</field>
+            <field name="standards">ISO 4762 · 7380 · 10642</field>
+            <field name="description">Hexagon socket screws for machine building, tooling and compact assemblies.</field>
+            <field name="image_url">https://images.pexels.com/photos/17372999/pexels-photo-17372999.jpeg</field>
+            <field name="is_published" eval="True"/>
+        </record>
+        <record id="cat_nuts" model="industrial.product.category">
+            <field name="name">Nuts</field>
+            <field name="sequence">30</field>
+            <field name="tagline">Hex, nylon-insert lock, flange and special nuts.</field>
+            <field name="size_range">M3 – M64</field>
+            <field name="standards">ISO 4032 · 7040 · EN 1661</field>
+            <field name="description">Nuts matched to bolt property classes, including prevailing-torque and decorative designs.</field>
+            <field name="image_url">https://images.pexels.com/photos/1427292/pexels-photo-1427292.jpeg</field>
+            <field name="is_published" eval="True"/>
+        </record>
+        <record id="cat_washers" model="industrial.product.category">
+            <field name="name">Washers</field>
+            <field name="sequence">40</field>
+            <field name="tagline">Flat, spring and structural washers.</field>
+            <field name="size_range">M3 – M64</field>
+            <field name="standards">ISO 7089 · DIN 127 · EN 14399-6</field>
+            <field name="description">Washers to spread load, protect surfaces and complete structural bolting sets.</field>
+            <field name="image_url">https://images.pexels.com/photos/12951633/pexels-photo-12951633.jpeg</field>
+            <field name="is_published" eval="True"/>
+        </record>
+        <record id="cat_rods" model="industrial.product.category">
+            <field name="name">Threaded Rods &amp; Studs</field>
+            <field name="sequence">50</field>
+            <field name="tagline">Metre rods and stud bolts for flanges.</field>
+            <field name="size_range">M6 – M72</field>
+            <field name="standards">DIN 975 · ASTM A193 B7</field>
+            <field name="description">Fully threaded rods and stud bolts for anchoring, pipework and pressure flanges.</field>
+            <field name="image_url">https://images.pexels.com/photos/28219496/pexels-photo-28219496.jpeg</field>
+            <field name="is_published" eval="True"/>
+        </record>
+        <record id="cat_struct" model="industrial.product.category">
+            <field name="name">Structural Bolting</field>
+            <field name="sequence">60</field>
+            <field name="tagline">HV and HR sets with CE marking for steelwork.</field>
+            <field name="size_range">M12 – M36</field>
+            <field name="standards">EN 14399 · ASTM F3125</field>
+            <field name="description">Pre-loadable bolting assemblies with k-class certification for bridges, towers and frames.</field>
+            <field name="image_url">https://images.pexels.com/photos/207367/pexels-photo-207367.jpeg</field>
+            <field name="is_published" eval="True"/>
+        </record>
+        <record id="cat_cnc" model="industrial.product.category">
+            <field name="name">Precision CNC Parts</field>
+            <field name="sequence">70</field>
+            <field name="tagline">Turned, milled and ground to your drawing.</field>
+            <field name="size_range">Ø 2 – 120 mm</field>
+            <field name="standards">±0.01 mm · ISO 2768-f</field>
+            <field name="description">Specials and machined components from prototypes to high-volume series.</field>
+            <field name="image_url">https://images.pexels.com/photos/31970888/pexels-photo-31970888.jpeg</field>
+            <field name="is_published" eval="True"/>
+        </record>
+        <!-- Industries -->
+        <record id="sec_auto" model="industrial.sector">
+            <field name="name">Automotive</field>
+            <field name="sequence">10</field>
+            <field name="tagline">PPAP-ready fasteners for body, chassis and powertrain.</field>
+            <field name="image_url">https://images.pexels.com/photos/19233057/pexels-photo-19233057.jpeg</field>
+            <field name="is_published" eval="True"/>
+        </record>
+        <record id="sec_wind" model="industrial.sector">
+            <field name="name">Wind &amp; Energy</field>
+            <field name="sequence">20</field>
+            <field name="tagline">Tower flange and blade bolting with full traceability.</field>
+            <field name="image_url">https://images.pexels.com/photos/29449341/pexels-photo-29449341.jpeg</field>
+            <field name="is_published" eval="True"/>
+        </record>
+        <record id="sec_constr" model="industrial.sector">
+            <field name="name">Construction &amp; Steel</field>
+            <field name="sequence">30</field>
+            <field name="tagline">CE-marked structural sets for bridges and frames.</field>
+            <field name="image_url">https://images.pexels.com/photos/31197870/pexels-photo-31197870.jpeg</field>
+            <field name="is_published" eval="True"/>
+        </record>
+        <record id="sec_heavy" model="industrial.sector">
+            <field name="name">Heavy Equipment</field>
+            <field name="sequence">40</field>
+            <field name="tagline">High-fatigue bolting for cranes, excavators and OEMs.</field>
+            <field name="image_url">https://images.pexels.com/photos/10031804/pexels-photo-10031804.jpeg</field>
+            <field name="is_published" eval="True"/>
+        </record>
+        <record id="sec_rail" model="industrial.sector">
+            <field name="name">Rail &amp; Infrastructure</field>
+            <field name="sequence">50</field>
+            <field name="tagline">Vibration-proof joints for track, catenary and rolling stock.</field>
+            <field name="image_url">https://images.pexels.com/photos/34725811/pexels-photo-34725811.jpeg</field>
+            <field name="is_published" eval="True"/>
+        </record>
+        <record id="sec_agri" model="industrial.sector">
+            <field name="name">Agriculture</field>
+            <field name="sequence">60</field>
+            <field name="tagline">Coated fasteners that survive mud, fertiliser and field hours.</field>
+            <field name="image_url">https://images.pexels.com/photos/8019123/pexels-photo-8019123.jpeg</field>
+            <field name="is_published" eval="True"/>
+        </record>
+        <record id="sec_logistics" model="industrial.sector">
+            <field name="name">Logistics &amp; Warehousing</field>
+            <field name="sequence">70</field>
+            <field name="tagline">Racking and material-handling hardware in volume.</field>
+            <field name="image_url">https://images.pexels.com/photos/17229385/pexels-photo-17229385.jpeg</field>
+            <field name="is_published" eval="True"/>
+        </record>
+        <record id="sec_mining" model="industrial.sector">
+            <field name="name">Mining &amp; Quarrying</field>
+            <field name="sequence">80</field>
+            <field name="tagline">Abrasion- and impact-rated bolts for crushers and screens.</field>
+            <field name="image_url">https://images.pexels.com/photos/13224687/pexels-photo-13224687.jpeg</field>
+            <field name="is_published" eval="True"/>
+        </record>
+        <!-- Product families -->
+        <record id="prod_hex_bolt" model="industrial.product">
+            <field name="name">Hex Head Bolt, Partial Thread</field>
+            <field name="default_code">HB-931</field>
+            <field name="sequence">10</field>
+            <field name="category_id" ref="cat_hex"/>
+            <field name="tagline">The workhorse of mechanical engineering, forged and rolled for high fatigue life.</field>
+            <field name="description" type="html"><p>Hexagon head bolts with a partial thread to ISO 4014 / DIN 931. The plain shank carries shear loads while the rolled 6g thread delivers consistent torque-tension behaviour batch after batch.</p><ul><li>Cold forged up to M24, hot forged above</li><li>Thread rolled after heat treatment on request for higher fatigue strength</li><li>Supplied with matching ISO 4032 nuts and ISO 7089 washers</li></ul></field>
+            <field name="standard">DIN 931 · ISO 4014</field>
+            <field name="grade">8.8 · 10.9 · 12.9 · A2-70 · A4-80</field>
+            <field name="thread_type">metric</field>
+            <field name="head_type">Hexagon</field>
+            <field name="drive_type">External hex</field>
+            <field name="drawing_type">hex_bolt</field>
+            <field name="dim_a_label">s · Across flats</field>
+            <field name="dim_b_label">k · Head height</field>
+            <field name="material_ids" eval="[(6, 0, [ref('mat_88'), ref('mat_109'), ref('mat_129'), ref('mat_a2'), ref('mat_a4')])]"/>
+            <field name="finish_ids" eval="[(6, 0, [ref('fin_plain'), ref('fin_zinc'), ref('fin_hdg'), ref('fin_flake')])]"/>
+            <field name="sector_ids" eval="[(6, 0, [ref('sec_constr'), ref('sec_heavy'), ref('sec_agri'), ref('sec_mining')])]"/>
+            <field name="moq">500</field>
+            <field name="lead_time">Stock / 2 – 3 weeks</field>
+            <field name="packaging">Boxes of 50 – 500, pallets</field>
+            <field name="is_featured" eval="True"/>
+            <field name="ribbon">Best seller</field>
+            <field name="torque_tool" eval="True"/>
+            <field name="image_url">https://images.pexels.com/photos/30496227/pexels-photo-30496227.jpeg</field>
+            <field name="is_published" eval="True"/>
+            <field name="size_ids" eval="[(0, 0, {'name': 'M8', 'sequence': 10, 'nominal_diameter': 8, 'pitch': 1.25, 'dim_a': 13, 'dim_b': 5.3, 'lengths': '40 – 200 mm'}), (0, 0, {'name': 'M10', 'sequence': 20, 'nominal_diameter': 10, 'pitch': 1.5, 'dim_a': 16, 'dim_b': 6.4, 'lengths': '45 – 260 mm'}), (0, 0, {'name': 'M12', 'sequence': 30, 'nominal_diameter': 12, 'pitch': 1.75, 'dim_a': 18, 'dim_b': 7.5, 'lengths': '50 – 300 mm'}), (0, 0, {'name': 'M16', 'sequence': 40, 'nominal_diameter': 16, 'pitch': 2.0, 'dim_a': 24, 'dim_b': 10, 'lengths': '60 – 300 mm'}), (0, 0, {'name': 'M20', 'sequence': 50, 'nominal_diameter': 20, 'pitch': 2.5, 'dim_a': 30, 'dim_b': 12.5, 'lengths': '70 – 300 mm'}), (0, 0, {'name': 'M24', 'sequence': 60, 'nominal_diameter': 24, 'pitch': 3.0, 'dim_a': 36, 'dim_b': 15, 'lengths': '80 – 300 mm'}), (0, 0, {'name': 'M30', 'sequence': 70, 'nominal_diameter': 30, 'pitch': 3.5, 'dim_a': 46, 'dim_b': 18.7, 'lengths': '100 – 300 mm'}), (0, 0, {'name': 'M36', 'sequence': 80, 'nominal_diameter': 36, 'pitch': 4.0, 'dim_a': 55, 'dim_b': 22.5, 'lengths': '120 – 300 mm'})]"/>
+            <field name="spec_ids" eval="[(0, 0, {'group': 'General', 'name': 'Standard', 'value': 'DIN 931 / ISO 4014', 'sequence': 10}), (0, 0, {'group': 'General', 'name': 'Thread', 'value': 'Metric coarse, tolerance 6g', 'sequence': 20}), (0, 0, {'group': 'General', 'name': 'Thread length', 'value': 'b = 2d + 6 (L ≤ 125 mm)', 'sequence': 30}), (0, 0, {'group': 'Mechanical', 'name': 'Tensile strength, 8.8', 'value': '≥ 800 MPa', 'sequence': 40}), (0, 0, {'group': 'Mechanical', 'name': 'Proof stress, 8.8', 'value': '580 – 600 MPa', 'sequence': 50}), (0, 0, {'group': 'Mechanical', 'name': 'Core hardness, 8.8', 'value': '22 – 32 HRC', 'sequence': 60}), (0, 0, {'group': 'Mechanical', 'name': 'Tensile strength, 10.9', 'value': '≥ 1040 MPa', 'sequence': 70}), (0, 0, {'group': 'Quality', 'name': 'Inspection certificate', 'value': 'EN 10204 3.1', 'sequence': 80}), (0, 0, {'group': 'Quality', 'name': 'Head marking', 'value': 'Manufacturer ID + property class', 'sequence': 90}), (0, 0, {'group': 'Quality', 'name': 'Traceability', 'value': 'Heat number per lot', 'sequence': 100})]"/>
+            <field name="image_ids" eval="[(0, 0, {'name': 'Hex bolt detail', 'image_url': 'https://images.pexels.com/photos/28119521/pexels-photo-28119521.jpeg', 'sequence': 10}), (0, 0, {'name': 'Installed bolts', 'image_url': 'https://images.pexels.com/photos/207367/pexels-photo-207367.jpeg', 'sequence': 20})]"/>
+        </record>
+        <record id="prod_hex_screw" model="industrial.product">
+            <field name="name">Hex Head Screw, Full Thread</field>
+            <field name="default_code">HS-933</field>
+            <field name="sequence">20</field>
+            <field name="category_id" ref="cat_hex"/>
+            <field name="tagline">Threaded to the head for clamping plates and tapped holes.</field>
+            <field name="description" type="html"><p>Fully threaded hexagon head screws to ISO 4017 / DIN 933 for joints where the clamp length varies or the screw goes into a tapped hole.</p><ul><li>Lengths from 8 mm in 1 mm steps on request</li><li>Zinc-flake coated 10.9 for automotive, stainless for outdoor</li></ul></field>
+            <field name="standard">DIN 933 · ISO 4017</field>
+            <field name="grade">8.8 · 10.9 · A2-70 · A4-80</field>
+            <field name="thread_type">metric</field>
+            <field name="head_type">Hexagon</field>
+            <field name="drive_type">External hex</field>
+            <field name="drawing_type">hex_bolt</field>
+            <field name="dim_a_label">s · Across flats</field>
+            <field name="dim_b_label">k · Head height</field>
+            <field name="material_ids" eval="[(6, 0, [ref('mat_88'), ref('mat_109'), ref('mat_a2'), ref('mat_a4')])]"/>
+            <field name="finish_ids" eval="[(6, 0, [ref('fin_plain'), ref('fin_zinc'), ref('fin_flake'), ref('fin_znni')])]"/>
+            <field name="sector_ids" eval="[(6, 0, [ref('sec_auto'), ref('sec_heavy'), ref('sec_logistics')])]"/>
+            <field name="moq">1000</field>
+            <field name="lead_time">Stock / 1 – 2 weeks</field>
+            <field name="packaging">Boxes of 100 – 1,000</field>
+            <field name="is_featured" eval="False"/>
+            <field name="torque_tool" eval="True"/>
+            <field name="image_url">https://images.pexels.com/photos/17373000/pexels-photo-17373000.jpeg</field>
+            <field name="is_published" eval="True"/>
+            <field name="size_ids" eval="[(0, 0, {'name': 'M5', 'sequence': 10, 'nominal_diameter': 5, 'pitch': 0.8, 'dim_a': 8, 'dim_b': 3.5, 'lengths': '8 – 80 mm'}), (0, 0, {'name': 'M6', 'sequence': 20, 'nominal_diameter': 6, 'pitch': 1.0, 'dim_a': 10, 'dim_b': 4, 'lengths': '10 – 120 mm'}), (0, 0, {'name': 'M8', 'sequence': 30, 'nominal_diameter': 8, 'pitch': 1.25, 'dim_a': 13, 'dim_b': 5.3, 'lengths': '12 – 160 mm'}), (0, 0, {'name': 'M10', 'sequence': 40, 'nominal_diameter': 10, 'pitch': 1.5, 'dim_a': 16, 'dim_b': 6.4, 'lengths': '16 – 200 mm'}), (0, 0, {'name': 'M12', 'sequence': 50, 'nominal_diameter': 12, 'pitch': 1.75, 'dim_a': 18, 'dim_b': 7.5, 'lengths': '20 – 200 mm'}), (0, 0, {'name': 'M16', 'sequence': 60, 'nominal_diameter': 16, 'pitch': 2.0, 'dim_a': 24, 'dim_b': 10, 'lengths': '30 – 200 mm'}), (0, 0, {'name': 'M20', 'sequence': 70, 'nominal_diameter': 20, 'pitch': 2.5, 'dim_a': 30, 'dim_b': 12.5, 'lengths': '40 – 200 mm'}), (0, 0, {'name': 'M24', 'sequence': 80, 'nominal_diameter': 24, 'pitch': 3.0, 'dim_a': 36, 'dim_b': 15, 'lengths': '50 – 200 mm'})]"/>
+            <field name="spec_ids" eval="[(0, 0, {'group': 'General', 'name': 'Standard', 'value': 'DIN 933 / ISO 4017', 'sequence': 10}), (0, 0, {'group': 'General', 'name': 'Thread', 'value': 'Full length, 6g', 'sequence': 20}), (0, 0, {'group': 'Mechanical', 'name': 'Tensile strength, 8.8', 'value': '≥ 800 MPa', 'sequence': 30}), (0, 0, {'group': 'Mechanical', 'name': 'Tensile strength, 10.9', 'value': '≥ 1040 MPa', 'sequence': 40}), (0, 0, {'group': 'Quality', 'name': 'Inspection certificate', 'value': 'EN 10204 3.1', 'sequence': 50})]"/>
+            <field name="image_ids" eval="[(0, 0, {'name': 'Assorted screws', 'image_url': 'https://images.pexels.com/photos/28700640/pexels-photo-28700640.jpeg', 'sequence': 10})]"/>
+        </record>
+        <record id="prod_struct_bolt" model="industrial.product">
+            <field name="name">Structural HV Bolting Set</field>
+            <field name="default_code">SB-HV</field>
+            <field name="sequence">30</field>
+            <field name="category_id" ref="cat_struct"/>
+            <field name="tagline">Pre-loadable bolt, nut and washers certified as one assembly.</field>
+            <field name="description" type="html"><p>HV assemblies to EN 14399-4 (and ASTM F3125 A325 on request) for pre-loaded steel connections. Every set is tested together for k-class, so site torque is predictable.</p><ul><li>CE marked with declaration of performance</li><li>k-class K1 or K2 certificate per lot</li><li>Hot-dip galvanised sets with over-tapped nuts</li></ul></field>
+            <field name="standard">EN 14399-4 · ASTM F3125</field>
+            <field name="grade">10.9 HV · A325</field>
+            <field name="thread_type">metric</field>
+            <field name="head_type">Heavy hexagon</field>
+            <field name="drive_type">External hex</field>
+            <field name="drawing_type">hex_bolt</field>
+            <field name="dim_a_label">s · Across flats</field>
+            <field name="dim_b_label">k · Head height</field>
+            <field name="material_ids" eval="[(6, 0, [ref('mat_109')])]"/>
+            <field name="finish_ids" eval="[(6, 0, [ref('fin_plain'), ref('fin_hdg'), ref('fin_flake')])]"/>
+            <field name="sector_ids" eval="[(6, 0, [ref('sec_constr'), ref('sec_wind'), ref('sec_rail')])]"/>
+            <field name="moq">200</field>
+            <field name="lead_time">3 – 4 weeks</field>
+            <field name="packaging">Sets on pallets, lot-labelled</field>
+            <field name="is_featured" eval="True"/>
+            <field name="ribbon">CE</field>
+            <field name="torque_tool" eval="True"/>
+            <field name="image_url">https://images.pexels.com/photos/207367/pexels-photo-207367.jpeg</field>
+            <field name="is_published" eval="True"/>
+            <field name="size_ids" eval="[(0, 0, {'name': 'M16', 'sequence': 10, 'nominal_diameter': 16, 'pitch': 2.0, 'dim_a': 27, 'dim_b': 10, 'lengths': '40 – 200 mm'}), (0, 0, {'name': 'M20', 'sequence': 20, 'nominal_diameter': 20, 'pitch': 2.5, 'dim_a': 32, 'dim_b': 13, 'lengths': '45 – 260 mm'}), (0, 0, {'name': 'M22', 'sequence': 30, 'nominal_diameter': 22, 'pitch': 2.5, 'dim_a': 36, 'dim_b': 14, 'lengths': '50 – 260 mm'}), (0, 0, {'name': 'M24', 'sequence': 40, 'nominal_diameter': 24, 'pitch': 3.0, 'dim_a': 41, 'dim_b': 15, 'lengths': '55 – 300 mm'}), (0, 0, {'name': 'M27', 'sequence': 50, 'nominal_diameter': 27, 'pitch': 3.0, 'dim_a': 46, 'dim_b': 17, 'lengths': '60 – 300 mm'}), (0, 0, {'name': 'M30', 'sequence': 60, 'nominal_diameter': 30, 'pitch': 3.5, 'dim_a': 50, 'dim_b': 19, 'lengths': '70 – 300 mm'}), (0, 0, {'name': 'M36', 'sequence': 70, 'nominal_diameter': 36, 'pitch': 4.0, 'dim_a': 60, 'dim_b': 23, 'lengths': '80 – 300 mm'})]"/>
+            <field name="spec_ids" eval="[(0, 0, {'group': 'Assembly', 'name': 'Content', 'value': 'Bolt + nut + 2 washers', 'sequence': 10}), (0, 0, {'group': 'Assembly', 'name': 'k-class', 'value': 'K1 or K2', 'sequence': 20}), (0, 0, {'group': 'Assembly', 'name': 'Marking', 'value': 'HV, 10.9, manufacturer ID', 'sequence': 30}), (0, 0, {'group': 'Mechanical', 'name': 'Tensile strength', 'value': '≥ 1040 MPa', 'sequence': 40}), (0, 0, {'group': 'Mechanical', 'name': 'Nut class', 'value': '10 HV (EN 14399-4)', 'sequence': 50}), (0, 0, {'group': 'Compliance', 'name': 'CE marking', 'value': 'EN 14399-1, system 2+', 'sequence': 60}), (0, 0, {'group': 'Compliance', 'name': 'Certificate', 'value': 'EN 10204 3.1 + DoP', 'sequence': 70})]"/>
+            <field name="image_ids" eval="[(0, 0, {'name': 'Steel bridge girders', 'image_url': 'https://images.pexels.com/photos/34725811/pexels-photo-34725811.jpeg', 'sequence': 10}), (0, 0, {'name': 'Steel frame', 'image_url': 'https://images.pexels.com/photos/31197870/pexels-photo-31197870.jpeg', 'sequence': 20})]"/>
+        </record>
+        <record id="prod_flange_bolt" model="industrial.product">
+            <field name="name">Hex Flange Bolt, Serrated</field>
+            <field name="default_code">FB-6921</field>
+            <field name="sequence">40</field>
+            <field name="category_id" ref="cat_hex"/>
+            <field name="tagline">Integrated flange spreads load and resists vibration without a washer.</field>
+            <field name="description" type="html"><p>Hexagon flange bolts to ISO 4162 / DIN 6921 with an optional serrated bearing face that bites into the joint to resist self-loosening.</p></field>
+            <field name="standard">DIN 6921 · ISO 4162</field>
+            <field name="grade">8.8 · 10.9</field>
+            <field name="thread_type">metric</field>
+            <field name="head_type">Hexagon flange</field>
+            <field name="drive_type">External hex</field>
+            <field name="drawing_type">hex_bolt</field>
+            <field name="dim_a_label">s · Across flats</field>
+            <field name="dim_b_label">k · Head height</field>
+            <field name="material_ids" eval="[(6, 0, [ref('mat_88'), ref('mat_109')])]"/>
+            <field name="finish_ids" eval="[(6, 0, [ref('fin_znni'), ref('fin_flake'), ref('fin_zinc')])]"/>
+            <field name="sector_ids" eval="[(6, 0, [ref('sec_auto'), ref('sec_agri')])]"/>
+            <field name="moq">2000</field>
+            <field name="lead_time">2 – 3 weeks</field>
+            <field name="packaging">Bulk boxes, KLT on request</field>
+            <field name="is_featured" eval="False"/>
+            <field name="torque_tool" eval="True"/>
+            <field name="image_url">https://images.pexels.com/photos/28119588/pexels-photo-28119588.jpeg</field>
+            <field name="is_published" eval="True"/>
+            <field name="size_ids" eval="[(0, 0, {'name': 'M6', 'sequence': 10, 'nominal_diameter': 6, 'pitch': 1.0, 'dim_a': 10, 'dim_b': 6, 'lengths': '10 – 60 mm'}), (0, 0, {'name': 'M8', 'sequence': 20, 'nominal_diameter': 8, 'pitch': 1.25, 'dim_a': 12, 'dim_b': 8, 'lengths': '12 – 80 mm'}), (0, 0, {'name': 'M10', 'sequence': 30, 'nominal_diameter': 10, 'pitch': 1.5, 'dim_a': 14, 'dim_b': 10, 'lengths': '16 – 100 mm'}), (0, 0, {'name': 'M12', 'sequence': 40, 'nominal_diameter': 12, 'pitch': 1.75, 'dim_a': 16, 'dim_b': 12, 'lengths': '20 – 120 mm'}), (0, 0, {'name': 'M16', 'sequence': 50, 'nominal_diameter': 16, 'pitch': 2.0, 'dim_a': 22, 'dim_b': 16, 'lengths': '30 – 120 mm'})]"/>
+            <field name="spec_ids" eval="[(0, 0, {'group': 'General', 'name': 'Standard', 'value': 'DIN 6921 / ISO 4162', 'sequence': 10}), (0, 0, {'group': 'General', 'name': 'Bearing face', 'value': 'Plain or serrated', 'sequence': 20}), (0, 0, {'group': 'Mechanical', 'name': 'Tensile strength, 10.9', 'value': '≥ 1040 MPa', 'sequence': 30}), (0, 0, {'group': 'Quality', 'name': 'Documentation', 'value': 'PPAP level 3 available', 'sequence': 40})]"/>
+        </record>
+        <record id="prod_socket_cap" model="industrial.product">
+            <field name="name">Socket Head Cap Screw</field>
+            <field name="default_code">SC-912</field>
+            <field name="sequence">50</field>
+            <field name="category_id" ref="cat_socket"/>
+            <field name="tagline">Class 12.9 strength in the smallest possible envelope.</field>
+            <field name="description" type="html"><p>Hexagon socket head cap screws to ISO 4762 / DIN 912 with a knurled head and deep socket for high tightening torques in confined spaces.</p><ul><li>12.9 with thermally controlled tempering</li><li>Black oxide or zinc-flake finish</li><li>Stainless A2 and A4, titanium on request</li></ul></field>
+            <field name="standard">DIN 912 · ISO 4762</field>
+            <field name="grade">12.9 · A2-70 · A4-70</field>
+            <field name="thread_type">metric</field>
+            <field name="head_type">Cylindrical, knurled</field>
+            <field name="drive_type">Hex socket</field>
+            <field name="drawing_type">socket_screw</field>
+            <field name="dim_a_label">dk · Head Ø</field>
+            <field name="dim_b_label">k · Head height</field>
+            <field name="material_ids" eval="[(6, 0, [ref('mat_129'), ref('mat_a2'), ref('mat_a4'), ref('mat_ti')])]"/>
+            <field name="finish_ids" eval="[(6, 0, [ref('fin_black'), ref('fin_flake'), ref('fin_znni'), ref('fin_plain')])]"/>
+            <field name="sector_ids" eval="[(6, 0, [ref('sec_heavy'), ref('sec_auto'), ref('sec_logistics')])]"/>
+            <field name="moq">500</field>
+            <field name="lead_time">Stock / 2 weeks</field>
+            <field name="packaging">Boxes of 100 – 500</field>
+            <field name="is_featured" eval="True"/>
+            <field name="ribbon">12.9</field>
+            <field name="torque_tool" eval="True"/>
+            <field name="image_url">https://images.pexels.com/photos/26856081/pexels-photo-26856081.jpeg</field>
+            <field name="is_published" eval="True"/>
+            <field name="size_ids" eval="[(0, 0, {'name': 'M3', 'sequence': 10, 'nominal_diameter': 3, 'pitch': 0.5, 'dim_a': 5.5, 'dim_b': 3, 'lengths': '6 – 40 mm'}), (0, 0, {'name': 'M4', 'sequence': 20, 'nominal_diameter': 4, 'pitch': 0.7, 'dim_a': 7, 'dim_b': 4, 'lengths': '6 – 50 mm'}), (0, 0, {'name': 'M5', 'sequence': 30, 'nominal_diameter': 5, 'pitch': 0.8, 'dim_a': 8.5, 'dim_b': 5, 'lengths': '8 – 60 mm'}), (0, 0, {'name': 'M6', 'sequence': 40, 'nominal_diameter': 6, 'pitch': 1.0, 'dim_a': 10, 'dim_b': 6, 'lengths': '8 – 100 mm'}), (0, 0, {'name': 'M8', 'sequence': 50, 'nominal_diameter': 8, 'pitch': 1.25, 'dim_a': 13, 'dim_b': 8, 'lengths': '10 – 120 mm'}), (0, 0, {'name': 'M10', 'sequence': 60, 'nominal_diameter': 10, 'pitch': 1.5, 'dim_a': 16, 'dim_b': 10, 'lengths': '12 – 160 mm'}), (0, 0, {'name': 'M12', 'sequence': 70, 'nominal_diameter': 12, 'pitch': 1.75, 'dim_a': 18, 'dim_b': 12, 'lengths': '16 – 200 mm'}), (0, 0, {'name': 'M16', 'sequence': 80, 'nominal_diameter': 16, 'pitch': 2.0, 'dim_a': 24, 'dim_b': 16, 'lengths': '20 – 200 mm'}), (0, 0, {'name': 'M20', 'sequence': 90, 'nominal_diameter': 20, 'pitch': 2.5, 'dim_a': 30, 'dim_b': 20, 'lengths': '30 – 200 mm'})]"/>
+            <field name="spec_ids" eval="[(0, 0, {'group': 'General', 'name': 'Standard', 'value': 'DIN 912 / ISO 4762', 'sequence': 10}), (0, 0, {'group': 'General', 'name': 'Drive', 'value': 'Hexagon socket', 'sequence': 20}), (0, 0, {'group': 'Mechanical', 'name': 'Tensile strength, 12.9', 'value': '≥ 1220 MPa', 'sequence': 30}), (0, 0, {'group': 'Mechanical', 'name': 'Hardness, 12.9', 'value': '39 – 44 HRC', 'sequence': 40}), (0, 0, {'group': 'Quality', 'name': 'Embrittlement', 'value': 'Zinc-flake only for 12.9 (no electroplating)', 'sequence': 50})]"/>
+            <field name="image_ids" eval="[(0, 0, {'name': 'Row of socket screws', 'image_url': 'https://images.pexels.com/photos/17372999/pexels-photo-17372999.jpeg', 'sequence': 10})]"/>
+        </record>
+        <record id="prod_button_head" model="industrial.product">
+            <field name="name">Button Head Socket Screw</field>
+            <field name="default_code">BH-7380</field>
+            <field name="sequence">60</field>
+            <field name="category_id" ref="cat_socket"/>
+            <field name="tagline">Low-profile dome head for guards, covers and visible joints.</field>
+            <field name="description" type="html"><p>ISO 7380 button head screws combine a smooth, low head with a hex socket drive. Ideal for machine guards and consumer-facing assemblies.</p></field>
+            <field name="standard">ISO 7380-1</field>
+            <field name="grade">10.9 · A2-70 · A4-70</field>
+            <field name="thread_type">metric</field>
+            <field name="head_type">Button</field>
+            <field name="drive_type">Hex socket</field>
+            <field name="drawing_type">socket_screw</field>
+            <field name="dim_a_label">dk · Head Ø</field>
+            <field name="dim_b_label">k · Head height</field>
+            <field name="material_ids" eval="[(6, 0, [ref('mat_109'), ref('mat_a2'), ref('mat_a4')])]"/>
+            <field name="finish_ids" eval="[(6, 0, [ref('fin_black'), ref('fin_zinc'), ref('fin_plain')])]"/>
+            <field name="sector_ids" eval="[(6, 0, [ref('sec_logistics'), ref('sec_heavy')])]"/>
+            <field name="moq">1000</field>
+            <field name="lead_time">Stock / 2 weeks</field>
+            <field name="packaging">Boxes of 200 – 1,000</field>
+            <field name="is_featured" eval="False"/>
+            <field name="torque_tool" eval="True"/>
+            <field name="image_url">https://images.pexels.com/photos/17372999/pexels-photo-17372999.jpeg</field>
+            <field name="is_published" eval="True"/>
+            <field name="size_ids" eval="[(0, 0, {'name': 'M3', 'sequence': 10, 'nominal_diameter': 3, 'pitch': 0.5, 'dim_a': 5.7, 'dim_b': 1.65, 'lengths': '6 – 20 mm'}), (0, 0, {'name': 'M4', 'sequence': 20, 'nominal_diameter': 4, 'pitch': 0.7, 'dim_a': 7.6, 'dim_b': 2.2, 'lengths': '6 – 30 mm'}), (0, 0, {'name': 'M5', 'sequence': 30, 'nominal_diameter': 5, 'pitch': 0.8, 'dim_a': 9.5, 'dim_b': 2.75, 'lengths': '8 – 40 mm'}), (0, 0, {'name': 'M6', 'sequence': 40, 'nominal_diameter': 6, 'pitch': 1.0, 'dim_a': 10.5, 'dim_b': 3.3, 'lengths': '8 – 50 mm'}), (0, 0, {'name': 'M8', 'sequence': 50, 'nominal_diameter': 8, 'pitch': 1.25, 'dim_a': 14, 'dim_b': 4.4, 'lengths': '10 – 60 mm'}), (0, 0, {'name': 'M10', 'sequence': 60, 'nominal_diameter': 10, 'pitch': 1.5, 'dim_a': 17.5, 'dim_b': 5.5, 'lengths': '16 – 60 mm'}), (0, 0, {'name': 'M12', 'sequence': 70, 'nominal_diameter': 12, 'pitch': 1.75, 'dim_a': 21, 'dim_b': 6.6, 'lengths': '20 – 60 mm'})]"/>
+            <field name="spec_ids" eval="[(0, 0, {'group': 'General', 'name': 'Standard', 'value': 'ISO 7380-1', 'sequence': 10}), (0, 0, {'group': 'Mechanical', 'name': 'Tensile strength, 10.9', 'value': '≥ 1040 MPa', 'sequence': 20})]"/>
+        </record>
+        <record id="prod_hex_nut" model="industrial.product">
+            <field name="name">Hex Nut</field>
+            <field name="default_code">HN-934</field>
+            <field name="sequence">70</field>
+            <field name="category_id" ref="cat_nuts"/>
+            <field name="tagline">Matched to every bolt class, from class 8 to A4-80.</field>
+            <field name="description" type="html"><p>Hexagon nuts style 1 to ISO 4032 / DIN 934, heat-treated to the right hardness so the bolt fails before the thread strips.</p></field>
+            <field name="standard">DIN 934 · ISO 4032</field>
+            <field name="grade">8 · 10 · A2-70 · A4-80</field>
+            <field name="thread_type">metric</field>
+            <field name="head_type">Hexagon</field>
+            <field name="drive_type">External hex</field>
+            <field name="drawing_type">nut</field>
+            <field name="dim_a_label">s · Across flats</field>
+            <field name="dim_b_label">m · Nut height</field>
+            <field name="material_ids" eval="[(6, 0, [ref('mat_88'), ref('mat_109'), ref('mat_a2'), ref('mat_a4'), ref('mat_brass')])]"/>
+            <field name="finish_ids" eval="[(6, 0, [ref('fin_plain'), ref('fin_zinc'), ref('fin_hdg'), ref('fin_flake')])]"/>
+            <field name="sector_ids" eval="[(6, 0, [ref('sec_constr'), ref('sec_heavy'), ref('sec_agri'), ref('sec_logistics')])]"/>
+            <field name="moq">1000</field>
+            <field name="lead_time">Stock</field>
+            <field name="packaging">Boxes of 100 – 2,000</field>
+            <field name="is_featured" eval="False"/>
+            <field name="torque_tool" eval="True"/>
+            <field name="image_url">https://images.pexels.com/photos/1427292/pexels-photo-1427292.jpeg</field>
+            <field name="is_published" eval="True"/>
+            <field name="size_ids" eval="[(0, 0, {'name': 'M6', 'sequence': 10, 'nominal_diameter': 6, 'pitch': 1.0, 'dim_a': 10, 'dim_b': 5.2, 'lengths': ''}), (0, 0, {'name': 'M8', 'sequence': 20, 'nominal_diameter': 8, 'pitch': 1.25, 'dim_a': 13, 'dim_b': 6.8, 'lengths': ''}), (0, 0, {'name': 'M10', 'sequence': 30, 'nominal_diameter': 10, 'pitch': 1.5, 'dim_a': 16, 'dim_b': 8.4, 'lengths': ''}), (0, 0, {'name': 'M12', 'sequence': 40, 'nominal_diameter': 12, 'pitch': 1.75, 'dim_a': 18, 'dim_b': 10.8, 'lengths': ''}), (0, 0, {'name': 'M16', 'sequence': 50, 'nominal_diameter': 16, 'pitch': 2.0, 'dim_a': 24, 'dim_b': 14.8, 'lengths': ''}), (0, 0, {'name': 'M20', 'sequence': 60, 'nominal_diameter': 20, 'pitch': 2.5, 'dim_a': 30, 'dim_b': 18, 'lengths': ''}), (0, 0, {'name': 'M24', 'sequence': 70, 'nominal_diameter': 24, 'pitch': 3.0, 'dim_a': 36, 'dim_b': 21.5, 'lengths': ''}), (0, 0, {'name': 'M30', 'sequence': 80, 'nominal_diameter': 30, 'pitch': 3.5, 'dim_a': 46, 'dim_b': 25.6, 'lengths': ''}), (0, 0, {'name': 'M36', 'sequence': 90, 'nominal_diameter': 36, 'pitch': 4.0, 'dim_a': 55, 'dim_b': 31, 'lengths': ''})]"/>
+            <field name="spec_ids" eval="[(0, 0, {'group': 'General', 'name': 'Standard', 'value': 'DIN 934 / ISO 4032', 'sequence': 10}), (0, 0, {'group': 'General', 'name': 'Thread tolerance', 'value': '6H', 'sequence': 20}), (0, 0, {'group': 'Mechanical', 'name': 'Proof load stress, class 8', 'value': '800 – 890 MPa', 'sequence': 30}), (0, 0, {'group': 'Mechanical', 'name': 'Proof load stress, class 10', 'value': '1040 – 1060 MPa', 'sequence': 40})]"/>
+            <field name="image_ids" eval="[(0, 0, {'name': 'Industrial hex nuts', 'image_url': 'https://images.pexels.com/photos/29297946/pexels-photo-29297946.jpeg', 'sequence': 10})]"/>
+        </record>
+        <record id="prod_lock_nut" model="industrial.product">
+            <field name="name">Nylon Insert Lock Nut</field>
+            <field name="default_code">LN-985</field>
+            <field name="sequence">80</field>
+            <field name="category_id" ref="cat_nuts"/>
+            <field name="tagline">Prevailing-torque nut that stays put under vibration.</field>
+            <field name="description" type="html"><p>ISO 7040 / DIN 985 nuts with a polyamide insert that grips the thread, keeping the joint secure without additional locking elements.</p><ul><li>Service temperature -50 °C to +120 °C</li><li>Reusable within the limits of ISO 2320</li></ul></field>
+            <field name="standard">DIN 985 · ISO 7040</field>
+            <field name="grade">8 · 10 · A2-70 · A4-80</field>
+            <field name="thread_type">metric</field>
+            <field name="head_type">Hexagon with insert</field>
+            <field name="drive_type">External hex</field>
+            <field name="drawing_type">nut</field>
+            <field name="dim_a_label">s · Across flats</field>
+            <field name="dim_b_label">m · Nut height</field>
+            <field name="material_ids" eval="[(6, 0, [ref('mat_88'), ref('mat_a2'), ref('mat_a4')])]"/>
+            <field name="finish_ids" eval="[(6, 0, [ref('fin_zinc'), ref('fin_plain')])]"/>
+            <field name="sector_ids" eval="[(6, 0, [ref('sec_auto'), ref('sec_rail'), ref('sec_agri')])]"/>
+            <field name="moq">1000</field>
+            <field name="lead_time">Stock</field>
+            <field name="packaging">Boxes of 100 – 1,000</field>
+            <field name="is_featured" eval="False"/>
+            <field name="torque_tool" eval="False"/>
+            <field name="image_url">https://images.pexels.com/photos/29297946/pexels-photo-29297946.jpeg</field>
+            <field name="is_published" eval="True"/>
+            <field name="size_ids" eval="[(0, 0, {'name': 'M4', 'sequence': 10, 'nominal_diameter': 4, 'pitch': 0.7, 'dim_a': 7, 'dim_b': 6, 'lengths': ''}), (0, 0, {'name': 'M5', 'sequence': 20, 'nominal_diameter': 5, 'pitch': 0.8, 'dim_a': 8, 'dim_b': 6.3, 'lengths': ''}), (0, 0, {'name': 'M6', 'sequence': 30, 'nominal_diameter': 6, 'pitch': 1.0, 'dim_a': 10, 'dim_b': 8, 'lengths': ''}), (0, 0, {'name': 'M8', 'sequence': 40, 'nominal_diameter': 8, 'pitch': 1.25, 'dim_a': 13, 'dim_b': 9.5, 'lengths': ''}), (0, 0, {'name': 'M10', 'sequence': 50, 'nominal_diameter': 10, 'pitch': 1.5, 'dim_a': 16, 'dim_b': 11.5, 'lengths': ''}), (0, 0, {'name': 'M12', 'sequence': 60, 'nominal_diameter': 12, 'pitch': 1.75, 'dim_a': 18, 'dim_b': 14, 'lengths': ''}), (0, 0, {'name': 'M16', 'sequence': 70, 'nominal_diameter': 16, 'pitch': 2.0, 'dim_a': 24, 'dim_b': 18, 'lengths': ''}), (0, 0, {'name': 'M20', 'sequence': 80, 'nominal_diameter': 20, 'pitch': 2.5, 'dim_a': 30, 'dim_b': 22, 'lengths': ''})]"/>
+            <field name="spec_ids" eval="[(0, 0, {'group': 'General', 'name': 'Standard', 'value': 'DIN 985 / ISO 7040', 'sequence': 10}), (0, 0, {'group': 'General', 'name': 'Insert', 'value': 'Polyamide 6.6', 'sequence': 20}), (0, 0, {'group': 'Performance', 'name': 'Prevailing torque', 'value': 'ISO 2320', 'sequence': 30}), (0, 0, {'group': 'Performance', 'name': 'Temperature', 'value': '-50 °C to +120 °C', 'sequence': 40})]"/>
+        </record>
+        <record id="prod_flat_washer" model="industrial.product">
+            <field name="name">Flat Washer</field>
+            <field name="default_code">FW-125</field>
+            <field name="sequence">90</field>
+            <field name="category_id" ref="cat_washers"/>
+            <field name="tagline">Protects the surface and spreads the clamp load.</field>
+            <field name="description" type="html"><p>Plain washers to ISO 7089 / DIN 125-A in 200 HV and 300 HV hardness classes, stainless and brass.</p></field>
+            <field name="standard">DIN 125-A · ISO 7089</field>
+            <field name="grade">200 HV · 300 HV · A2 · A4</field>
+            <field name="thread_type">none</field>
+            <field name="drawing_type">washer</field>
+            <field name="dim_a_label">d2 · Outer Ø</field>
+            <field name="dim_b_label">h · Thickness</field>
+            <field name="material_ids" eval="[(6, 0, [ref('mat_88'), ref('mat_a2'), ref('mat_a4'), ref('mat_brass')])]"/>
+            <field name="finish_ids" eval="[(6, 0, [ref('fin_plain'), ref('fin_zinc'), ref('fin_hdg')])]"/>
+            <field name="sector_ids" eval="[(6, 0, [ref('sec_constr'), ref('sec_logistics'), ref('sec_agri')])]"/>
+            <field name="moq">2000</field>
+            <field name="lead_time">Stock</field>
+            <field name="packaging">Boxes of 500 – 5,000</field>
+            <field name="is_featured" eval="False"/>
+            <field name="torque_tool" eval="False"/>
+            <field name="image_url">https://images.pexels.com/photos/12951633/pexels-photo-12951633.jpeg</field>
+            <field name="is_published" eval="True"/>
+            <field name="size_ids" eval="[(0, 0, {'name': 'M6', 'sequence': 10, 'nominal_diameter': 6, 'pitch': 0, 'dim_a': 12, 'dim_b': 1.6, 'lengths': ''}), (0, 0, {'name': 'M8', 'sequence': 20, 'nominal_diameter': 8, 'pitch': 0, 'dim_a': 16, 'dim_b': 1.6, 'lengths': ''}), (0, 0, {'name': 'M10', 'sequence': 30, 'nominal_diameter': 10, 'pitch': 0, 'dim_a': 20, 'dim_b': 2, 'lengths': ''}), (0, 0, {'name': 'M12', 'sequence': 40, 'nominal_diameter': 12, 'pitch': 0, 'dim_a': 24, 'dim_b': 2.5, 'lengths': ''}), (0, 0, {'name': 'M16', 'sequence': 50, 'nominal_diameter': 16, 'pitch': 0, 'dim_a': 30, 'dim_b': 3, 'lengths': ''}), (0, 0, {'name': 'M20', 'sequence': 60, 'nominal_diameter': 20, 'pitch': 0, 'dim_a': 37, 'dim_b': 3, 'lengths': ''}), (0, 0, {'name': 'M24', 'sequence': 70, 'nominal_diameter': 24, 'pitch': 0, 'dim_a': 44, 'dim_b': 4, 'lengths': ''}), (0, 0, {'name': 'M30', 'sequence': 80, 'nominal_diameter': 30, 'pitch': 0, 'dim_a': 56, 'dim_b': 4, 'lengths': ''})]"/>
+            <field name="spec_ids" eval="[(0, 0, {'group': 'General', 'name': 'Standard', 'value': 'DIN 125-A / ISO 7089', 'sequence': 10}), (0, 0, {'group': 'Mechanical', 'name': 'Hardness', 'value': '200 HV or 300 HV', 'sequence': 20})]"/>
+        </record>
+        <record id="prod_spring_washer" model="industrial.product">
+            <field name="name">Spring Lock Washer</field>
+            <field name="default_code">SW-127</field>
+            <field name="sequence">100</field>
+            <field name="category_id" ref="cat_washers"/>
+            <field name="tagline">Split, hardened spring washer for light locking duty.</field>
+            <field name="description" type="html"><p>DIN 127-B spring washers made from spring steel and stainless, hardened and tempered for consistent spring force.</p></field>
+            <field name="standard">DIN 127-B</field>
+            <field name="grade">Spring steel · A2 · A4</field>
+            <field name="thread_type">none</field>
+            <field name="drawing_type">washer</field>
+            <field name="dim_a_label">d2 · Outer Ø</field>
+            <field name="dim_b_label">h · Thickness</field>
+            <field name="material_ids" eval="[(6, 0, [ref('mat_88'), ref('mat_a2'), ref('mat_a4')])]"/>
+            <field name="finish_ids" eval="[(6, 0, [ref('fin_plain'), ref('fin_zinc'), ref('fin_black')])]"/>
+            <field name="sector_ids" eval="[(6, 0, [ref('sec_heavy'), ref('sec_agri')])]"/>
+            <field name="moq">2000</field>
+            <field name="lead_time">Stock</field>
+            <field name="packaging">Boxes of 500 – 5,000</field>
+            <field name="is_featured" eval="False"/>
+            <field name="torque_tool" eval="False"/>
+            <field name="image_url">https://images.pexels.com/photos/21050460/pexels-photo-21050460.jpeg</field>
+            <field name="is_published" eval="True"/>
+            <field name="size_ids" eval="[(0, 0, {'name': 'M6', 'sequence': 10, 'nominal_diameter': 6, 'pitch': 0, 'dim_a': 11.8, 'dim_b': 1.6, 'lengths': ''}), (0, 0, {'name': 'M8', 'sequence': 20, 'nominal_diameter': 8, 'pitch': 0, 'dim_a': 14.8, 'dim_b': 2, 'lengths': ''}), (0, 0, {'name': 'M10', 'sequence': 30, 'nominal_diameter': 10, 'pitch': 0, 'dim_a': 18.1, 'dim_b': 2.2, 'lengths': ''}), (0, 0, {'name': 'M12', 'sequence': 40, 'nominal_diameter': 12, 'pitch': 0, 'dim_a': 21.1, 'dim_b': 2.5, 'lengths': ''}), (0, 0, {'name': 'M16', 'sequence': 50, 'nominal_diameter': 16, 'pitch': 0, 'dim_a': 27.4, 'dim_b': 3.5, 'lengths': ''}), (0, 0, {'name': 'M20', 'sequence': 60, 'nominal_diameter': 20, 'pitch': 0, 'dim_a': 33.6, 'dim_b': 4, 'lengths': ''}), (0, 0, {'name': 'M24', 'sequence': 70, 'nominal_diameter': 24, 'pitch': 0, 'dim_a': 40, 'dim_b': 5, 'lengths': ''})]"/>
+            <field name="spec_ids" eval="[(0, 0, {'group': 'General', 'name': 'Standard', 'value': 'DIN 127-B', 'sequence': 10}), (0, 0, {'group': 'Mechanical', 'name': 'Hardness', 'value': '43 – 50 HRC', 'sequence': 20})]"/>
+        </record>
+        <record id="prod_threaded_rod" model="industrial.product">
+            <field name="name">Threaded Rod</field>
+            <field name="default_code">TR-975</field>
+            <field name="sequence">110</field>
+            <field name="category_id" ref="cat_rods"/>
+            <field name="tagline">Metre lengths or cut to size, from mild steel to A4-70.</field>
+            <field name="description" type="html"><p>Fully threaded rods to DIN 975 / DIN 976-1 for anchoring, suspension and through-bolting. Cut-to-length service with chamfered ends.</p></field>
+            <field name="standard">DIN 975 · DIN 976-1</field>
+            <field name="grade">4.8 · 8.8 · 10.9 · A4-70</field>
+            <field name="thread_type">metric</field>
+            <field name="drawing_type">rod</field>
+            <field name="dim_a_label">As · Stress area mm²</field>
+            <field name="dim_b_label">Mass · kg per metre</field>
+            <field name="material_ids" eval="[(6, 0, [ref('mat_88'), ref('mat_109'), ref('mat_a2'), ref('mat_a4')])]"/>
+            <field name="finish_ids" eval="[(6, 0, [ref('fin_plain'), ref('fin_zinc'), ref('fin_hdg')])]"/>
+            <field name="sector_ids" eval="[(6, 0, [ref('sec_constr'), ref('sec_logistics')])]"/>
+            <field name="moq">100</field>
+            <field name="lead_time">Stock / cut in 48 h</field>
+            <field name="packaging">Bundles, cut pieces boxed</field>
+            <field name="is_featured" eval="False"/>
+            <field name="torque_tool" eval="True"/>
+            <field name="image_url">https://images.pexels.com/photos/28219496/pexels-photo-28219496.jpeg</field>
+            <field name="is_published" eval="True"/>
+            <field name="size_ids" eval="[(0, 0, {'name': 'M8', 'sequence': 10, 'nominal_diameter': 8, 'pitch': 1.25, 'dim_a': 36.6, 'dim_b': 0.32, 'lengths': '1000 / 2000 / 3000 mm'}), (0, 0, {'name': 'M10', 'sequence': 20, 'nominal_diameter': 10, 'pitch': 1.5, 'dim_a': 58, 'dim_b': 0.52, 'lengths': '1000 / 2000 / 3000 mm'}), (0, 0, {'name': 'M12', 'sequence': 30, 'nominal_diameter': 12, 'pitch': 1.75, 'dim_a': 84.3, 'dim_b': 0.73, 'lengths': '1000 / 2000 / 3000 mm'}), (0, 0, {'name': 'M16', 'sequence': 40, 'nominal_diameter': 16, 'pitch': 2.0, 'dim_a': 157, 'dim_b': 1.37, 'lengths': '1000 / 2000 / 3000 mm'}), (0, 0, {'name': 'M20', 'sequence': 50, 'nominal_diameter': 20, 'pitch': 2.5, 'dim_a': 245, 'dim_b': 2.13, 'lengths': '1000 / 2000 / 3000 mm'}), (0, 0, {'name': 'M24', 'sequence': 60, 'nominal_diameter': 24, 'pitch': 3.0, 'dim_a': 353, 'dim_b': 3.08, 'lengths': '1000 / 2000 mm'}), (0, 0, {'name': 'M30', 'sequence': 70, 'nominal_diameter': 30, 'pitch': 3.5, 'dim_a': 561, 'dim_b': 4.89, 'lengths': '1000 / 2000 mm'}), (0, 0, {'name': 'M36', 'sequence': 80, 'nominal_diameter': 36, 'pitch': 4.0, 'dim_a': 817, 'dim_b': 7.1, 'lengths': '1000 / 2000 mm'})]"/>
+            <field name="spec_ids" eval="[(0, 0, {'group': 'General', 'name': 'Standard', 'value': 'DIN 975 / DIN 976-1', 'sequence': 10}), (0, 0, {'group': 'General', 'name': 'Ends', 'value': 'Chamfered, cut to length', 'sequence': 20}), (0, 0, {'group': 'Mechanical', 'name': 'Tensile strength, 8.8', 'value': '≥ 800 MPa', 'sequence': 30})]"/>
+        </record>
+        <record id="prod_stud_bolt" model="industrial.product">
+            <field name="name">Stud Bolt with Heavy Nuts</field>
+            <field name="default_code">ST-B7</field>
+            <field name="sequence">120</field>
+            <field name="category_id" ref="cat_rods"/>
+            <field name="tagline">Pressure-flange studs to ASTM A193 B7 with A194 2H nuts.</field>
+            <field name="description" type="html"><p>Flange stud bolts for piping and pressure equipment, supplied as sets with two heavy hex nuts. Coatings for offshore and high-temperature service.</p></field>
+            <field name="standard">ASTM A193 · A194</field>
+            <field name="grade">B7 · B7M · B8M</field>
+            <field name="thread_type">metric</field>
+            <field name="drawing_type">rod</field>
+            <field name="dim_a_label">Nut s · Across flats</field>
+            <field name="dim_b_label">Nut m · Height</field>
+            <field name="material_ids" eval="[(6, 0, [ref('mat_109'), ref('mat_a4')])]"/>
+            <field name="finish_ids" eval="[(6, 0, [ref('fin_plain'), ref('fin_flake'), ref('fin_hdg')])]"/>
+            <field name="sector_ids" eval="[(6, 0, [ref('sec_wind'), ref('sec_heavy'), ref('sec_mining')])]"/>
+            <field name="moq">100</field>
+            <field name="lead_time">2 – 4 weeks</field>
+            <field name="packaging">Sets, bagged &amp; labelled</field>
+            <field name="is_featured" eval="False"/>
+            <field name="torque_tool" eval="True"/>
+            <field name="image_url">https://images.pexels.com/photos/28219488/pexels-photo-28219488.jpeg</field>
+            <field name="is_published" eval="True"/>
+            <field name="size_ids" eval="[(0, 0, {'name': 'M16', 'sequence': 10, 'nominal_diameter': 16, 'pitch': 2.0, 'dim_a': 24, 'dim_b': 16, 'lengths': 'to order'}), (0, 0, {'name': 'M20', 'sequence': 20, 'nominal_diameter': 20, 'pitch': 2.5, 'dim_a': 30, 'dim_b': 20, 'lengths': 'to order'}), (0, 0, {'name': 'M24', 'sequence': 30, 'nominal_diameter': 24, 'pitch': 3.0, 'dim_a': 36, 'dim_b': 24, 'lengths': 'to order'}), (0, 0, {'name': 'M30', 'sequence': 40, 'nominal_diameter': 30, 'pitch': 3.5, 'dim_a': 46, 'dim_b': 30, 'lengths': 'to order'}), (0, 0, {'name': 'M36', 'sequence': 50, 'nominal_diameter': 36, 'pitch': 4.0, 'dim_a': 55, 'dim_b': 36, 'lengths': 'to order'})]"/>
+            <field name="spec_ids" eval="[(0, 0, {'group': 'General', 'name': 'Standard', 'value': 'ASTM A193 / A194', 'sequence': 10}), (0, 0, {'group': 'Mechanical', 'name': 'Tensile strength, B7', 'value': '≥ 860 MPa', 'sequence': 20}), (0, 0, {'group': 'Mechanical', 'name': 'Yield strength, B7', 'value': '≥ 720 MPa', 'sequence': 30}), (0, 0, {'group': 'Quality', 'name': 'Certificate', 'value': 'EN 10204 3.1, NACE MR0175 on request', 'sequence': 40})]"/>
+        </record>
+        <record id="prod_cnc_parts" model="industrial.product">
+            <field name="name">Precision Turned Parts</field>
+            <field name="default_code">CNC-01</field>
+            <field name="sequence">130</field>
+            <field name="category_id" ref="cat_cnc"/>
+            <field name="tagline">From your STEP file to certified parts, prototypes to series.</field>
+            <field name="description" type="html"><p>CNC turning, milling and grinding on multi-axis centres with in-process measurement. Send a drawing and we return a costed quote with a manufacturability review.</p><ul><li>Tolerances to ±0.01 mm, Ra 0.4 µm</li><li>Steel, stainless, brass, aluminium and titanium</li><li>First-article inspection report with every new part</li></ul></field>
+            <field name="standard">ISO 2768-f · To drawing</field>
+            <field name="grade">Per specification</field>
+            <field name="thread_type">none</field>
+            <field name="drawing_type">custom</field>
+            <field name="dim_a_label">Ø A · Max. diameter</field>
+            <field name="dim_b_label">B · Max. length</field>
+            <field name="material_ids" eval="[(6, 0, [ref('mat_88'), ref('mat_a2'), ref('mat_a4'), ref('mat_brass'), ref('mat_ti')])]"/>
+            <field name="finish_ids" eval="[(6, 0, [ref('fin_plain'), ref('fin_zinc'), ref('fin_black'), ref('fin_znni')])]"/>
+            <field name="sector_ids" eval="[(6, 0, [ref('sec_auto'), ref('sec_heavy'), ref('sec_wind')])]"/>
+            <field name="moq">50</field>
+            <field name="lead_time">3 – 5 weeks</field>
+            <field name="packaging">Custom, cleaned &amp; protected</field>
+            <field name="is_featured" eval="True"/>
+            <field name="ribbon">To drawing</field>
+            <field name="torque_tool" eval="False"/>
+            <field name="image_url">https://images.pexels.com/photos/31970888/pexels-photo-31970888.jpeg</field>
+            <field name="is_published" eval="True"/>
+            <field name="size_ids" eval="[(0, 0, {'name': 'Ø 20', 'sequence': 10, 'nominal_diameter': 20, 'pitch': 0, 'dim_a': 20, 'dim_b': 150, 'lengths': 'to drawing'}), (0, 0, {'name': 'Ø 40', 'sequence': 20, 'nominal_diameter': 40, 'pitch': 0, 'dim_a': 40, 'dim_b': 250, 'lengths': 'to drawing'}), (0, 0, {'name': 'Ø 65', 'sequence': 30, 'nominal_diameter': 65, 'pitch': 0, 'dim_a': 65, 'dim_b': 400, 'lengths': 'to drawing'}), (0, 0, {'name': 'Ø 120', 'sequence': 40, 'nominal_diameter': 120, 'pitch': 0, 'dim_a': 120, 'dim_b': 600, 'lengths': 'to drawing'})]"/>
+            <field name="spec_ids" eval="[(0, 0, {'group': 'Capability', 'name': 'Tolerance', 'value': '±0.01 mm', 'sequence': 10}), (0, 0, {'group': 'Capability', 'name': 'Surface roughness', 'value': 'down to Ra 0.4 µm', 'sequence': 20}), (0, 0, {'group': 'Capability', 'name': 'Processes', 'value': 'Turning, milling, grinding, thread rolling', 'sequence': 30}), (0, 0, {'group': 'Quality', 'name': 'First article', 'value': 'FAI report / PPAP', 'sequence': 40})]"/>
+            <field name="image_ids" eval="[(0, 0, {'name': 'CNC milling', 'image_url': 'https://images.pexels.com/photos/20607184/pexels-photo-20607184.jpeg', 'sequence': 10}), (0, 0, {'name': 'Stainless components', 'image_url': 'https://images.pexels.com/photos/8335680/pexels-photo-8335680.jpeg', 'sequence': 20})]"/>
+        </record>
+        <record id="prod_knurled_nut" model="industrial.product">
+            <field name="name">Knurled Thumb Nut</field>
+            <field name="default_code">KN-466</field>
+            <field name="sequence">140</field>
+            <field name="category_id" ref="cat_nuts"/>
+            <field name="tagline">Hand-tightened brass or stainless nut, no tools required.</field>
+            <field name="description" type="html"><p>High-type knurled thumb nuts to DIN 466 for fixtures, panels and adjustable assemblies.</p></field>
+            <field name="standard">DIN 466</field>
+            <field name="grade">Brass · A2</field>
+            <field name="thread_type">metric</field>
+            <field name="head_type">Knurled</field>
+            <field name="drive_type">Hand</field>
+            <field name="drawing_type">nut</field>
+            <field name="dim_a_label">dk · Knurl Ø</field>
+            <field name="dim_b_label">h · Height</field>
+            <field name="material_ids" eval="[(6, 0, [ref('mat_brass'), ref('mat_a2')])]"/>
+            <field name="finish_ids" eval="[(6, 0, [ref('fin_plain'), ref('fin_zinc')])]"/>
+            <field name="sector_ids" eval="[(6, 0, [ref('sec_logistics')])]"/>
+            <field name="moq">500</field>
+            <field name="lead_time">2 weeks</field>
+            <field name="packaging">Boxes of 100</field>
+            <field name="is_featured" eval="False"/>
+            <field name="ribbon">New</field>
+            <field name="torque_tool" eval="False"/>
+            <field name="image_url">https://images.pexels.com/photos/14593016/pexels-photo-14593016.jpeg</field>
+            <field name="is_published" eval="True"/>
+            <field name="size_ids" eval="[(0, 0, {'name': 'M3', 'sequence': 10, 'nominal_diameter': 3, 'pitch': 0.5, 'dim_a': 12, 'dim_b': 7.5, 'lengths': ''}), (0, 0, {'name': 'M4', 'sequence': 20, 'nominal_diameter': 4, 'pitch': 0.7, 'dim_a': 16, 'dim_b': 8.5, 'lengths': ''}), (0, 0, {'name': 'M5', 'sequence': 30, 'nominal_diameter': 5, 'pitch': 0.8, 'dim_a': 20, 'dim_b': 9.5, 'lengths': ''}), (0, 0, {'name': 'M6', 'sequence': 40, 'nominal_diameter': 6, 'pitch': 1.0, 'dim_a': 24, 'dim_b': 12, 'lengths': ''}), (0, 0, {'name': 'M8', 'sequence': 50, 'nominal_diameter': 8, 'pitch': 1.25, 'dim_a': 30, 'dim_b': 15, 'lengths': ''}), (0, 0, {'name': 'M10', 'sequence': 60, 'nominal_diameter': 10, 'pitch': 1.5, 'dim_a': 36, 'dim_b': 18, 'lengths': ''})]"/>
+            <field name="spec_ids" eval="[(0, 0, {'group': 'General', 'name': 'Standard', 'value': 'DIN 466', 'sequence': 10}), (0, 0, {'group': 'General', 'name': 'Knurl', 'value': 'Straight, RAA', 'sequence': 20})]"/>
+        </record>
+    </data>
+</odoo>

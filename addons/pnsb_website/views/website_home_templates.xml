@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- CSS 3D hexagonal prism (nut / bolt head). Faces are shaded live by JS. -->
+    <template id="ip_prism" name="Industrial Parts: Hex Prism">
+        <div t-attf-class="ip-prism #{prism_class or ''}" aria-hidden="true">
+            <i class="ip-prism__face" style="--f:0"/>
+            <i class="ip-prism__face" style="--f:1"/>
+            <i class="ip-prism__face" style="--f:2"/>
+            <i class="ip-prism__face" style="--f:3"/>
+            <i class="ip-prism__face" style="--f:4"/>
+            <i class="ip-prism__face" style="--f:5"/>
+            <i class="ip-prism__cap ip-prism__cap--top"/>
+            <i class="ip-prism__cap ip-prism__cap--bottom"/>
+        </div>
+    </template>
+
+    <!-- Torque calculator (home + product page) -->
+    <template id="ip_torque_tool" name="Industrial Parts: Torque Calculator">
+        <div class="ip-torque" data-ip-torque="" t-att-data-size="torque_size or 'M12'" t-att-data-grade="torque_grade or '8.8'"
+             t-att-data-finishes="torque_finishes_json or ''">
+            <div class="ip-bezel">
+                <div class="ip-bezel__core ip-torque__core">
+                    <div class="ip-torque__inputs">
+                        <div class="ip-field">
+                            <span class="ip-field__label mono">Thread size · metric coarse</span>
+                            <div class="ip-seg ip-seg--wrap" data-ip-torque-sizes="" role="radiogroup" aria-label="Thread size"/>
+                        </div>
+                        <div class="ip-field">
+                            <span class="ip-field__label mono">Property class · ISO 898-1</span>
+                            <div class="ip-seg" data-ip-torque-grades="" role="radiogroup" aria-label="Property class">
+                                <button type="button" data-grade="8.8">8.8</button>
+                                <button type="button" data-grade="10.9">10.9</button>
+                                <button type="button" data-grade="12.9">12.9</button>
+                            </div>
+                        </div>
+                        <div class="ip-field">
+                            <label class="ip-field__label mono" for="ip-torque-k">Surface / lubrication</label>
+                            <div class="ip-select">
+                                <select id="ip-torque-k" data-ip-torque-k=""/>
+                                <svg class="ip-i"><use href="#ip-i-chevron-d"/></svg>
+                            </div>
+                        </div>
+                        <div class="ip-field">
+                            <label class="ip-field__label mono" for="ip-torque-u">Preload utilisation <b data-ip-torque-u-out="">75%</b></label>
+                            <input type="range" id="ip-torque-u" class="ip-range" min="50" max="90" step="1" value="75" data-ip-torque-u=""/>
+                        </div>
+                        <p class="ip-torque__note">Indicative values: T = K · d · F, with F = utilisation × proof load (A<sub>s</sub> × S<sub>p</sub>). Always validate against your joint design and the applicable standard.</p>
+                    </div>
+                    <div class="ip-torque__output">
+                        <div class="ip-gauge">
+                            <svg viewBox="0 0 240 150" class="ip-gauge__svg">
+                                <path class="ip-gauge__track" d="M20 130a100 100 0 0 1 200 0" pathLength="1"/>
+                                <path class="ip-gauge__value" d="M20 130a100 100 0 0 1 200 0" pathLength="1" data-ip-gauge=""/>
+                                <g class="ip-gauge__ticks">
+                                    <path d="M20 130h10M210 130h10M120 30v10M49 59l7 7M191 59l-7 7"/>
+                                </g>
+                            </svg>
+                            <div class="ip-gauge__readout">
+                                <span class="ip-gauge__num" data-ip-torque-out="torque">0</span>
+                                <span class="ip-gauge__unit mono">N·m tightening torque</span>
+                            </div>
+                        </div>
+                        <dl class="ip-torque__stats">
+                            <div><dt class="mono">Preload</dt><dd><b data-ip-torque-out="preload">0</b> kN</dd></div>
+                            <div><dt class="mono">Proof load</dt><dd><b data-ip-torque-out="proof">0</b> kN</dd></div>
+                            <div><dt class="mono">Stress area</dt><dd><b data-ip-torque-out="area">0</b> mm²</dd></div>
+                            <div><dt class="mono">Pitch</dt><dd><b data-ip-torque-out="pitch">0</b> mm</dd></div>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="page_home" name="Industrial Parts: Home">
+        <t t-call="pnsb_website.ip_layout">
+            <t t-set="additional_title">Precision machinery. Built for industry.</t>
+            <div id="wrap" class="ip-home">
+
+                <!-- ========================= HERO ========================= -->
+                <section class="ip-hero" data-ip-hero="" data-theme="dark">
+                    <div class="ip-hero__media" data-ip-hero-media="">
+                        <img class="ip-hero__img" fetchpriority="high" alt="Close-up of steel bolts and nuts"
+                             src="https://images.pexels.com/photos/17372998/pexels-photo-17372998.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1800"
+                             srcset="https://images.pexels.com/photos/17372998/pexels-photo-17372998.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800 800w, https://images.pexels.com/photos/17372998/pexels-photo-17372998.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1400 1400w, https://images.pexels.com/photos/17372998/pexels-photo-17372998.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=2200 2200w"
+                             sizes="100vw"/>
+                        <div class="ip-hero__shade"/>
+                        <div class="ip-blueprint"/>
+                    </div>
+                    <div class="ip-container ip-hero__content">
+                        <div class="ip-hero__top" data-ip-reveal="fade" data-ip-delay="200">
+                            <span class="ip-eyebrow ip-eyebrow--glass"><i class="ip-dot"/>Engineering · Precision · Performance</span>
+                            <span class="ip-hero__certs mono">PNSB Machinery Industries · Ahmedabad, India</span>
+                        </div>
+                        <h1 class="ip-hero__title" data-ip-split="lines">
+                            <span class="ip-line">Precision.</span>
+                            <span class="ip-line">Built for</span>
+                            <span class="ip-line"><em>industry.</em></span>
+                        </h1>
+                        <div class="ip-hero__bottom">
+                            <p class="ip-hero__lead" data-ip-reveal="" data-ip-delay="500">Advanced machinery solutions and precision-engineered components for demanding industrial applications, built with precision, reliability and performance at the core.</p>
+                            <div class="ip-hero__actions" data-ip-reveal="" data-ip-delay="650">
+                                <a href="/products" class="ip-btn ip-btn--accent ip-magnetic">
+                                    <span class="ip-btn__label">Explore products</span>
+                                    <t t-call="pnsb_website.ip_btn_arrow"/>
+                                </a>
+                                <a href="/quote" class="ip-btn ip-btn--glass ip-magnetic">
+                                    <span class="ip-btn__label">Upload a drawing</span>
+                                    <span class="ip-btn__icon"><svg class="ip-i"><use href="#ip-i-upload"/></svg></span>
+                                </a>
+                            </div>
+                            <div class="ip-hero__live" data-ip-reveal="" data-ip-delay="800">
+                                <a href="/quote" class="ip-live ip-live--link">
+                                    <span class="ip-live__label mono"><i class="ip-dot ip-dot--live"/>Have a requirement?</span>
+                                    <span class="ip-live__title">Share it with our team</span>
+                                    <span class="ip-live__cta mono">Start a conversation <svg class="ip-i"><use href="#ip-i-arrow-ur"/></svg></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ========================= MARQUEE ========================= -->
+                <section class="ip-marquee-sec" aria-label="Product range">
+                    <div class="ip-marquee" data-ip-marquee="" data-speed="0.6">
+                        <div class="ip-marquee__track">
+                            <span>Hex bolts</span><i class="ip-marquee__sep"><svg class="ip-i"><use href="#ip-i-nut"/></svg></i>
+                            <span>Socket screws</span><i class="ip-marquee__sep"><svg class="ip-i"><use href="#ip-i-nut"/></svg></i>
+                            <span>Nuts</span><i class="ip-marquee__sep"><svg class="ip-i"><use href="#ip-i-nut"/></svg></i>
+                            <span>Washers</span><i class="ip-marquee__sep"><svg class="ip-i"><use href="#ip-i-nut"/></svg></i>
+                            <span>Threaded rods</span><i class="ip-marquee__sep"><svg class="ip-i"><use href="#ip-i-nut"/></svg></i>
+                            <span>Structural sets</span><i class="ip-marquee__sep"><svg class="ip-i"><use href="#ip-i-nut"/></svg></i>
+                            <span>CNC parts</span><i class="ip-marquee__sep"><svg class="ip-i"><use href="#ip-i-nut"/></svg></i>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ========================= STATEMENT + STATS ========================= -->
+                <section class="ip-section ip-intro" id="ip-intro" data-theme="dark">
+                    <div class="ip-container">
+                        <span class="ip-eyebrow" data-ip-reveal=""><i class="ip-dot"/>Who we are</span>
+                        <p class="ip-statement" data-ip-scrub-words="">PNSB Machinery Industries delivers dependable industrial machinery and precision-engineered components for modern manufacturing, <em>combining engineering expertise, quality manufacturing and practical industrial knowledge.</em></p>
+
+                        <div class="ip-bento" data-ip-stagger="">
+                            <div class="ip-bento__cell ip-bento__cell--photo" data-ip-reveal="">
+                                <div class="ip-bezel ip-bezel--fill">
+                                    <div class="ip-bezel__core">
+                                        <img src="https://images.pexels.com/photos/29224559/pexels-photo-29224559.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1200"
+                                             alt="Machining and assembly on the shop floor" loading="lazy" data-ip-parallax="-0.12"/>
+                                        <div class="ip-bento__overlay">
+                                            <span class="ip-stat__num ip-stat__num--text">Built for<br/>demanding<br/>environments</span>
+                                            <span class="ip-stat__label mono">Solutions that perform consistently</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ip-bento__cell" data-ip-reveal="">
+                                <div class="ip-bezel ip-bezel--fill"><div class="ip-bezel__core ip-stat">
+                                    <svg class="ip-i ip-stat__icon"><use href="#ip-i-layers"/></svg>
+                                    <span class="ip-stat__num"><span t-att-data-ip-counter="product_total">0</span></span>
+                                    <span class="ip-stat__label mono">Product families</span>
+                                </div></div>
+                            </div>
+                            <div class="ip-bento__cell" data-ip-reveal="">
+                                <div class="ip-bezel ip-bezel--fill"><div class="ip-bezel__core ip-stat">
+                                    <svg class="ip-i ip-stat__icon"><use href="#ip-i-box"/></svg>
+                                    <span class="ip-stat__num"><span t-att-data-ip-counter="len(categories)">0</span></span>
+                                    <span class="ip-stat__label mono">Product categories</span>
+                                </div></div>
+                            </div>
+                            <div class="ip-bento__cell" data-ip-reveal="">
+                                <div class="ip-bezel ip-bezel--fill"><div class="ip-bezel__core ip-stat">
+                                    <svg class="ip-i ip-stat__icon"><use href="#ip-i-shield"/></svg>
+                                    <span class="ip-stat__num"><span t-att-data-ip-counter="len(materials)">0</span></span>
+                                    <span class="ip-stat__label mono">Materials we work with</span>
+                                </div></div>
+                            </div>
+                            <div class="ip-bento__cell" data-ip-reveal="">
+                                <div class="ip-bezel ip-bezel--fill"><div class="ip-bezel__core ip-stat">
+                                    <svg class="ip-i ip-stat__icon"><use href="#ip-i-flame"/></svg>
+                                    <span class="ip-stat__num"><span t-att-data-ip-counter="len(finishes)">0</span></span>
+                                    <span class="ip-stat__label mono">Surface finishes</span>
+                                </div></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ========================= CAPABILITIES ========================= -->
+                <section class="ip-section ip-capabilities" id="capabilities" data-theme="dark">
+                    <div class="ip-container">
+                        <div class="ip-tools__head">
+                            <span class="ip-eyebrow" data-ip-reveal=""><i class="ip-dot"/>Our capabilities</span>
+                            <h2 class="ip-h2" data-ip-split="words">Built around <em>precision.</em></h2>
+                            <p class="ip-lead" data-ip-reveal="">From a single custom component to complete machinery, every job starts with your application and ends with a solution you can rely on.</p>
+                        </div>
+                        <div class="ip-caps" data-ip-stagger="">
+                            <article class="ip-cap" data-ip-reveal="">
+                                <div class="ip-bezel ip-bezel--fill"><div class="ip-bezel__core ip-cap__core">
+                                    <span class="ip-cap__num mono">01</span>
+                                    <svg class="ip-i ip-cap__icon"><use href="#ip-i-ruler"/></svg>
+                                    <h3>Precision Engineering</h3>
+                                    <p>Engineered components and machinery designed to meet demanding industrial requirements.</p>
+                                </div></div>
+                            </article>
+                            <article class="ip-cap" data-ip-reveal="">
+                                <div class="ip-bezel ip-bezel--fill"><div class="ip-bezel__core ip-cap__core">
+                                    <span class="ip-cap__num mono">02</span>
+                                    <svg class="ip-i ip-cap__icon"><use href="#ip-i-cog"/></svg>
+                                    <h3>Custom Solutions</h3>
+                                    <p>Machinery and components developed around your exact application, drawing or sample.</p>
+                                </div></div>
+                            </article>
+                            <article class="ip-cap" data-ip-reveal="">
+                                <div class="ip-bezel ip-bezel--fill"><div class="ip-bezel__core ip-cap__core">
+                                    <span class="ip-cap__num mono">03</span>
+                                    <svg class="ip-i ip-cap__icon"><use href="#ip-i-shield"/></svg>
+                                    <h3>Industrial Reliability</h3>
+                                    <p>Solutions built for continuous industrial performance, shift after shift.</p>
+                                </div></div>
+                            </article>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ========================= CATEGORY RAIL (pinned horizontal) ========================= -->
+                <section class="ip-rail" id="products" data-ip-hscroll="" data-theme="dark">
+                    <div class="ip-rail__sticky">
+                        <div class="ip-container ip-rail__head">
+                            <div>
+                                <span class="ip-eyebrow" data-ip-reveal=""><i class="ip-dot"/>Product families</span>
+                                <h2 class="ip-h2" data-ip-split="words">Machinery that <em>means business.</em></h2>
+                            </div>
+                            <div class="ip-rail__meta" data-ip-reveal="">
+                                <span class="ip-rail__counter mono"><b data-ip-hscroll-index="">01</b> / <t t-out="'%02d' % (len(categories) + 1)"/></span>
+                                <a href="/products" class="ip-btn ip-btn--ghost ip-btn--sm ip-magnetic">
+                                    <span class="ip-btn__label">Full catalogue</span>
+                                    <t t-call="pnsb_website.ip_btn_arrow"/>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ip-rail__viewport" data-ip-native-scroll-x="">
+                            <div class="ip-rail__track" data-ip-hscroll-track="">
+                                <a t-foreach="categories" t-as="category" t-att-href="category.website_url"
+                                   class="ip-cat" data-ip-cursor="Explore">
+                                    <div class="ip-cat__media">
+                                        <img t-att-src="category._ip_image_src(900)" t-att-srcset="category._ip_image_srcset((480, 900, 1400))"
+                                             sizes="(max-width: 768px) 80vw, 34vw" t-att-alt="category.name" loading="lazy"/>
+                                    </div>
+                                    <div class="ip-cat__body">
+                                        <span class="ip-cat__index mono" t-out="'%02d' % (category_index + 1)"/>
+                                        <h3 class="ip-cat__title" t-out="category.name"/>
+                                        <p class="ip-cat__tagline" t-out="category.tagline or ''"/>
+                                        <div class="ip-cat__meta mono">
+                                            <span t-out="category.size_range or ''"/>
+                                            <span t-out="category.standards or ''"/>
+                                        </div>
+                                        <span class="ip-cat__count mono"><t t-set="family_count" t-value="category_counts.get(category.id, 0)"/><t t-out="family_count"/> <t t-out="'family' if family_count == 1 else 'families'"/> <svg class="ip-i"><use href="#ip-i-arrow-ur"/></svg></span>
+                                    </div>
+                                </a>
+                                <a href="/quote" class="ip-cat ip-cat--cta" data-ip-cursor="Upload">
+                                    <div class="ip-cat__body">
+                                        <span class="ip-cat__index mono" t-out="'%02d' % (len(categories) + 1)"/>
+                                        <svg class="ip-i ip-cat__big-icon"><use href="#ip-i-ruler"/></svg>
+                                        <h3 class="ip-cat__title">Made to<br/>your drawing</h3>
+                                        <p class="ip-cat__tagline">Specials, prototypes and custom components. Send a STEP, DWG or PDF and our team will get back to you.</p>
+                                        <span class="ip-cat__count mono">Upload drawing <svg class="ip-i"><use href="#ip-i-arrow-ur"/></svg></span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ip-container"><div class="ip-rail__progress"><span data-ip-hscroll-bar=""/></div></div>
+                    </div>
+                </section>
+
+                <!-- ========================= PROCESS (3D nut on bolt) ========================= -->
+                <section class="ip-process" id="process" data-ip-process="" data-theme="dark">
+                    <div class="ip-container ip-process__intro">
+                        <span class="ip-eyebrow" data-ip-reveal=""><i class="ip-dot"/>Our process</span>
+                        <h2 class="ip-h2" data-ip-split="words">From requirement <em>to reality.</em></h2>
+                        <p class="ip-lead" data-ip-reveal="">Four clear stages from the first conversation to a dependable solution on your shop floor. Keep scrolling and watch the joint tighten.</p>
+                    </div>
+                    <div class="ip-process__track">
+                        <div class="ip-process__sticky">
+                            <div class="ip-container ip-process__grid">
+                                <div class="ip-process__stage">
+                                    <div class="ip-blueprint ip-blueprint--stage"/>
+                                    <div class="ip-scene" data-ip-scene="">
+                                        <div class="ip-bolt">
+                                            <div class="ip-bolt__shank"><i class="ip-bolt__thread"/></div>
+                                            <div class="ip-bolt__washer"/>
+                                            <div class="ip-bolt__head">
+                                                <t t-call="pnsb_website.ip_prism"><t t-set="prism_class" t-value="'ip-prism--head'"/></t>
+                                            </div>
+                                            <div class="ip-bolt__nut" data-ip-nut="">
+                                                <t t-call="pnsb_website.ip_prism"><t t-set="prism_class" t-value="'ip-prism--nut'"/></t>
+                                            </div>
+                                            <div class="ip-bolt__glow" data-ip-seat-glow=""/>
+                                        </div>
+                                    </div>
+                                    <div class="ip-telemetry mono">
+                                        <div><span>Rotation</span><b data-ip-telemetry="rotation">0°</b></div>
+                                        <div><span>Travel</span><b data-ip-telemetry="travel">0.0 mm</b></div>
+                                        <div><span>Preload</span><b data-ip-telemetry="preload">0.0 kN</b></div>
+                                    </div>
+                                    <div class="ip-process__dims mono" aria-hidden="true">
+                                        <span class="ip-dim ip-dim--v"><i/>L 120</span>
+                                        <span class="ip-dim ip-dim--h"><i/>M24 × 3.0</span>
+                                    </div>
+                                </div>
+                                <div class="ip-process__steps">
+                                    <div class="ip-process__rail"><span data-ip-process-bar=""/></div>
+                                    <ol>
+                                        <li class="ip-step" data-ip-step="0">
+                                            <span class="ip-step__num mono">01</span>
+                                            <div class="ip-step__body">
+                                                <h3>Understand</h3>
+                                                <p>We understand your application, requirements and operating conditions before anything is designed.</p>
+                                            </div>
+                                            <figure class="ip-step__img"><img alt="Engineer reviewing requirements" loading="lazy" src="https://images.pexels.com/photos/32845671/pexels-photo-32845671.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=700"/></figure>
+                                        </li>
+                                        <li class="ip-step" data-ip-step="1">
+                                            <span class="ip-step__num mono">02</span>
+                                            <div class="ip-step__body">
+                                                <h3>Engineer</h3>
+                                                <p>We translate requirements into a practical engineering solution, with the right material, finish and tolerances.</p>
+                                            </div>
+                                            <figure class="ip-step__img"><img alt="CNC machining close-up" loading="lazy" src="https://images.pexels.com/photos/20607184/pexels-photo-20607184.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=700"/></figure>
+                                        </li>
+                                        <li class="ip-step" data-ip-step="2">
+                                            <span class="ip-step__num mono">03</span>
+                                            <div class="ip-step__body">
+                                                <h3>Build</h3>
+                                                <p>Components and machinery are produced with precision and quality in mind, and checked at every stage.</p>
+                                            </div>
+                                            <figure class="ip-step__img"><img alt="Production on the shop floor" loading="lazy" src="https://images.pexels.com/photos/29224559/pexels-photo-29224559.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=700"/></figure>
+                                        </li>
+                                        <li class="ip-step" data-ip-step="3">
+                                            <span class="ip-step__num mono">04</span>
+                                            <div class="ip-step__body">
+                                                <h3>Deliver</h3>
+                                                <p>We deliver a dependable solution, documented and ready for industrial use.</p>
+                                            </div>
+                                            <figure class="ip-step__img"><img alt="Packed parts ready for dispatch" loading="lazy" src="https://images.pexels.com/photos/17229385/pexels-photo-17229385.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=700"/></figure>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ========================= FEATURED (stacking cards) ========================= -->
+                <section class="ip-section ip-featured" data-theme="dark" t-if="featured">
+                    <div class="ip-container ip-featured__head">
+                        <span class="ip-eyebrow" data-ip-reveal=""><i class="ip-dot"/>Our products</span>
+                        <h2 class="ip-h2" data-ip-split="words">Engineered for <em>performance.</em></h2>
+                    </div>
+                    <div class="ip-container ip-stack" data-ip-stack="">
+                        <article t-foreach="featured" t-as="product" class="ip-stack__card" t-attf-style="--i: #{product_index}">
+                            <div class="ip-bezel ip-bezel--fill">
+                                <div class="ip-bezel__core ip-stack__core">
+                                    <div class="ip-stack__media">
+                                        <img t-att-src="product._ip_image_src(1200)" t-att-srcset="product._ip_image_srcset((600, 1200, 1800))"
+                                             sizes="(max-width: 768px) 100vw, 55vw" t-att-alt="product.name" loading="lazy"/>
+                                    </div>
+                                    <div class="ip-stack__body">
+                                        <div class="ip-stack__top mono">
+                                            <span t-out="'%02d' % (product_index + 1)"/>
+                                            <span t-out="product.category_id.name or ''"/>
+                                        </div>
+                                        <h3 class="ip-stack__title" t-out="product.name"/>
+                                        <p class="ip-stack__tagline" t-out="product.tagline or ''"/>
+                                        <dl class="ip-kv">
+                                            <div t-if="product.standard"><dt class="mono">Standard</dt><dd t-out="product.standard"/></div>
+                                            <div t-if="product.grade"><dt class="mono">Classes</dt><dd t-out="product.grade"/></div>
+                                            <div t-if="product.size_range"><dt class="mono">Sizes</dt><dd t-out="product.size_range"/></div>
+                                            <div t-if="product.lead_time"><dt class="mono">Lead time</dt><dd t-out="product.lead_time"/></div>
+                                        </dl>
+                                        <div class="ip-stack__actions">
+                                            <a t-att-href="product.category_id.website_url or '/products'" class="ip-btn ip-btn--light ip-magnetic">
+                                                <span class="ip-btn__label">View range</span>
+                                                <t t-call="pnsb_website.ip_btn_arrow"/>
+                                            </a>
+                                            <button type="button" class="ip-chip-btn" data-ip-quick-add="" t-att-data-product-id="product.id"
+                                                    t-att-data-product="product._ip_card_json()">
+                                                <svg class="ip-i"><use href="#ip-i-plus"/></svg><span>Add to quote</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- ========================= MATERIALS EXPLORER (light) ========================= -->
+                <section class="ip-section ip-explorer" id="materials" data-theme="light" data-ip-explorer=""
+                         t-att-data-explorer="explorer_json">
+                    <div class="ip-container ip-explorer__grid">
+                        <div class="ip-explorer__copy">
+                            <span class="ip-eyebrow" data-ip-reveal=""><i class="ip-dot"/>Materials &amp; finishes</span>
+                            <h2 class="ip-h2" data-ip-split="words">Choose the metal. <em>We handle the metallurgy.</em></h2>
+                            <p class="ip-lead" data-ip-reveal="">Combine a base material with a surface finish and see how strength, corrosion resistance and cost change for your application.</p>
+                            <div class="ip-field" data-ip-reveal="">
+                                <span class="ip-field__label mono">Base material</span>
+                                <div class="ip-seg ip-seg--wrap ip-seg--light" data-ip-explorer-materials="" role="radiogroup" aria-label="Material"/>
+                            </div>
+                            <div class="ip-field" data-ip-reveal="">
+                                <span class="ip-field__label mono">Surface finish</span>
+                                <div class="ip-seg ip-seg--wrap ip-seg--light" data-ip-explorer-finishes="" role="radiogroup" aria-label="Finish"/>
+                            </div>
+                        </div>
+                        <div class="ip-explorer__viz" data-ip-reveal="scale">
+                            <div class="ip-explorer__stage">
+                                <div class="ip-explorer__halo"/>
+                                <div class="ip-scene ip-scene--explorer" data-ip-explorer-scene="">
+                                    <div class="ip-explorer__nut" data-ip-explorer-nut="">
+                                        <t t-call="pnsb_website.ip_prism"><t t-set="prism_class" t-value="'ip-prism--explorer'"/></t>
+                                    </div>
+                                </div>
+                                <span class="ip-explorer__code mono" data-ip-explorer-code=""/>
+                            </div>
+                            <div class="ip-explorer__panel">
+                                <h3 class="ip-explorer__name" data-ip-explorer-name=""/>
+                                <p class="ip-explorer__desc" data-ip-explorer-desc=""/>
+                                <div class="ip-meters">
+                                    <div class="ip-meters__row"><span class="mono">Strength</span><div class="ip-meter"><span data-ip-explorer-meter="strength"/></div></div>
+                                    <div class="ip-meters__row"><span class="mono">Corrosion resistance</span><div class="ip-meter"><span data-ip-explorer-meter="corrosion"/></div></div>
+                                    <div class="ip-meters__row"><span class="mono">Cost index</span><div class="ip-meter"><span data-ip-explorer-meter="cost"/></div></div>
+                                </div>
+                                <dl class="ip-explorer__facts">
+                                    <div><dt class="mono">Tensile</dt><dd><b data-ip-explorer-fact="tensile">0</b> MPa</dd></div>
+                                    <div><dt class="mono">Salt spray</dt><dd><b data-ip-explorer-fact="saltSpray">0</b> h</dd></div>
+                                    <div><dt class="mono">Max temp.</dt><dd><b data-ip-explorer-fact="temp">0</b> °C</dd></div>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ========================= INDUSTRIES ========================= -->
+                <section class="ip-section ip-sectors" id="industries" data-theme="dark" data-ip-sectors="">
+                    <div class="ip-container ip-sectors__grid">
+                        <div class="ip-sectors__head">
+                            <span class="ip-eyebrow" data-ip-reveal=""><i class="ip-dot"/>Industries</span>
+                            <h2 class="ip-h2" data-ip-split="words">Wherever things <em>must not</em> come apart.</h2>
+                            <p class="ip-lead" data-ip-reveal="">Application engineers who speak your standard, from PPAP for automotive to EN 14399 for steel structures.</p>
+                        </div>
+                        <ul class="ip-sectors__list" data-ip-stagger="">
+                            <li t-foreach="sectors" t-as="sector" class="ip-sector" data-ip-reveal=""
+                                t-att-data-img="sector._ip_image_src(900)">
+                                <a href="/products" class="ip-sector__link">
+                                    <span class="ip-sector__index mono" t-out="'%02d' % (sector_index + 1)"/>
+                                    <span class="ip-sector__name" t-out="sector.name"/>
+                                    <span class="ip-sector__tag" t-out="sector.tagline or ''"/>
+                                    <span class="ip-sector__arrow"><svg class="ip-i"><use href="#ip-i-arrow-ur"/></svg></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="ip-sectors__float" data-ip-sectors-float="" aria-hidden="true"><img alt=""/></div>
+                </section>
+
+                <!-- ========================= QUALITY ========================= -->
+                <section class="ip-section ip-quality" id="quality" data-theme="dark">
+                    <div class="ip-container ip-quality__grid">
+                        <div class="ip-quality__visual" data-ip-reveal="clip">
+                            <div class="ip-bezel ip-bezel--fill">
+                                <div class="ip-bezel__core">
+                                    <img src="https://images.pexels.com/photos/35383622/pexels-photo-35383622.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1200"
+                                         alt="Quality inspector checking parts" loading="lazy" data-ip-parallax="-0.1"/>
+                                    <div class="ip-report" data-ip-report="">
+                                        <div class="ip-report__head mono"><span>Inspection report</span><span>Sample</span></div>
+                                        <ul>
+                                            <li><span>Hardness</span><b>34 HRC</b><i class="ip-report__ok"><svg class="ip-i"><use href="#ip-i-check"/></svg></i></li>
+                                            <li><span>Proof load</span><b>147 kN</b><i class="ip-report__ok"><svg class="ip-i"><use href="#ip-i-check"/></svg></i></li>
+                                            <li><span>Thread gauge</span><b>6g GO/NO-GO</b><i class="ip-report__ok"><svg class="ip-i"><use href="#ip-i-check"/></svg></i></li>
+                                            <li><span>Salt spray</span><b>720 h</b><i class="ip-report__ok"><svg class="ip-i"><use href="#ip-i-check"/></svg></i></li>
+                                            <li><span>Coating</span><b>9.4 µm</b><i class="ip-report__ok"><svg class="ip-i"><use href="#ip-i-check"/></svg></i></li>
+                                        </ul>
+                                        <div class="ip-report__foot mono">Inspection record kept for every batch</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ip-quality__copy">
+                            <span class="ip-eyebrow" data-ip-reveal=""><i class="ip-dot"/>Quality &amp; testing</span>
+                            <h2 class="ip-h2" data-ip-split="words">Quality you can <em>measure.</em></h2>
+                            <p class="ip-lead" data-ip-reveal="">Quality is built into every stage: materials are verified, dimensions are checked and every batch is inspected before it leaves our facility.</p>
+                            <ul class="ip-checks" data-ip-stagger="">
+                                <li data-ip-reveal=""><svg class="ip-i"><use href="#ip-i-gauge"/></svg><div><b>Mechanical</b><span>Hardness, tensile, proof load, wedge &amp; impact tests</span></div></li>
+                                <li data-ip-reveal=""><svg class="ip-i"><use href="#ip-i-ruler"/></svg><div><b>Dimensional</b><span>CMM, optical sorting, thread gauges 6g / 6H</span></div></li>
+                                <li data-ip-reveal=""><svg class="ip-i"><use href="#ip-i-flame"/></svg><div><b>Corrosion</b><span>Neutral salt spray to ISO 9227, coating thickness</span></div></li>
+                                <li data-ip-reveal=""><svg class="ip-i"><use href="#ip-i-shield"/></svg><div><b>Traceability</b><span>Batch identification and test records on request</span></div></li>
+                            </ul>
+                            <div class="ip-badges" data-ip-stagger="">
+                                <span class="ip-badge" data-ip-reveal=""><b>Materials</b><small class="mono">Verified</small></span>
+                                <span class="ip-badge" data-ip-reveal=""><b>Dimensions</b><small class="mono">Inspected</small></span>
+                                <span class="ip-badge" data-ip-reveal=""><b>Batches</b><small class="mono">Traceable</small></span>
+                                <span class="ip-badge" data-ip-reveal=""><b>Drawings</b><small class="mono">Confidential</small></span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ========================= TOOLS ========================= -->
+                <section class="ip-section ip-tools" id="tools" data-theme="dark">
+                    <div class="ip-container">
+                        <div class="ip-tools__head">
+                            <span class="ip-eyebrow" data-ip-reveal=""><i class="ip-dot"/>Engineering tools</span>
+                            <h2 class="ip-h2" data-ip-split="words">Tightening torque, <em>calculated.</em></h2>
+                            <p class="ip-lead" data-ip-reveal="">Pick a thread, a property class and a surface condition to get indicative preload and assembly torque.</p>
+                        </div>
+                        <div data-ip-reveal="">
+                            <t t-call="pnsb_website.ip_torque_tool">
+                                <t t-set="torque_finishes_json" t-value="explorer_json"/>
+                            </t>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ========================= CTA ========================= -->
+                <section class="ip-cta" data-theme="dark">
+                    <div class="ip-cta__media">
+                        <img src="https://images.pexels.com/photos/8956445/pexels-photo-8956445.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1800"
+                             alt="CNC machining with coolant spray" loading="lazy" data-ip-parallax="0.18"/>
+                    </div>
+                    <div class="ip-container ip-cta__inner">
+                        <h2 class="ip-cta__title" data-ip-split="lines">
+                            <span class="ip-line">Let's build</span>
+                            <span class="ip-line"><em>something precise.</em></span>
+                        </h2>
+                        <a href="/quote" class="ip-cta__orb ip-magnetic" data-ip-magnetic-strength="0.45" data-ip-cursor="Go">
+                            <span class="ip-cta__orb-label">Start a<br/>conversation</span>
+                            <svg class="ip-i"><use href="#ip-i-arrow-ur"/></svg>
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>

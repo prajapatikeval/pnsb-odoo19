@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_industrial_root"
+              name="Industrial Parts"
+              web_icon="pnsb_website,static/description/icon.png"
+              groups="group_industrial_user"
+              sequence="55"/>
+
+    <menuitem id="menu_industrial_rfq" name="Quote Requests" parent="menu_industrial_root"
+              action="industrial_rfq_action" sequence="10"/>
+
+    <menuitem id="menu_industrial_catalog" name="Catalogue" parent="menu_industrial_root" sequence="20"/>
+    <menuitem id="menu_industrial_product" name="Products" parent="menu_industrial_catalog"
+              action="industrial_product_action" sequence="10"/>
+    <menuitem id="menu_industrial_category" name="Categories" parent="menu_industrial_catalog"
+              action="industrial_product_category_action" sequence="20"/>
+
+    <menuitem id="menu_industrial_config" name="Configuration" parent="menu_industrial_root"
+              groups="group_industrial_manager" sequence="90"/>
+    <menuitem id="menu_industrial_material" name="Materials" parent="menu_industrial_config"
+              action="industrial_material_action" sequence="10"/>
+    <menuitem id="menu_industrial_finish" name="Finishes" parent="menu_industrial_config"
+              action="industrial_finish_action" sequence="20"/>
+    <menuitem id="menu_industrial_sector" name="Industries" parent="menu_industrial_config"
+              action="industrial_sector_action" sequence="30"/>
+</odoo>

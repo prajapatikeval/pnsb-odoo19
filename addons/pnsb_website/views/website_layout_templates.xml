@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- =====================================================================
+         Icon sprite (thin 1.5px line icons) - referenced with <use href="#ip-i-name"/>
+    ====================================================================== -->
+    <template id="ip_icon_sprite" name="Industrial Parts: Icons">
+        <svg xmlns="http://www.w3.org/2000/svg" class="d-none" aria-hidden="true">
+            <symbol id="ip-i-arrow-ur" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></symbol>
+            <symbol id="ip-i-arrow-r" viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6"/></symbol>
+            <symbol id="ip-i-arrow-l" viewBox="0 0 24 24"><path d="M20 12H4M10 6l-6 6 6 6"/></symbol>
+            <symbol id="ip-i-arrow-d" viewBox="0 0 24 24"><path d="M12 4v16M6 14l6 6 6-6"/></symbol>
+            <symbol id="ip-i-arrow-u" viewBox="0 0 24 24"><path d="M12 20V4M6 10l6-6 6 6"/></symbol>
+            <symbol id="ip-i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+            <symbol id="ip-i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+            <symbol id="ip-i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+            <symbol id="ip-i-check" viewBox="0 0 24 24"><path d="M4 12.5 9.5 18 20 6"/></symbol>
+            <symbol id="ip-i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+            <symbol id="ip-i-basket" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M9 10h6M9 14h6M9 18h3"/></symbol>
+            <symbol id="ip-i-compare" viewBox="0 0 24 24"><rect x="3" y="4" width="7" height="16" rx="1.5"/><rect x="14" y="4" width="7" height="16" rx="1.5"/></symbol>
+            <symbol id="ip-i-download" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></symbol>
+            <symbol id="ip-i-upload" viewBox="0 0 24 24"><path d="M12 16V5M7 10l5-5 5 5M5 20h14"/></symbol>
+            <symbol id="ip-i-file" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></symbol>
+            <symbol id="ip-i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></symbol>
+            <symbol id="ip-i-list" viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11M4 6h1M4 12h1M4 18h1"/></symbol>
+            <symbol id="ip-i-sliders" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></symbol>
+            <symbol id="ip-i-chevron-d" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+            <symbol id="ip-i-nut" viewBox="0 0 24 24"><path d="M12 2.8 20 7.4v9.2l-8 4.6-8-4.6V7.4z"/><circle cx="12" cy="12" r="3.4"/></symbol>
+            <symbol id="ip-i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1"/></symbol>
+            <symbol id="ip-i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
+            <symbol id="ip-i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+            <symbol id="ip-i-shield" viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.5 3 8.3 7 10 4-1.7 7-5.5 7-10V6z"/><path d="m9 12 2 2 4-4"/></symbol>
+            <symbol id="ip-i-gauge" viewBox="0 0 24 24"><path d="M4.5 17a8.5 8.5 0 1 1 15 0"/><path d="m12 13 4-4"/><circle cx="12" cy="13" r="1"/></symbol>
+            <symbol id="ip-i-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/></symbol>
+            <symbol id="ip-i-cog" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></symbol>
+            <symbol id="ip-i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
+            <symbol id="ip-i-flame" viewBox="0 0 24 24"><path d="M12 3c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3.5 2-4.5 0 2 1 3 2 3 0-3-1-5 1-8.5z"/></symbol>
+            <symbol id="ip-i-ruler" viewBox="0 0 24 24"><path d="M3 16 16 3l5 5L8 21z"/><path d="m7 12 2 2M10 9l2 2M13 6l2 2"/></symbol>
+            <symbol id="ip-i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></symbol>
+            <symbol id="ip-i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+            <symbol id="ip-i-box" viewBox="0 0 24 24"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9z"/><path d="M4 7.5 12 12l8-4.5M12 12v9"/></symbol>
+            <symbol id="ip-i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+            <symbol id="ip-i-zoom" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M11 8v6M8 11h6"/></symbol>
+        </svg>
+    </template>
+
+    <!-- =====================================================================
+         Reusable fragments
+    ====================================================================== -->
+    <template id="ip_btn_arrow" name="Industrial Parts: Button Arrow">
+        <span class="ip-btn__icon"><svg class="ip-i"><use href="#ip-i-arrow-ur"/></svg></span>
+    </template>
+
+    <template id="ip_product_card" name="Industrial Parts: Product Card">
+        <article class="ip-pcard" t-att-data-ip-product="product._ip_card_json()">
+            <div class="ip-bezel">
+                <div class="ip-bezel__core">
+                    <div class="ip-pcard__media">
+                        <img t-att-src="product._ip_image_src(800)" t-att-srcset="product._ip_image_srcset((480, 800, 1200))"
+                             sizes="(max-width: 768px) 100vw, 33vw" t-att-alt="product.name" loading="lazy" decoding="async"/>
+                        <span t-if="product.ribbon" class="ip-pcard__ribbon" t-out="product.ribbon"/>
+                        <span class="ip-pcard__code mono" t-out="product.default_code or ''"/>
+                    </div>
+                    <div class="ip-pcard__body">
+                        <div class="ip-pcard__meta mono">
+                            <span t-out="product.category_id.name or ''"/>
+                            <span t-if="product.size_range" t-out="product.size_range"/>
+                        </div>
+                        <h3 class="ip-pcard__title" t-out="product.name"/>
+                        <p class="ip-pcard__std mono" t-if="product.standard" t-out="product.standard"/>
+                        <p class="ip-pcard__desc" t-if="product.tagline" t-out="product.tagline"/>
+                        <div class="ip-pcard__swatches" t-if="product.material_ids">
+                            <span t-foreach="product.material_ids[:5]" t-as="material"
+                                  t-attf-class="ip-swatch ip-swatch--#{material.swatch}" t-att-title="material.name"/>
+                            <span class="ip-pcard__grades mono" t-out="product.grade or ''"/>
+                        </div>
+                        <div class="ip-pcard__actions">
+                            <button type="button" class="ip-chip-btn" data-ip-quick-add=""
+                                    t-att-data-product-id="product.id" aria-label="Add to quote basket">
+                                <svg class="ip-i"><use href="#ip-i-plus"/></svg><span>Quote</span>
+                            </button>
+                            <button type="button" class="ip-chip-btn ip-chip-btn--ghost" data-ip-compare-toggle=""
+                                    t-att-data-product-id="product.id" aria-label="Compare">
+                                <svg class="ip-i"><use href="#ip-i-compare"/></svg><span>Compare</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </template>
+
+    <!-- =====================================================================
+         Main layout
+    ====================================================================== -->
+    <template id="ip_layout" name="Industrial Parts: Layout">
+        <t t-call="website.layout">
+            <t t-set="no_header" t-value="True"/>
+            <t t-set="no_footer" t-value="True"/>
+            <t t-set="pageName" t-value="'ip-site ip-page-%s' % (ip_page or 'page')"/>
+            <t t-set="head">
+                <link rel="preconnect" href="https://fonts.googleapis.com"/>
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+                <link rel="preconnect" href="https://images.pexels.com"/>
+                <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&amp;family=Geist:wght@300..700&amp;family=Geist+Mono:wght@400..600&amp;display=swap"/>
+                <meta name="theme-color" content="#0b0c0e"/>
+                <script>
+                    (function () {
+                        var d = document.documentElement;
+                        try {
+                            var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                            var framed = window.self !== window.top;
+                            if (reduce) { return; }
+                            d.classList.add('ip-motion');
+                            if (!framed) {
+                                if (!sessionStorage.getItem('ip-intro')) { d.classList.add('ip-intro'); }
+                                if (sessionStorage.getItem('ip-transition')) {
+                                    d.classList.add('ip-entering');
+                                    sessionStorage.removeItem('ip-transition');
+                                }
+                            }
+                            setTimeout(function () {
+                                if (!d.classList.contains('ip-booted')) {
+                                    d.classList.remove('ip-motion', 'ip-intro', 'ip-entering');
+                                }
+                            }, 4000);
+                        } catch (e) { /* storage blocked: run without intro */ }
+                    })();
+                </script>
+                <script defer="defer" src="/pnsb_website/static/src/boot/boot.js"/>
+                <t t-out="ip_head or ''"/>
+            </t>
+
+            <div class="ip-root" data-ip-root="" t-att-data-ip-page="ip_page">
+                <t t-call="pnsb_website.ip_icon_sprite"/>
+
+                <!-- Preloader (first visit of the session) -->
+                <div class="ip-loader" aria-hidden="true">
+                    <div class="ip-loader__inner">
+                        <svg class="ip-loader__mark" viewBox="0 0 120 120">
+                            <path class="ip-loader__hex" d="M60 6 106.8 33v54L60 114 13.2 87V33z" pathLength="1"/>
+                            <circle class="ip-loader__hole" cx="60" cy="60" r="20" pathLength="1"/>
+                        </svg>
+                        <div class="ip-loader__count mono"><span data-ip-loader-count="">000</span></div>
+                        <div class="ip-loader__brand" t-out="ip_brand"/>
+                    </div>
+                    <div class="ip-loader__bar"><span/></div>
+                </div>
+
+                <!-- Page transition curtain -->
+                <div class="ip-curtain" aria-hidden="true">
+                    <svg class="ip-curtain__mark ip-i"><use href="#ip-i-nut"/></svg>
+                </div>
+
+                <div class="ip-progress" aria-hidden="true"><span/></div>
+                <div class="ip-grain" aria-hidden="true"/>
+                <div class="ip-cursor" aria-hidden="true"><span class="ip-cursor__label"/></div>
+
+                <!-- Floating island navigation -->
+                <header class="ip-header" data-ip-header="">
+                    <nav class="ip-nav" aria-label="Main">
+                        <a href="/industrial" class="ip-nav__brand" aria-label="Home">
+                            <span class="ip-nav__logo"><svg class="ip-i"><use href="#ip-i-nut"/></svg></span>
+                            <span class="ip-nav__name"><b t-out="ip_brand_short"/><small t-if="ip_brand_rest" t-out="ip_brand_rest"/></span>
+                        </a>
+                        <ul class="ip-nav__links">
+                            <li><a href="/products" t-att-class="'is-active' if ip_page in ('catalog', 'product') else None">Products</a></li>
+                            <li><a href="/industrial#process">Process</a></li>
+                            <li><a href="/industrial#materials">Materials</a></li>
+                            <li><a href="/industrial#industries">Industries</a></li>
+                            <li><a href="/industrial#tools">Engineering tools</a></li>
+                        </ul>
+                        <div class="ip-nav__actions">
+                            <t t-if="request.env.user._is_public()">
+                                <a href="/web/login?redirect=/odoo" class="ip-nav__login" aria-label="Log in">
+                                    <svg class="ip-i"><use href="#ip-i-user"/></svg><span>Log in</span>
+                                </a>
+                            </t>
+                            <t t-else="">
+                                <a t-att-href="'/odoo' if request.env.user._is_internal() else '/my'" class="ip-nav__login" aria-label="Dashboard">
+                                    <svg class="ip-i"><use href="#ip-i-user"/></svg><span t-out="'Dashboard' if request.env.user._is_internal() else 'My account'"/>
+                                </a>
+                            </t>
+                            <button type="button" class="ip-nav__basket" data-ip-basket-open="" aria-label="Open quote basket">
+                                <svg class="ip-i"><use href="#ip-i-basket"/></svg>
+                                <span class="ip-nav__count" data-ip-basket-count="">0</span>
+                            </button>
+                            <a href="/quote" class="ip-btn ip-btn--accent ip-btn--sm ip-magnetic ip-nav__cta">
+                                <span class="ip-btn__label">Request a quote</span>
+                                <t t-call="pnsb_website.ip_btn_arrow"/>
+                            </a>
+                            <button type="button" class="ip-burger" data-ip-menu-toggle="" aria-label="Open menu" aria-expanded="false">
+                                <span/><span/>
+                            </button>
+                        </div>
+                    </nav>
+                </header>
+
+                <!-- Full-screen menu -->
+                <div class="ip-menu" data-ip-menu="" aria-hidden="true">
+                    <div class="ip-menu__inner ip-container">
+                        <ol class="ip-menu__links">
+                            <li><a href="/industrial" data-img="https://images.pexels.com/photos/17372998/pexels-photo-17372998.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900"><span class="mono">01</span><span class="ip-menu__word">Home</span></a></li>
+                            <li><a href="/products" data-img="https://images.pexels.com/photos/30496227/pexels-photo-30496227.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900"><span class="mono">02</span><span class="ip-menu__word">Products</span></a></li>
+                            <li><a href="/industrial#process" data-img="https://images.pexels.com/photos/8956445/pexels-photo-8956445.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900"><span class="mono">03</span><span class="ip-menu__word">Process</span></a></li>
+                            <li><a href="/industrial#materials" data-img="https://images.pexels.com/photos/1427292/pexels-photo-1427292.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900"><span class="mono">04</span><span class="ip-menu__word">Materials</span></a></li>
+                            <li><a href="/industrial#industries" data-img="https://images.pexels.com/photos/29449341/pexels-photo-29449341.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900"><span class="mono">05</span><span class="ip-menu__word">Industries</span></a></li>
+                            <li><a href="/industrial#quality" data-img="https://images.pexels.com/photos/32845671/pexels-photo-32845671.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900"><span class="mono">06</span><span class="ip-menu__word">Quality</span></a></li>
+                            <li><a href="/quote" data-img="https://images.pexels.com/photos/28929510/pexels-photo-28929510.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900"><span class="mono">07</span><span class="ip-menu__word">Get a quote</span></a></li>
+                            <li><a t-att-href="'/web/login?redirect=/odoo' if request.env.user._is_public() else '/odoo'" data-img="https://images.pexels.com/photos/9242171/pexels-photo-9242171.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900"><span class="mono">08</span><span class="ip-menu__word" t-out="'Log in' if request.env.user._is_public() else 'Dashboard'"/></a></li>
+                        </ol>
+                        <aside class="ip-menu__aside">
+                            <div class="ip-menu__preview"><img alt="" src="https://images.pexels.com/photos/17372998/pexels-photo-17372998.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900"/></div>
+                            <div class="ip-menu__contact">
+                                <span class="ip-eyebrow">Get in touch</span>
+                                <a t-if="ip_company.email" t-att-href="'mailto:%s' % ip_company.email" t-out="ip_company.email"/>
+                                <a t-if="ip_company.phone" t-att-href="'tel:%s' % ip_company.phone" t-out="ip_company.phone"/>
+                                <span t-if="ip_company.city" class="mono" t-out="', '.join(v for v in [ip_company.city, ip_company.country_id.name] if v)"/>
+                            </div>
+                        </aside>
+                    </div>
+                </div>
+
+                <main class="ip-main" id="ip-main">
+                    <t t-out="0"/>
+                </main>
+
+                <t t-call="pnsb_website.ip_footer"/>
+
+                <!-- Quote basket drawer -->
+                <div class="ip-drawer" data-ip-basket="" aria-hidden="true">
+                    <div class="ip-drawer__backdrop" data-ip-basket-close=""/>
+                    <aside class="ip-drawer__panel" role="dialog" aria-label="Quote basket" data-ip-native-scroll="">
+                        <header class="ip-drawer__head">
+                            <div>
+                                <span class="ip-eyebrow">Quote basket</span>
+                                <h2 class="ip-drawer__title" data-ip-basket-label="">0 items</h2>
+                            </div>
+                            <button type="button" class="ip-icon-btn" data-ip-basket-close="" aria-label="Close">
+                                <svg class="ip-i"><use href="#ip-i-x"/></svg>
+                            </button>
+                        </header>
+                        <div class="ip-drawer__body" data-ip-basket-list=""/>
+                        <div class="ip-drawer__empty" data-ip-basket-empty="">
+                            <svg class="ip-i"><use href="#ip-i-basket"/></svg>
+                            <p>Your basket is empty. Add parts from the catalogue and request one consolidated quote.</p>
+                            <a href="/products" class="ip-btn ip-btn--ghost ip-btn--sm"><span class="ip-btn__label">Browse products</span><t t-call="pnsb_website.ip_btn_arrow"/></a>
+                        </div>
+                        <footer class="ip-drawer__foot">
+                            <div class="ip-drawer__total mono"><span>Total pieces</span><b data-ip-basket-total="">0</b></div>
+                            <a href="/quote" class="ip-btn ip-btn--accent ip-btn--block ip-magnetic">
+                                <span class="ip-btn__label">Review &amp; request quote</span>
+                                <t t-call="pnsb_website.ip_btn_arrow"/>
+                            </a>
+                        </footer>
+                    </aside>
+                </div>
+
+                <!-- Compare tray -->
+                <div class="ip-compare-tray" data-ip-compare-tray="" aria-live="polite">
+                    <div class="ip-compare-tray__items" data-ip-compare-items=""/>
+                    <a href="/products/compare" class="ip-btn ip-btn--light ip-btn--sm" data-ip-compare-go="">
+                        <span class="ip-btn__label">Compare <b data-ip-compare-count="">0</b></span>
+                        <t t-call="pnsb_website.ip_btn_arrow"/>
+                    </a>
+                    <button type="button" class="ip-icon-btn ip-icon-btn--sm" data-ip-compare-clear="" aria-label="Clear comparison">
+                        <svg class="ip-i"><use href="#ip-i-x"/></svg>
+                    </button>
+                </div>
+
+                <div class="ip-toasts" data-ip-toasts="" aria-live="polite"/>
+            </div>
+        </t>
+    </template>
+
+    <!-- =====================================================================
+         Footer (curtain reveal)
+    ====================================================================== -->
+    <template id="ip_footer" name="Industrial Parts: Footer">
+        <footer class="ip-footer" data-theme="dark">
+            <div class="ip-container ip-footer__inner">
+                <div class="ip-footer__cta">
+                    <h2 class="ip-footer__headline">Let's discuss your<br/>requirement.</h2>
+                    <a href="/quote" class="ip-btn ip-btn--accent ip-magnetic">
+                        <span class="ip-btn__label">Start a conversation</span>
+                        <t t-call="pnsb_website.ip_btn_arrow"/>
+                    </a>
+                </div>
+                <div class="ip-footer__grid">
+                    <div class="ip-footer__col ip-footer__about">
+                        <p>Precision machinery and engineered components for modern industry, built with precision, reliability and performance at the core.</p>
+                        <div class="ip-footer__certs mono">
+                            <span>Precision engineering</span><span>Custom solutions</span><span>Industrial reliability</span>
+                        </div>
+                    </div>
+                    <div class="ip-footer__col">
+                        <h3 class="ip-footer__title mono">Products</h3>
+                        <ul>
+                            <li t-foreach="ip_nav_categories[:7]" t-as="category">
+                                <a t-att-href="category.website_url" t-out="category.name"/>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="ip-footer__col">
+                        <h3 class="ip-footer__title mono">Company</h3>
+                        <ul>
+                            <li><a href="/industrial#ip-intro">About us</a></li>
+                            <li><a href="/industrial#process">Our process</a></li>
+                            <li><a href="/industrial#quality">Quality &amp; testing</a></li>
+                            <li><a href="/industrial#industries">Industries</a></li>
+                            <li><a href="/industrial#tools">Torque calculator</a></li>
+                            <li><a href="/quote">Request a quote</a></li>
+                            <li><a href="/web/login?redirect=/odoo">Admin login</a></li>
+                        </ul>
+                    </div>
+                    <div class="ip-footer__col">
+                        <h3 class="ip-footer__title mono">Contact</h3>
+                        <ul class="ip-footer__contact">
+                            <li t-if="ip_company.street or ip_company.city">
+                                <svg class="ip-i"><use href="#ip-i-pin"/></svg>
+                                <span t-out="', '.join(v for v in [ip_company.street, ip_company.city, ip_company.country_id.name] if v)"/>
+                            </li>
+                            <li t-if="ip_company.phone">
+                                <svg class="ip-i"><use href="#ip-i-phone"/></svg>
+                                <a t-att-href="'tel:%s' % ip_company.phone" t-out="ip_company.phone"/>
+                            </li>
+                            <li t-if="ip_company.email">
+                                <svg class="ip-i"><use href="#ip-i-mail"/></svg>
+                                <a t-att-href="'mailto:%s' % ip_company.email" t-out="ip_company.email"/>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="ip-footer__wordmark" aria-hidden="true">
+                <span data-ip-fit-text="" t-out="ip_brand_short"/>
+            </div>
+            <div class="ip-container ip-footer__bottom mono">
+                <span>© <t t-out="datetime.date.today().year"/> <t t-out="ip_brand"/>. All rights reserved.</span>
+                <button type="button" class="ip-footer__top" data-ip-scroll-top="">Back to top <svg class="ip-i"><use href="#ip-i-arrow-u"/></svg></button>
+            </div>
+        </footer>
+    </template>
+</odoo>

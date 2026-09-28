@@ -3,7 +3,10 @@ services:
     name: pnsb-odoo19
     runtime: docker
     plan: free
-    healthCheckPath: /
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /web/health
+    autoDeploy: true
     envVars:
       - key: PORT
         value: 10000
@@ -25,6 +28,17 @@ services:
         fromDatabase:
           name: pnsb-db
           property: password
+      # Password of the "admin" user. Render generates one; view or change it in
+      # the service's Environment tab (the new value is applied on the next deploy).
+      - key: ADMIN_PASSWORD
+        generateValue: true
+      # Odoo master password (the public database manager is disabled).
+      - key: MASTER_PASSWORD
+        generateValue: true
+      # Extra Odoo apps to install at boot, comma separated, e.g. "crm,sale_management".
+      # Installing here avoids the web-request timeouts of Apps > Install.
+      - key: EXTRA_MODULES
+        value: ""
 
 databases:
   - name: pnsb-db

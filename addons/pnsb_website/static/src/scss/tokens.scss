@@ -1,0 +1,88 @@
+// =============================================================================
+// Industrial Parts Website - design tokens
+// Everything is scoped under .ip-root so the rest of the Odoo website is untouched.
+// =============================================================================
+
+$ip-bp-sm: 576px;
+$ip-bp-md: 768px;
+$ip-bp-lg: 992px;
+$ip-bp-xl: 1200px;
+
+@mixin ip-up($bp) {
+    @media (min-width: $bp) { @content; }
+}
+@mixin ip-down($bp) {
+    @media (max-width: $bp - 0.02px) { @content; }
+}
+@mixin ip-hover {
+    @media (hover: hover) and (pointer: fine) { @content; }
+}
+
+.ip-root {
+    // Palette - graphite steel with a forge-orange signal colour
+    --ip-bg: #0b0c0e;
+    --ip-bg-2: #0f1013;
+    --ip-surface: #141619;
+    --ip-surface-2: #1a1c21;
+    --ip-text: #eceae6;
+    --ip-muted: #9a9ca3;
+    --ip-dim: #62656d;
+    --ip-line: rgba(255, 255, 255, 0.08);
+    --ip-line-2: rgba(255, 255, 255, 0.14);
+    --ip-accent: #ff5b1f;
+    --ip-accent-2: #ff8a4c;
+    --ip-accent-soft: rgba(255, 91, 31, 0.14);
+    --ip-accent-ink: #160802;
+    --ip-steel: #a9b4c2;
+    --ip-ok: #86e3ae;
+    --ip-light: #e7e5e0;
+    --ip-light-2: #dcd9d2;
+    --ip-light-text: #121316;
+    --ip-light-muted: #5b5d64;
+    --ip-light-line: rgba(18, 19, 22, 0.12);
+
+    // Semantic (switched by [data-theme="light"])
+    --c-bg: var(--ip-bg);
+    --c-fg: var(--ip-text);
+    --c-muted: var(--ip-muted);
+    --c-dim: var(--ip-dim);
+    --c-line: var(--ip-line);
+    --c-line-2: var(--ip-line-2);
+    --c-surface: var(--ip-surface);
+    --c-shell: rgba(255, 255, 255, 0.035);
+    --c-core: linear-gradient(180deg, #17191d 0%, #121417 100%);
+    --c-highlight: rgba(255, 255, 255, 0.07);
+
+    // Type
+    --ip-font-display: 'Archivo', 'Arial Narrow', sans-serif;
+    --ip-font-body: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --ip-font-mono: 'Geist Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+    // Motion
+    --ip-ease: cubic-bezier(0.32, 0.72, 0, 1);
+    --ip-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --ip-ease-io: cubic-bezier(0.76, 0, 0.24, 1);
+    --ip-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    // Layout
+    --ip-gutter: clamp(16px, 4vw, 56px);
+    --ip-max: 1440px;
+    --ip-section: clamp(96px, 12vw, 190px);
+    --ip-radius: 28px;
+    --ip-radius-sm: 16px;
+    --ip-header-h: 88px;
+}
+
+.ip-root [data-theme="light"],
+.ip-root.ip-theme-light {
+    --c-bg: var(--ip-light);
+    --c-fg: var(--ip-light-text);
+    --c-muted: var(--ip-light-muted);
+    --c-dim: #8b8d93;
+    --c-line: var(--ip-light-line);
+    --c-line-2: rgba(18, 19, 22, 0.2);
+    --c-surface: #f3f1ed;
+    --c-shell: rgba(18, 19, 22, 0.04);
+    --c-core: linear-gradient(180deg, #f6f4f0 0%, #eeebe5 100%);
+    --c-highlight: rgba(255, 255, 255, 0.9);
+}
