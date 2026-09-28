@@ -64,6 +64,9 @@ export class IpRoot extends Interaction {
         this.pointer = { x: -100, y: -100, cx: -100, cy: -100 };
         this.useCursor = hasFinePointer() && !prefersReducedMotion();
         this.lastHeaderState = "";
+        this.navHidden = false;
+        this.navTravel = 0;
+        this.navLastY = window.scrollY;
     }
 
     start() {
@@ -260,15 +263,25 @@ export class IpRoot extends Interaction {
         this.progress?.style.setProperty("--p", clamp(state.y / max).toFixed(4));
 
         if (this.header) {
+            // Hide after a deliberate scroll down, show after a deliberate
+            // scroll up. Accumulating the travel (instead of reacting to every
+            // 1px change of direction) removes the flicker caused by inertia
+            // and trackpad jitter.
+            const dy = state.y - this.navLastY;
+            this.navLastY = state.y;
             const scrolled = state.y > 40;
-            const hidden = !this.menuOpen && state.y > 320 && state.dir > 0 && Math.abs(state.vy) > 0.4;
-            const shown = state.dir < 0 || state.y <= 320;
-            let nextHidden = this.header.classList.contains("is-hidden");
-            if (hidden) {
-                nextHidden = true;
-            } else if (shown || this.menuOpen) {
-                nextHidden = false;
+            if (this.menuOpen || this.html.classList.contains("ip-locked") || state.y < 160) {
+                this.navHidden = false;
+                this.navTravel = 0;
+            } else if (dy) {
+                this.navTravel = dy > 0 ? Math.max(0, this.navTravel) + dy : Math.min(0, this.navTravel) + dy;
+                if (this.navTravel > 90) {
+                    this.navHidden = true;
+                } else if (this.navTravel < -40) {
+                    this.navHidden = false;
+                }
             }
+            const nextHidden = this.navHidden;
             const key = `${scrolled}|${nextHidden}`;
             if (key !== this.lastHeaderState) {
                 this.lastHeaderState = key;
@@ -406,6 +419,7 @@ export class IpRoot extends Interaction {
 
     closeMenu() {
         this.menuOpen = false;
+        this.navTravel = 0;
         this.html.classList.remove("ip-locked");
         this.header?.classList.remove("is-menu");
         this.updateContent();
