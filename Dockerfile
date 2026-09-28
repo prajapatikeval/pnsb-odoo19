@@ -1,10 +1,16 @@
+# Odoo 19 + PNSB website, tuned for Render.
 FROM odoo:19.0
 
 USER root
-COPY addons /mnt/extra-addons
-COPY odoo.conf /etc/odoo/odoo.conf
-COPY start.sh /start.sh
-RUN chmod +x /start.sh && chown -R odoo:odoo /mnt/extra-addons /etc/odoo/odoo.conf /start.sh
+COPY --chown=odoo:odoo addons /mnt/extra-addons
+COPY --chown=odoo:odoo docker/boot.py /opt/pnsb/boot.py
+RUN chmod 0755 /opt/pnsb/boot.py \
+    && find /mnt/extra-addons -name "__pycache__" -prune -exec rm -rf {} +
 USER odoo
 
-ENTRYPOINT ["/start.sh"]
+ENV PORT=10000
+EXPOSE 10000
+
+# boot.py answers health checks right away, prepares the database/modules,
+# then replaces itself with the Odoo server.
+ENTRYPOINT ["python3", "/opt/pnsb/boot.py"]

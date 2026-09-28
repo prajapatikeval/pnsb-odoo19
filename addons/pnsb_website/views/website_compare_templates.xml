@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="page_compare" name="Industrial Parts: Compare">
+        <t t-call="pnsb_website.ip_layout">
+            <t t-set="additional_title">Compare products</t>
+            <div id="wrap" class="ip-compare-page" data-ip-compare-page="">
+                <section class="ip-page-hero ip-page-hero--compact" data-theme="dark">
+                    <div class="ip-blueprint"/>
+                    <div class="ip-container">
+                        <nav class="ip-crumbs mono" aria-label="Breadcrumb" data-ip-reveal="fade">
+                            <a href="/industrial">Home</a><span>/</span><a href="/products">Products</a><span>/</span><span>Compare</span>
+                        </nav>
+                        <div class="ip-page-hero__grid">
+                            <h1 class="ip-h1" data-ip-split="words">Side by <em>side.</em></h1>
+                            <div class="ip-page-hero__side" data-ip-reveal="" t-if="products">
+                                <label class="ip-toggle">
+                                    <input type="checkbox" data-ip-compare-diff=""/>
+                                    <span class="ip-toggle__track"><i/></span>
+                                    <span>Highlight differences only</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="ip-section ip-section--tight" data-theme="dark">
+                    <div class="ip-container">
+                        <div t-if="products" class="ip-table-wrap ip-compare" data-ip-reveal="" data-ip-native-scroll-x="">
+                            <table class="ip-table ip-table--compare">
+                                <thead>
+                                    <tr>
+                                        <th class="ip-compare__corner mono"><t t-out="len(products)"/> selected</th>
+                                        <th t-foreach="products" t-as="product" t-att-data-ip-compare-col="product.id">
+                                            <div class="ip-compare__card">
+                                                <span class="ip-compare__img"><img t-att-src="product._ip_image_src(480)" t-att-alt="product.name"/></span>
+                                                <span class="ip-compare__name" t-out="product.name"/>
+                                                <div class="ip-compare__actions">
+                                                    <button type="button" class="ip-chip-btn" data-ip-quick-add="" t-att-data-product-id="product.id" t-att-data-product="product._ip_card_json()">
+                                                        <svg class="ip-i"><use href="#ip-i-plus"/></svg><span>Quote</span>
+                                                    </button>
+                                                    <button type="button" class="ip-icon-btn ip-icon-btn--sm" t-att-data-ip-compare-remove="product.id" aria-label="Remove">
+                                                        <svg class="ip-i"><use href="#ip-i-x"/></svg>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-ip-compare-row=""><th>Category</th><td t-foreach="products" t-as="product" t-out="product.category_id.name or '-'"/></tr>
+                                    <tr data-ip-compare-row=""><th>Standard</th><td t-foreach="products" t-as="product" t-out="product.standard or '-'"/></tr>
+                                    <tr data-ip-compare-row=""><th>Property classes</th><td t-foreach="products" t-as="product" t-out="product.grade or '-'"/></tr>
+                                    <tr data-ip-compare-row=""><th>Size range</th><td t-foreach="products" t-as="product" t-out="product.size_range or '-'"/></tr>
+                                    <tr data-ip-compare-row=""><th>Thread</th><td t-foreach="products" t-as="product"><span t-field="product.thread_type"/></td></tr>
+                                    <tr data-ip-compare-row=""><th>Head / drive</th><td t-foreach="products" t-as="product" t-out="' / '.join(v for v in [product.head_type, product.drive_type] if v) or '-'"/></tr>
+                                    <tr data-ip-compare-row=""><th>Materials</th><td t-foreach="products" t-as="product" t-out="', '.join(product.material_ids.mapped('name')) or '-'"/></tr>
+                                    <tr data-ip-compare-row=""><th>Finishes</th><td t-foreach="products" t-as="product" t-out="', '.join(product.finish_ids.mapped('name')) or '-'"/></tr>
+                                    <tr data-ip-compare-row=""><th>MOQ</th><td t-foreach="products" t-as="product" class="mono" t-out="'{:,} pcs'.format(product.moq) if product.moq else '-'"/></tr>
+                                    <tr data-ip-compare-row=""><th>Lead time</th><td t-foreach="products" t-as="product" t-out="product.lead_time or '-'"/></tr>
+                                    <tr t-foreach="spec_names" t-as="spec_name" data-ip-compare-row="">
+                                        <th t-out="spec_name"/>
+                                        <td t-foreach="products" t-as="product" class="mono" t-out="spec_map[product.id].get(spec_name, '-')"/>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div t-else="" class="ip-empty">
+                            <svg class="ip-i"><use href="#ip-i-compare"/></svg>
+                            <h3>Nothing to compare yet.</h3>
+                            <p>Use the compare button on up to four product families to see them side by side.</p>
+                            <div class="ip-empty__actions">
+                                <a href="/products" class="ip-btn ip-btn--accent ip-btn--sm"><span class="ip-btn__label">Browse products</span><t t-call="pnsb_website.ip_btn_arrow"/></a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Categories -->
+    <record id="industrial_product_category_view_form" model="ir.ui.view">
+        <field name="name">industrial.product.category.form</field>
+        <field name="model">industrial.product.category</field>
+        <field name="arch" type="xml">
+            <form string="Category">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <field name="is_published" widget="website_redirect_button"/>
+                    </div>
+                    <field name="image_1920" widget="image" class="oe_avatar" options="{'preview_image': 'image_256'}"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. Hex Bolts &amp; Screws"/></h1>
+                        <field name="tagline" placeholder="Short line shown on the category card"/>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="size_range"/>
+                            <field name="standards"/>
+                            <field name="sequence"/>
+                        </group>
+                        <group>
+                            <field name="image_url" widget="url"/>
+                            <field name="product_count"/>
+                        </group>
+                    </group>
+                    <field name="description" placeholder="Description..."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="industrial_product_category_view_list" model="ir.ui.view">
+        <field name="name">industrial.product.category.list</field>
+        <field name="model">industrial.product.category</field>
+        <field name="arch" type="xml">
+            <list string="Categories">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="size_range"/>
+                <field name="standards"/>
+                <field name="product_count"/>
+                <field name="is_published" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="industrial_product_category_action" model="ir.actions.act_window">
+        <field name="name">Categories</field>
+        <field name="res_model">industrial.product.category</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Materials -->
+    <record id="industrial_material_view_list" model="ir.ui.view">
+        <field name="name">industrial.material.list</field>
+        <field name="model">industrial.material</field>
+        <field name="arch" type="xml">
+            <list string="Materials" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="family"/>
+                <field name="swatch"/>
+                <field name="tensile_strength"/>
+                <field name="yield_strength" optional="hide"/>
+                <field name="max_temperature" optional="hide"/>
+                <field name="density" optional="hide"/>
+                <field name="strength_rating"/>
+                <field name="corrosion_rating"/>
+                <field name="cost_rating"/>
+                <field name="show_in_explorer" widget="boolean_toggle"/>
+                <field name="description" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="industrial_material_action" model="ir.actions.act_window">
+        <field name="name">Materials</field>
+        <field name="res_model">industrial.material</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <!-- Finishes -->
+    <record id="industrial_finish_view_list" model="ir.ui.view">
+        <field name="name">industrial.finish.list</field>
+        <field name="model">industrial.finish</field>
+        <field name="arch" type="xml">
+            <list string="Finishes" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="swatch"/>
+                <field name="thickness"/>
+                <field name="salt_spray_hours"/>
+                <field name="corrosion_rating"/>
+                <field name="nut_factor"/>
+                <field name="show_in_explorer" widget="boolean_toggle"/>
+                <field name="description" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="industrial_finish_action" model="ir.actions.act_window">
+        <field name="name">Finishes</field>
+        <field name="res_model">industrial.finish</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <!-- Industries -->
+    <record id="industrial_sector_view_form" model="ir.ui.view">
+        <field name="name">industrial.sector.form</field>
+        <field name="model">industrial.sector</field>
+        <field name="arch" type="xml">
+            <form string="Industry">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <field name="is_published" widget="website_redirect_button"/>
+                    </div>
+                    <field name="image_1920" widget="image" class="oe_avatar" options="{'preview_image': 'image_256'}"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. Wind Energy"/></h1>
+                        <field name="tagline"/>
+                    </div>
+                    <group>
+                        <field name="image_url" widget="url"/>
+                        <field name="sequence"/>
+                        <field name="description"/>
+                        <field name="product_ids" widget="many2many_tags"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="industrial_sector_view_list" model="ir.ui.view">
+        <field name="name">industrial.sector.list</field>
+        <field name="model">industrial.sector</field>
+        <field name="arch" type="xml">
+            <list string="Industries">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="tagline"/>
+                <field name="is_published" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="industrial_sector_action" model="ir.actions.act_window">
+        <field name="name">Industries</field>
+        <field name="res_model">industrial.sector</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

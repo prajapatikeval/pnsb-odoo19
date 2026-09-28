@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="industrial_rfq_view_form" model="ir.ui.view">
+        <field name="name">industrial.rfq.form</field>
+        <field name="model">industrial.rfq</field>
+        <field name="arch" type="xml">
+            <form string="Quote Request">
+                <header>
+                    <button name="action_review" type="object" string="Start Review" class="btn-primary" invisible="state != 'new'"/>
+                    <button name="action_quoted" type="object" string="Mark as Quoted" class="btn-primary" invisible="state not in ('new', 'review')"/>
+                    <button name="action_won" type="object" string="Won" class="btn-success" invisible="state != 'quoted'"/>
+                    <button name="action_lost" type="object" string="Lost" invisible="state not in ('new', 'review', 'quoted')"/>
+                    <button name="action_reset" type="object" string="Reopen" invisible="state not in ('won', 'lost')"/>
+                    <button name="action_link_partner" type="object" string="Link / Create Customer" invisible="partner_id"/>
+                    <field name="state" widget="statusbar" statusbar_visible="new,review,quoted,won"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_attachments" type="object" class="oe_stat_button" icon="fa-paperclip">
+                            <field name="attachment_count" widget="statinfo" string="Drawings"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Won" bg_color="text-bg-success" invisible="state != 'won'"/>
+                    <widget name="web_ribbon" title="Lost" bg_color="text-bg-danger" invisible="state != 'lost'"/>
+                    <div class="oe_title">
+                        <h1 class="d-flex gap-2 align-items-center">
+                            <field name="priority" widget="priority"/>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Contact">
+                            <field name="contact_name"/>
+                            <field name="company_name"/>
+                            <field name="email" widget="email"/>
+                            <field name="phone" widget="phone"/>
+                            <field name="country_id"/>
+                            <field name="partner_id"/>
+                        </group>
+                        <group string="Request">
+                            <field name="source"/>
+                            <field name="user_id"/>
+                            <field name="required_date"/>
+                            <field name="delivery_location"/>
+                            <field name="amount_quoted"/>
+                            <field name="lost_reason" invisible="state != 'lost'"/>
+                            <field name="website_id" groups="website.group_multi_website"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Items" name="items">
+                            <field name="line_ids">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="product_id"/>
+                                    <field name="name"/>
+                                    <field name="size"/>
+                                    <field name="length"/>
+                                    <field name="material"/>
+                                    <field name="finish"/>
+                                    <field name="quantity" sum="Total"/>
+                                    <field name="note" optional="show"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Customer Message" name="message">
+                            <field name="message" placeholder="Message from the customer..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="industrial_rfq_view_list" model="ir.ui.view">
+        <field name="name">industrial.rfq.list</field>
+        <field name="model">industrial.rfq</field>
+        <field name="arch" type="xml">
+            <list string="Quote Requests" decoration-muted="state == 'lost'" decoration-success="state == 'won'">
+                <field name="priority" widget="priority" optional="show"/>
+                <field name="name"/>
+                <field name="create_date" string="Received" widget="date"/>
+                <field name="contact_name"/>
+                <field name="company_name"/>
+                <field name="email" optional="hide"/>
+                <field name="country_id" optional="show"/>
+                <field name="line_count"/>
+                <field name="total_quantity"/>
+                <field name="user_id" widget="many2one_avatar_user" optional="show"/>
+                <field name="amount_quoted" sum="Total" optional="show"/>
+                <field name="currency_id" column_invisible="True"/>
+                <field name="activity_ids" widget="list_activity" optional="show"/>
+                <field name="state" widget="badge" decoration-info="state == 'new'" decoration-warning="state == 'review'" decoration-primary="state == 'quoted'" decoration-success="state == 'won'" decoration-danger="state == 'lost'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="industrial_rfq_view_kanban" model="ir.ui.view">
+        <field name="name">industrial.rfq.kanban</field>
+        <field name="model">industrial.rfq</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" quick_create="false" sample="1">
+                <field name="currency_id"/>
+                <progressbar field="priority" colors='{"2": "danger", "1": "warning", "0": "muted"}' sum_field="amount_quoted"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="d-flex justify-content-between">
+                            <field name="name" class="fw-bold"/>
+                            <field name="priority" widget="priority"/>
+                        </div>
+                        <field name="company_name" class="fw-semibold"/>
+                        <field name="contact_name" class="text-muted"/>
+                        <div class="d-flex gap-2 small text-muted mt-1">
+                            <span><field name="line_count"/> items</span>
+                            <span>·</span>
+                            <span><field name="total_quantity"/> pcs</span>
+                        </div>
+                        <field name="amount_quoted" widget="monetary" class="mt-1"/>
+                        <footer class="pt-1">
+                            <field name="activity_ids" widget="kanban_activity"/>
+                            <field name="create_date" widget="date" class="small text-muted ms-2"/>
+                            <field name="user_id" widget="many2one_avatar_user" class="ms-auto"/>
+                        </footer>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="industrial_rfq_view_search" model="ir.ui.view">
+        <field name="name">industrial.rfq.search</field>
+        <field name="model">industrial.rfq</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" filter_domain="['|', '|', '|', ('name', 'ilike', self), ('contact_name', 'ilike', self), ('company_name', 'ilike', self), ('email', 'ilike', self)]"/>
+                <field name="line_ids" string="Product" filter_domain="[('line_ids.name', 'ilike', self)]"/>
+                <field name="user_id"/>
+                <filter string="My Requests" name="my" domain="[('user_id', '=', uid)]"/>
+                <filter string="Unassigned" name="unassigned" domain="[('user_id', '=', False)]"/>
+                <separator/>
+                <filter string="Open" name="open" domain="[('state', 'in', ('new', 'review', 'quoted'))]"/>
+                <filter string="Urgent" name="urgent" domain="[('priority', '=', '2')]"/>
+                <separator/>
+                <filter string="Received" name="create_date" date="create_date"/>
+                <group>
+                    <filter string="Status" name="group_state" context="{'group_by': 'state'}"/>
+                    <filter string="Salesperson" name="group_user" context="{'group_by': 'user_id'}"/>
+                    <filter string="Country" name="group_country" context="{'group_by': 'country_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="industrial_rfq_action" model="ir.actions.act_window">
+        <field name="name">Quote Requests</field>
+        <field name="res_model">industrial.rfq</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No quote requests yet</p>
+            <p>Requests submitted from the website quote basket or drawing upload land here.</p>
+        </field>
+    </record>
+</odoo>

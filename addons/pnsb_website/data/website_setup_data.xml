@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Runs on install and on every upgrade; the method only touches untouched defaults. -->
+    <function model="website" name="_pnsb_bootstrap"/>
+</odoo>

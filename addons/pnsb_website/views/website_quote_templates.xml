@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="page_quote" name="Industrial Parts: Request a Quote">
+        <t t-call="pnsb_website.ip_layout">
+            <t t-set="additional_title">Request a quote</t>
+            <div id="wrap" class="ip-quote-page">
+                <section class="ip-page-hero ip-page-hero--compact" data-theme="dark">
+                    <div class="ip-blueprint"/>
+                    <div class="ip-container">
+                        <nav class="ip-crumbs mono" aria-label="Breadcrumb" data-ip-reveal="fade">
+                            <a href="/industrial">Home</a><span>/</span><span>Request a quote</span>
+                        </nav>
+                        <div class="ip-page-hero__grid">
+                            <h1 class="ip-h1" data-ip-split="words">Let's discuss your <em>requirement.</em></h1>
+                            <p class="ip-lead ip-page-hero__side" data-ip-reveal="" data-ip-delay="200">Share your requirement, parts from the catalogue or your own drawings, and our team will get back to you.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="ip-section ip-section--tight" data-theme="dark">
+                    <div class="ip-container">
+                        <form class="ip-rfq" data-ip-rfq="" action="/quote/submit" method="post" enctype="multipart/form-data" novalidate="">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <input type="hidden" name="lines" value="[]" data-ip-rfq-lines=""/>
+                            <input type="hidden" name="source" value="basket" data-ip-rfq-source=""/>
+                            <div class="ip-hp" aria-hidden="true">
+                                <label>Company website <input type="text" name="company_website" tabindex="-1" autocomplete="off"/></label>
+                            </div>
+
+                            <ol class="ip-steps mono" data-ip-rfq-steps="">
+                                <li class="is-active" data-ip-rfq-step-label="0"><span>01</span>Parts &amp; drawings</li>
+                                <li data-ip-rfq-step-label="1"><span>02</span>Requirements</li>
+                                <li data-ip-rfq-step-label="2"><span>03</span>Contact</li>
+                                <i class="ip-steps__bar"><b data-ip-rfq-progress=""/></i>
+                            </ol>
+
+                            <div class="ip-rfq__grid">
+                                <div class="ip-rfq__main">
+                                    <!-- STEP 1 -->
+                                    <fieldset class="ip-rfq__panel is-active" data-ip-rfq-panel="0">
+                                        <legend class="ip-h4">Parts in this request</legend>
+                                        <div class="ip-rfq__items" data-ip-rfq-items=""/>
+                                        <div class="ip-rfq__noitems" data-ip-rfq-noitems="">
+                                            <p>No catalogue parts yet. <a href="/products">Browse the catalogue</a>, add a custom line below, or just upload your drawings.</p>
+                                        </div>
+                                        <button type="button" class="ip-link-btn" data-ip-rfq-add-custom="">
+                                            <svg class="ip-i"><use href="#ip-i-plus"/></svg> Add a custom / special part
+                                        </button>
+
+                                        <label class="ip-drop" data-ip-drop="">
+                                            <input type="file" name="attachments" multiple="" data-ip-drop-input=""
+                                                   accept=".pdf,.dwg,.dxf,.step,.stp,.igs,.iges,.stl,.x_t,.png,.jpg,.jpeg,.webp,.zip,.xlsx,.xls,.csv,.docx"/>
+                                            <span class="ip-drop__icon"><svg class="ip-i"><use href="#ip-i-upload"/></svg></span>
+                                            <span class="ip-drop__title">Drop drawings here or <u>browse</u></span>
+                                            <span class="ip-drop__hint mono">PDF · DWG · DXF · STEP · IGES · images · up to 6 files, 15 MB each</span>
+                                        </label>
+                                        <ul class="ip-files" data-ip-drop-files=""/>
+                                    </fieldset>
+
+                                    <!-- STEP 2 -->
+                                    <fieldset class="ip-rfq__panel" data-ip-rfq-panel="1">
+                                        <legend class="ip-h4">Requirements</legend>
+                                        <div class="ip-form-grid">
+                                            <div class="ip-field">
+                                                <label class="ip-field__label mono" for="ip-rfq-date">Required by</label>
+                                                <input id="ip-rfq-date" class="ip-input" type="date" name="required_date"/>
+                                            </div>
+                                            <div class="ip-field">
+                                                <label class="ip-field__label mono" for="ip-rfq-location">Delivery location</label>
+                                                <input id="ip-rfq-location" class="ip-input" type="text" name="delivery_location" maxlength="128" placeholder="City, country"/>
+                                            </div>
+                                            <div class="ip-field ip-field--full">
+                                                <label class="ip-field__label mono" for="ip-rfq-message">Application, certificates, packaging, annual volume…</label>
+                                                <textarea id="ip-rfq-message" class="ip-input" name="message" rows="6" maxlength="5000"
+                                                          placeholder="e.g. Wind turbine tower flange, 10.9 with Geomet 321, 3.1 certificates, 12,000 pcs / year in 4 call-offs."/>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
+                                    <!-- STEP 3 -->
+                                    <fieldset class="ip-rfq__panel" data-ip-rfq-panel="2">
+                                        <legend class="ip-h4">Where should we send the offer?</legend>
+                                        <div class="ip-form-grid">
+                                            <div class="ip-field">
+                                                <label class="ip-field__label mono" for="ip-rfq-name">Full name *</label>
+                                                <input id="ip-rfq-name" class="ip-input" type="text" name="contact_name" required="" maxlength="128" autocomplete="name"/>
+                                            </div>
+                                            <div class="ip-field">
+                                                <label class="ip-field__label mono" for="ip-rfq-company">Company</label>
+                                                <input id="ip-rfq-company" class="ip-input" type="text" name="company_name" maxlength="128" autocomplete="organization"/>
+                                            </div>
+                                            <div class="ip-field">
+                                                <label class="ip-field__label mono" for="ip-rfq-email">Business e-mail *</label>
+                                                <input id="ip-rfq-email" class="ip-input" type="email" name="email" required="" maxlength="254" autocomplete="email"/>
+                                            </div>
+                                            <div class="ip-field">
+                                                <label class="ip-field__label mono" for="ip-rfq-phone">Phone</label>
+                                                <input id="ip-rfq-phone" class="ip-input" type="tel" name="phone" maxlength="40" autocomplete="tel"/>
+                                            </div>
+                                            <div class="ip-field ip-field--full">
+                                                <label class="ip-field__label mono" for="ip-rfq-country">Country</label>
+                                                <div class="ip-select">
+                                                    <select id="ip-rfq-country" name="country_id" autocomplete="country">
+                                                        <option value="">Select a country</option>
+                                                        <option t-foreach="countries" t-as="country" t-att-value="country.id"
+                                                                t-att-selected="default_country and country.id == default_country.id" t-out="country.name"/>
+                                                    </select>
+                                                    <svg class="ip-i"><use href="#ip-i-chevron-d"/></svg>
+                                                </div>
+                                            </div>
+                                            <label class="ip-check ip-field--full ip-consent">
+                                                <input type="checkbox" required="" data-ip-rfq-consent=""/>
+                                                <span class="ip-check__box"><svg class="ip-i"><use href="#ip-i-check"/></svg></span>
+                                                <span class="ip-check__label">I agree that my details and files are used to prepare this quotation.</span>
+                                            </label>
+                                        </div>
+                                    </fieldset>
+
+                                    <div class="ip-rfq__error" data-ip-rfq-error="" role="alert" hidden=""/>
+                                    <div class="ip-rfq__nav">
+                                        <button type="button" class="ip-btn ip-btn--ghost" data-ip-rfq-back="" hidden="">
+                                            <span class="ip-btn__icon ip-btn__icon--lead"><svg class="ip-i"><use href="#ip-i-arrow-l"/></svg></span>
+                                            <span class="ip-btn__label">Back</span>
+                                        </button>
+                                        <button type="button" class="ip-btn ip-btn--light ip-magnetic" data-ip-rfq-next="">
+                                            <span class="ip-btn__label">Continue</span>
+                                            <span class="ip-btn__icon"><svg class="ip-i"><use href="#ip-i-arrow-r"/></svg></span>
+                                        </button>
+                                        <button type="submit" class="ip-btn ip-btn--accent ip-magnetic" data-ip-rfq-submit="" hidden="">
+                                            <span class="ip-btn__label">Send request</span>
+                                            <t t-call="pnsb_website.ip_btn_arrow"/>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <aside class="ip-rfq__summary">
+                                    <div class="ip-bezel">
+                                        <div class="ip-bezel__core ip-rfq__summary-core">
+                                            <span class="ip-eyebrow"><i class="ip-dot"/>Summary</span>
+                                            <dl class="ip-rfq__totals">
+                                                <div><dt class="mono">Line items</dt><dd data-ip-rfq-sum="lines">0</dd></div>
+                                                <div><dt class="mono">Total pieces</dt><dd data-ip-rfq-sum="pieces">0</dd></div>
+                                                <div><dt class="mono">Drawings</dt><dd data-ip-rfq-sum="files">0</dd></div>
+                                            </dl>
+                                            <ul class="ip-rfq__promises">
+                                                <li><svg class="ip-i"><use href="#ip-i-clock"/></svg>Our team gets back to you quickly</li>
+                                                <li><svg class="ip-i"><use href="#ip-i-shield"/></svg>Drawings handled under NDA</li>
+                                                <li><svg class="ip-i"><use href="#ip-i-file"/></svg>Test records on request</li>
+                                            </ul>
+                                            <div class="ip-rfq__contact mono" t-if="ip_company.email or ip_company.phone">
+                                                <span>Prefer e-mail?</span>
+                                                <a t-if="ip_company.email" t-att-href="'mailto:%s' % ip_company.email" t-out="ip_company.email"/>
+                                                <a t-if="ip_company.phone" t-att-href="'tel:%s' % ip_company.phone" t-out="ip_company.phone"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </aside>
+                            </div>
+                        </form>
+
+                        <!-- Success state -->
+                        <div class="ip-success" data-ip-rfq-success="" hidden="">
+                            <svg class="ip-success__mark" viewBox="0 0 120 120" aria-hidden="true">
+                                <circle cx="60" cy="60" r="52" pathLength="1"/>
+                                <path d="M38 62 53 77 84 44" pathLength="1"/>
+                            </svg>
+                            <span class="ip-eyebrow"><i class="ip-dot"/>Request received</span>
+                            <h2 class="ip-h2">Thank you. Reference <em data-ip-rfq-ref="">RFQ</em></h2>
+                            <p class="ip-lead">A confirmation is on its way to your inbox. Here is what happens next:</p>
+                            <ol class="ip-timeline">
+                                <li><b class="mono">Today</b><span>An application engineer reviews your parts and drawings.</span></li>
+                                <li><b class="mono">Next</b><span>You receive pricing, lead times and any technical questions.</span></li>
+                                <li><b class="mono">On approval</b><span>Samples or first-article inspection, then scheduled production.</span></li>
+                            </ol>
+                            <div class="ip-empty__actions">
+                                <a href="/products" class="ip-btn ip-btn--ghost"><span class="ip-btn__label">Back to catalogue</span><t t-call="pnsb_website.ip_btn_arrow"/></a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>

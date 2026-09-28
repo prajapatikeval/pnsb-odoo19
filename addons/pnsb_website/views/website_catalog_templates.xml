@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="ip_filter_dropdown" name="Industrial Parts: Filter Dropdown">
+        <div class="ip-dd" data-ip-dd="" t-att-data-ip-dd-key="dd_key">
+            <button type="button" class="ip-dd__btn" aria-expanded="false">
+                <span t-out="dd_label"/><b class="ip-dd__badge" data-ip-dd-badge=""/>
+                <svg class="ip-i"><use href="#ip-i-chevron-d"/></svg>
+            </button>
+            <div class="ip-dd__panel" data-ip-native-scroll="">
+                <t t-out="0"/>
+            </div>
+        </div>
+    </template>
+
+    <template id="page_catalog" name="Industrial Parts: Catalogue">
+        <t t-call="pnsb_website.ip_layout">
+            <t t-set="additional_title" t-value="active_category.name if active_category else 'Products'"/>
+            <div id="wrap" class="ip-catalog-page" data-ip-catalog=""
+                 t-att-data-active-category="active_category.id if active_category else '0'"
+                 t-att-data-search="search or ''">
+
+                <section class="ip-page-hero" data-theme="dark">
+                    <div class="ip-blueprint"/>
+                    <div class="ip-container">
+                        <nav class="ip-crumbs mono" aria-label="Breadcrumb" data-ip-reveal="fade">
+                            <a href="/industrial">Home</a><span>/</span>
+                            <t t-if="active_category"><a href="/products">Products</a><span>/</span><span t-out="active_category.name"/></t>
+                            <span t-else="">Products</span>
+                        </nav>
+                        <div class="ip-page-hero__grid">
+                            <div>
+                                <span class="ip-eyebrow" data-ip-reveal=""><i class="ip-dot"/>Catalogue · <t t-out="len(products)"/> families</span>
+                                <h1 class="ip-h1" data-ip-split="words" t-if="active_category"><t t-out="active_category.name"/></h1>
+                                <h1 class="ip-h1" data-ip-split="words" t-else="">Engineered for <em>performance.</em></h1>
+                            </div>
+                            <div class="ip-page-hero__side" data-ip-reveal="" data-ip-delay="250">
+                                <p class="ip-lead" t-if="active_category and active_category.description" t-out="active_category.description"/>
+                                <p class="ip-lead" t-else="">Filter by material, finish, standard or thread size. Add anything to your quote basket and request one consolidated offer.</p>
+                                <label class="ip-search">
+                                    <svg class="ip-i"><use href="#ip-i-search"/></svg>
+                                    <input type="search" data-ip-filter-search="" autocomplete="off"
+                                           placeholder="Search name, standard or code, e.g. DIN 933" aria-label="Search products"/>
+                                    <kbd class="mono">/</kbd>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="ip-filterbar" data-ip-filterbar="">
+                    <div class="ip-container ip-filterbar__inner">
+                        <div class="ip-filterbar__cats" data-ip-native-scroll-x="">
+                            <button type="button" class="ip-chip" data-ip-filter-category="0">All <sup t-out="len(products)"/></button>
+                            <button t-foreach="categories" t-as="category" type="button" class="ip-chip"
+                                    t-att-data-ip-filter-category="category.id" t-att-data-url="category.website_url">
+                                <t t-out="category.name"/> <sup t-out="category_counts.get(category.id, 0)"/>
+                            </button>
+                        </div>
+                        <div class="ip-filterbar__tools">
+                            <t t-call="pnsb_website.ip_filter_dropdown">
+                                <t t-set="dd_key" t-value="'material'"/>
+                                <t t-set="dd_label" t-value="'Material'"/>
+                                <label t-foreach="materials" t-as="material" class="ip-check">
+                                    <input type="checkbox" t-att-value="material.id" data-ip-filter="material"/>
+                                    <span class="ip-check__box"><svg class="ip-i"><use href="#ip-i-check"/></svg></span>
+                                    <span t-attf-class="ip-swatch ip-swatch--#{material.swatch}"/>
+                                    <span class="ip-check__label" t-out="material.name"/>
+                                    <span class="ip-check__meta mono" t-out="material.code or ''"/>
+                                </label>
+                            </t>
+                            <t t-call="pnsb_website.ip_filter_dropdown">
+                                <t t-set="dd_key" t-value="'finish'"/>
+                                <t t-set="dd_label" t-value="'Finish'"/>
+                                <label t-foreach="finishes" t-as="finish" class="ip-check">
+                                    <input type="checkbox" t-att-value="finish.id" data-ip-filter="finish"/>
+                                    <span class="ip-check__box"><svg class="ip-i"><use href="#ip-i-check"/></svg></span>
+                                    <span t-attf-class="ip-swatch ip-swatch--finish-#{finish.swatch}"/>
+                                    <span class="ip-check__label" t-out="finish.name"/>
+                                </label>
+                            </t>
+                            <t t-call="pnsb_website.ip_filter_dropdown" t-if="standards">
+                                <t t-set="dd_key" t-value="'standard'"/>
+                                <t t-set="dd_label" t-value="'Standard'"/>
+                                <label t-foreach="standards" t-as="standard" class="ip-check">
+                                    <input type="checkbox" t-att-value="standard" data-ip-filter="standard"/>
+                                    <span class="ip-check__box"><svg class="ip-i"><use href="#ip-i-check"/></svg></span>
+                                    <span class="ip-check__label" t-out="standard"/>
+                                </label>
+                            </t>
+                            <t t-call="pnsb_website.ip_filter_dropdown" t-if="sizes">
+                                <t t-set="dd_key" t-value="'size'"/>
+                                <t t-set="dd_label" t-value="'Thread size'"/>
+                                <div class="ip-size-grid">
+                                    <label t-foreach="sizes" t-as="size" class="ip-size-opt">
+                                        <input type="checkbox" t-att-value="size" data-ip-filter="size"/>
+                                        <span class="mono" t-out="'M%s' % size"/>
+                                    </label>
+                                </div>
+                            </t>
+                            <div class="ip-select ip-select--sm">
+                                <select data-ip-sort="" aria-label="Sort">
+                                    <option value="featured">Featured</option>
+                                    <option value="name">Name A–Z</option>
+                                    <option value="size-asc">Size: small → large</option>
+                                    <option value="size-desc">Size: large → small</option>
+                                    <option value="moq">Lowest MOQ</option>
+                                </select>
+                                <svg class="ip-i"><use href="#ip-i-chevron-d"/></svg>
+                            </div>
+                            <div class="ip-viewtoggle" role="group" aria-label="Layout">
+                                <button type="button" class="is-active" data-ip-view="grid" aria-label="Grid view"><svg class="ip-i"><use href="#ip-i-grid"/></svg></button>
+                                <button type="button" data-ip-view="list" aria-label="List view"><svg class="ip-i"><use href="#ip-i-list"/></svg></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ip-container ip-filterbar__active" data-ip-filter-active=""/>
+                </div>
+
+                <section class="ip-section ip-section--tight" data-theme="dark">
+                    <div class="ip-container">
+                        <div class="ip-results-head mono">
+                            <span><b data-ip-result-count="" t-out="len(products)"/> product families</span>
+                            <button type="button" class="ip-link-btn" data-ip-filter-reset="">Reset filters</button>
+                        </div>
+                        <div class="ip-grid" data-ip-grid="">
+                            <t t-foreach="products" t-as="product">
+                                <t t-call="pnsb_website.ip_product_card"/>
+                            </t>
+                        </div>
+                        <div class="ip-empty" data-ip-empty="" hidden="">
+                            <svg class="ip-i"><use href="#ip-i-search"/></svg>
+                            <h3>No family matches these filters.</h3>
+                            <p>We probably still make it. Clear a filter, or send us the specification.</p>
+                            <div class="ip-empty__actions">
+                                <button type="button" class="ip-btn ip-btn--ghost ip-btn--sm" data-ip-filter-reset=""><span class="ip-btn__label">Clear filters</span></button>
+                                <a href="/quote" class="ip-btn ip-btn--accent ip-btn--sm"><span class="ip-btn__label">Request a special</span><t t-call="pnsb_website.ip_btn_arrow"/></a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="ip-band" data-theme="light">
+                    <div class="ip-container ip-band__inner">
+                        <div>
+                            <span class="ip-eyebrow"><i class="ip-dot"/>Specials</span>
+                            <h2 class="ip-h3" data-ip-split="words">Need something custom? <em>We will engineer it.</em></h2>
+                        </div>
+                        <a href="/quote" class="ip-btn ip-btn--dark ip-magnetic">
+                            <span class="ip-btn__label">Upload a drawing</span>
+                            <span class="ip-btn__icon"><svg class="ip-i"><use href="#ip-i-upload"/></svg></span>
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>
