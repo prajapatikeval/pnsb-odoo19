@@ -49,7 +49,7 @@ import time
 
 import psycopg2
 
-ADDONS_DIR = "/mnt/extra-addons"
+ADDONS_DIR = "/opt/pnsb/addons"
 ODOO_ADDONS = "/usr/lib/python3/dist-packages/odoo/addons"
 DATA_DIR = "/var/lib/odoo"
 CONF = os.path.join(DATA_DIR, "odoo.conf")
