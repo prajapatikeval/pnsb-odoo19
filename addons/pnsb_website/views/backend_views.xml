@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Product form: a "Website" tab for what the public site shows. -->
+    <record id="product_template_form_view_pnsb" model="ir.ui.view">
+        <field name="name">product.template.form.pnsb.website</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Website" name="pnsb_website">
+                    <group>
+                        <group>
+                            <field name="pnsb_website_published"/>
+                            <field name="pnsb_website_highlight" invisible="not pnsb_website_published"/>
+                            <field name="pnsb_website_sequence" invisible="not pnsb_website_published"/>
+                        </group>
+                        <group>
+                            <div class="text-muted" colspan="2">
+                                The website lists published products by their product category
+                                (only categories marked "Show on Website"). Visitors cannot see
+                                prices; their enquiries arrive as quotations in Sales.
+                            </div>
+                        </group>
+                    </group>
+                    <group string="Public text">
+                        <field name="pnsb_website_summary" placeholder="One sentence shown on the product card."/>
+                        <field name="pnsb_website_story" placeholder="Optional short development story (no client names or specifications)."/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_template_search_view_pnsb" model="ir.ui.view">
+        <field name="name">product.template.search.pnsb.website</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='filter_to_sell']" position="before">
+                <filter string="On Website" name="pnsb_on_website" domain="[('pnsb_website_published', '=', True)]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_category_form_view_pnsb" model="ir.ui.view">
+        <field name="name">product.category.form.pnsb.website</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group string="Website" name="pnsb_website">
+                    <field name="pnsb_website_published"/>
+                    <field name="pnsb_website_sequence" invisible="not pnsb_website_published"/>
+                    <field name="pnsb_website_description" invisible="not pnsb_website_published"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Website settings: contact numbers used by the public site. -->
+    <record id="view_website_form_pnsb" model="ir.ui.view">
+        <field name="name">website.form.pnsb</field>
+        <field name="model">website</field>
+        <field name="inherit_id" ref="website.view_website_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group string="PNSB public contact" name="pnsb_contact">
+                    <field name="pnsb_phone_alt"/>
+                    <field name="pnsb_whatsapp"/>
+                    <field name="pnsb_map_lat"/>
+                    <field name="pnsb_map_lng"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

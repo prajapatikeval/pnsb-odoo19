@@ -1,9 +1,10 @@
 # PNSB Machinery Industries — Odoo 19 on Render
 
-Odoo 19 with the `pnsb_website` addon: a motion-rich company website (smooth
-scrolling, scroll-driven 3D process scene, product catalogue with instant
-filters, compare, quote basket and a multi-step RFQ form with drawing uploads)
-plus a backend RFQ pipeline.
+Odoo 19 with the `pnsb_website` addon: the company website of PNSB Machinery
+Industries LLP (Home, About, Services, Industries, Products & Work, Contact),
+built on standard Odoo apps. The catalogue is made of normal **Sales** products;
+visitors build an enquiry list, and each enquiry becomes a draft **Sales
+quotation** (or a **CRM** lead when it has no products), with drawings attached.
 
 ```
 addons/pnsb_website/   the website module
@@ -27,7 +28,10 @@ docker-compose.yml     local replica of the Render setup
    - password: the `ADMIN_PASSWORD` value in the service's **Environment** tab.
 
 Later deploys only upgrade `pnsb_website` when its code changed; otherwise the
-container is serving again in about 10–20 seconds.
+container is serving again in about 10–20 seconds. Apps that the module depends
+on (`sale_management`, `crm`) are installed automatically at boot the first time;
+on the free plan that one-off install can take 20–40 minutes, during which the
+"getting things ready" page is shown.
 
 ## Environment variables
 
@@ -58,12 +62,25 @@ service hosts this single database. To start over, use `RESET_DATABASE`.
 - **Free plan limits:** the web service sleeps after 15 minutes without
   traffic (first request then takes ~30–60 s) and Render's free PostgreSQL
   expires 30 days after creation. Use a paid plan for production.
-- **E-mail:** RFQ acknowledgements are queued; configure an outgoing mail
-  server in Settings › Technical › Outgoing Mail Servers to send them.
-- **Content:** texts are editable with the website editor; catalogue entries,
-  categories, materials and industries are managed under **Industrial Parts** in
-  the backend. Sample catalogue entries and stock photos (Pexels) are included:
-  replace them with your own before going live.
+- **Enquiries:** website enquiries with products appear in **Sales ›
+  Quotations** (origin "Website enquiry"); messages without products appear in
+  **CRM**. Uploaded drawings are attached to the record.
+- **Catalogue:** **Sales › Products › Website Products**. A product is listed
+  when "Show on Website" is ticked in its **Website** tab; it is grouped by its
+  product category (categories need "Show on Website" too). Prices are never
+  shown. Photos come from PNSB's company profile.
+- **Contact details:** company address and phone come from the company
+  (Settings › Companies); the second phone and the WhatsApp number are on the
+  website record (Website › Configuration › Websites).
+- **E-mail:** configure an outgoing mail server (Settings › Technical ›
+  Outgoing Mail Servers) to send quotations from Odoo.
+
+## 3D and third-party code
+
+The home page and inner pages render real-time 3D models of parts PNSB makes, using
+[three.js](https://threejs.org) r160 (MIT licence), bundled in
+`addons/pnsb_website/static/lib/three/` so the site never depends on a CDN. Visitors without
+WebGL, and the website editor, see photos instead.
 
 ## Run locally
 

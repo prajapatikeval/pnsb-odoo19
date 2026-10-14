@@ -36,6 +36,7 @@ EXTRA_MODULES       comma separated Odoo apps to install, e.g. "crm,sale_managem
 RESET_DATABASE      set to YES_DELETE_EVERYTHING to wipe the database once
 ODOO_WORKERS        0 (default, threaded) - only raise it on paid plans
 """
+import ast
 import hashlib
 import http.server
 import json
@@ -74,14 +75,18 @@ def log(msg):
 # ---------------------------------------------------------------------------
 STARTING_PAGE = b"""<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="12">
-<title>Starting</title><style>
-html,body{height:100%;margin:0;background:#0b0c0e;color:#eceae6;font:16px/1.6 system-ui,sans-serif}
-body{display:grid;place-items:center;text-align:center}
-.nut{width:64px;height:64px;margin:0 auto 24px;animation:s 2.4s cubic-bezier(.76,0,.24,1) infinite}
-@keyframes s{to{transform:rotate(360deg)}}p{color:#9a9ca3;margin:6px 0}
+<title>PNSB Machinery Industries LLP</title><style>
+html,body{height:100%;margin:0;background:#fff;color:#0d1a2e;font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+body{display:grid;place-items:center;text-align:center;padding:24px;box-sizing:border-box}
+.logo{font-weight:600;font-size:40px;letter-spacing:.06em;color:#75787f}.logo b{color:#1f52c4;font-weight:600}
+.sub{font-size:12px;letter-spacing:.2em;color:#6a7486;margin:0 0 32px}
+.bar{width:180px;height:3px;margin:0 auto 28px;background:#e2e7ee;border-radius:3px;overflow:hidden}
+.bar span{display:block;width:40%;height:100%;background:#1f52c4;animation:s 1.6s cubic-bezier(.76,0,.24,1) infinite}
+@keyframes s{from{transform:translateX(-100%)}to{transform:translateX(250%)}}p{color:#6a7486;margin:6px 0}
 </style></head><body><div>
-<svg class="nut" viewBox="0 0 24 24" fill="none" stroke="#ff5b1f" stroke-width="1.5"><path d="M12 2.8 20 7.4v9.2l-8 4.6-8-4.6V7.4z"/><circle cx="12" cy="12" r="3.4"/></svg>
-<h1 style="margin:0;font-size:28px">We are getting things ready</h1>
+<div class="logo">PNS<b>B</b></div><p class="sub">MACHINERY INDUSTRIES LLP</p>
+<div class="bar"><span></span></div>
+<h1 style="margin:0;font-size:24px;font-weight:500">We are getting things ready</h1>
 <p>The site is starting up. This page refreshes automatically.</p></div></body></html>"""
 
 
@@ -307,10 +312,24 @@ def custom_modules():
     return mods
 
 
+def manifest_dependencies(modules):
+    """Dependencies declared by our own addons (e.g. sale_management, crm).
+
+    Installing them explicitly at boot keeps the heavy install out of web
+    requests and makes a new dependency in a manifest "just work" on deploy.
+    """
+    deps = []
+    for name in modules:
+        with open(os.path.join(ADDONS_DIR, name, "__manifest__.py")) as fh:
+            manifest = ast.literal_eval(fh.read())
+        deps += [d for d in manifest.get("depends", []) if d not in modules]
+    return deps
+
+
 def sync_modules():
     custom = custom_modules()
     extra = [m.strip() for m in ENV.get("EXTRA_MODULES", "").split(",") if m.strip()]
-    wanted = list(dict.fromkeys(custom + extra))
+    wanted = list(dict.fromkeys(manifest_dependencies(custom) + custom + extra))
     states = dict(query("SELECT name, state FROM ir_module_module WHERE name = ANY(%s)", (wanted,)))
     to_install = [m for m in wanted if states.get(m) not in ("installed", "to upgrade")]
     current = addons_hash()

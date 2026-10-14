@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Initial catalogue from PNSB's company profile (public information only).
+         noupdate: products edited, unpublished or deleted in the backend stay that way. -->
+    <data noupdate="1">
+        <record id="categ_textile" model="product.category">
+            <field name="name">Textile Machinery Spares</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">10</field>
+            <field name="pnsb_website_description">Creel stands, yarn handling assemblies, tension devices and replacement spares for spinning and weaving lines.</field>
+        </record>
+        <record id="categ_filtration" model="product.category">
+            <field name="name">Filtration &amp; Airflow</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">20</field>
+            <field name="pnsb_website_description">Breather filtering boxes, filtering media and honeycomb air straightening assemblies for duct lines.</field>
+        </record>
+        <record id="categ_mechanical" model="product.category">
+            <field name="name">Mechanical Components</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">30</field>
+            <field name="pnsb_website_description">Seal assemblies, timing pulleys, sprockets, shafts, washers and rotating assemblies.</field>
+        </record>
+        <record id="categ_machined" model="product.category">
+            <field name="name">Precision Machined Parts</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">40</field>
+            <field name="pnsb_website_description">Turned and milled components and machine spares produced to your drawing or sample.</field>
+        </record>
+        <record id="categ_fabrication" model="product.category">
+            <field name="name">Custom Fabrication</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">50</field>
+            <field name="pnsb_website_description">Fabricated stands, frames and assemblies, with spare assembly parts on request.</field>
+        </record>
+        <record id="product_creel_stand" model="product.template">
+            <field name="name">Creel Stands</field>
+            <field name="categ_id" ref="categ_textile"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">10</field>
+            <field name="pnsb_website_highlight" eval="False"/>
+            <field name="pnsb_website_summary">Customised creel stands for the textile field, designed around your machine and package layout.</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/work/creel-stand.jpg"/>
+        </record>
+        <record id="product_side_cutter" model="product.template">
+            <field name="name">Side Cutter Assemblies (RH / LH)</field>
+            <field name="categ_id" ref="categ_textile"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">20</field>
+            <field name="pnsb_website_highlight" eval="False"/>
+            <field name="pnsb_website_summary">Right- and left-hand side cutter assemblies for weaving machines.</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/work/side-cutter.jpg"/>
+        </record>
+        <record id="product_tension_device" model="product.template">
+            <field name="name">Leno Tension Devices</field>
+            <field name="categ_id" ref="categ_textile"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">30</field>
+            <field name="pnsb_website_highlight" eval="False"/>
+            <field name="pnsb_website_summary">Tension devices for leno and selvedge yarn handling.</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/work/tension-device.jpg"/>
+        </record>
+        <record id="product_yarn_winder" model="product.template">
+            <field name="name">Yarn Winder Assembly</field>
+            <field name="categ_id" ref="categ_textile"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">40</field>
+            <field name="pnsb_website_highlight" eval="False"/>
+            <field name="pnsb_website_summary">Winder assemblies developed and supplied as complete units or spares.</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/work/yarn-winder.jpg"/>
+        </record>
+        <record id="product_bobbin_stand" model="product.template">
+            <field name="name">Spindle Bobbin Stand with Clutch</field>
+            <field name="categ_id" ref="categ_textile"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">50</field>
+            <field name="pnsb_website_highlight" eval="False"/>
+            <field name="pnsb_website_summary">Spindle bobbin stands with clutch for controlled yarn unwinding.</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/work/bobbin-stand.jpg"/>
+        </record>
+        <record id="product_bobbin_pot" model="product.template">
+            <field name="name">Bobbin Bottoms &amp; Pots</field>
+            <field name="categ_id" ref="categ_textile"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">60</field>
+            <field name="pnsb_website_highlight" eval="False"/>
+            <field name="pnsb_website_summary">Replacement bobbin bottoms and pots for textile machinery.</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/work/bobbin-pot.jpg"/>
+        </record>
+        <record id="product_machine_guides" model="product.template">
+            <field name="name">Machine Guides</field>
+            <field name="categ_id" ref="categ_textile"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">70</field>
+            <field name="pnsb_website_highlight" eval="False"/>
+            <field name="pnsb_website_summary">Yarn and machine guides made to sample or drawing.</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/work/machine-guides.jpg"/>
+        </record>
+        <record id="product_yarn_condensing" model="product.template">
+            <field name="name">Process Yarn Condensing Unit</field>
+            <field name="categ_id" ref="categ_textile"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">80</field>
+            <field name="pnsb_website_highlight" eval="True"/>
+            <field name="pnsb_website_summary">A condensing unit re-engineered for simpler, low-maintenance operation.</field>
+            <field name="pnsb_website_story" type="html"><p>A process yarn condensing unit was converted from a pneumatic system to a manual working mechanism, aiming for zero maintenance.</p><p>Its functioning issues were resolved to the customer's satisfaction.</p></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/work/yarn-condensing.jpg"/>
+        </record>
+        <record id="product_breather_box" model="product.template">
+            <field name="name">Breather Filtering Box for Duct Line</field>
+            <field name="categ_id" ref="categ_filtration"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">90</field>
+            <field name="pnsb_website_highlight" eval="True"/>
+            <field name="pnsb_website_summary">Sets of breather filtering boxes developed for duct lines, with replaceable filtering media.</field>
+            <field name="pnsb_website_story" type="html"><p>Developed as complete sets for a duct line: a perforated sheet-metal housing with replaceable filtering media, built for easy fitting and maintenance.</p></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/work/breather-box.jpg"/>
+        </record>
+        <record id="product_filter_media" model="product.template">
+            <field name="name">Filtering Media</field>
+            <field name="categ_id" ref="categ_filtration"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">100</field>
+            <field name="pnsb_website_highlight" eval="False"/>
+            <field name="pnsb_website_summary">Filtering media supplied with our filter boxes or as replacement packs.</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/work/filter-media.jpg"/>
+        </record>
+        <record id="product_honeycomb" model="product.template">
+            <field name="name">Honeycomb Screen Assembly</field>
+            <field name="categ_id" ref="categ_filtration"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">110</field>
+            <field name="pnsb_website_highlight" eval="True"/>
+            <field name="pnsb_website_summary">Air straightening unit for the textile field, built on a standard honeycomb screen assembly.</field>
+            <field name="pnsb_website_story" type="html"><p>An air straightening unit developed for the textile field. A standard honeycomb screen assembly evens out the airflow, mounted in a sturdy frame that fits the existing line.</p></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/work/honeycomb.jpg"/>
+        </record>
+        <record id="product_mechanical_seal" model="product.template">
+            <field name="name">Mechanical Seal Assemblies</field>
+            <field name="categ_id" ref="categ_mechanical"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">120</field>
+            <field name="pnsb_website_highlight" eval="True"/>
+            <field name="pnsb_website_summary">Mechanical seal assemblies and replacement seal parts.</field>
+            <field name="pnsb_website_story" type="html"><p>Mechanical seal assemblies developed and supplied as complete units, with springs and seal faces available as spares.</p></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/work/mechanical-seal.jpg"/>
+        </record>
+        <record id="product_timing_pulley" model="product.template">
+            <field name="name">Timing Pulleys</field>
+            <field name="categ_id" ref="categ_mechanical"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">130</field>
+            <field name="pnsb_website_highlight" eval="True"/>
+            <field name="pnsb_website_summary">Timing pulleys machined to your pitch, width and bore requirements.</field>
+            <field name="pnsb_website_story" type="html"><p>Timing pulleys produced in batches, machined to the pitch, width and bore the application needs.</p></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/work/timing-pulley.jpg"/>
+        </record>
+        <record id="product_chain_sprocket" model="product.template">
+            <field name="name">Chain Sprockets</field>
+            <field name="categ_id" ref="categ_mechanical"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">140</field>
+            <field name="pnsb_website_highlight" eval="False"/>
+            <field name="pnsb_website_summary">Chain sprockets for drives and conveyors, made to sample or drawing.</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/work/chain-sprocket.jpg"/>
+        </record>
+        <record id="product_machine_shaft" model="product.template">
+            <field name="name">Machine Shafts</field>
+            <field name="categ_id" ref="categ_mechanical"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">150</field>
+            <field name="pnsb_website_highlight" eval="False"/>
+            <field name="pnsb_website_summary">Turned and ground machine shafts for replacement and new builds.</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/work/machine-shaft.jpg"/>
+        </record>
+        <record id="product_ptfe_washer" model="product.template">
+            <field name="name">PTFE Washers</field>
+            <field name="categ_id" ref="categ_mechanical"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">160</field>
+            <field name="pnsb_website_highlight" eval="False"/>
+            <field name="pnsb_website_summary">PTFE washers and spacers for low-friction, chemical-resistant joints.</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/work/ptfe-washer.jpg"/>
+        </record>
+        <record id="product_rotating_assembly" model="product.template">
+            <field name="name">Rotating Assemblies</field>
+            <field name="categ_id" ref="categ_mechanical"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">170</field>
+            <field name="pnsb_website_highlight" eval="False"/>
+            <field name="pnsb_website_summary">Rotating assemblies and housings produced as complete units.</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/work/rotating-assembly.jpg"/>
+        </record>
+        <record id="product_turned_components" model="product.template">
+            <field name="name">Turned Components</field>
+            <field name="categ_id" ref="categ_machined"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">180</field>
+            <field name="pnsb_website_highlight" eval="False"/>
+            <field name="pnsb_website_summary">Precision turned parts in steel, stainless steel, brass and aluminium.</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/work/precision-parts-2.jpg"/>
+        </record>
+        <record id="product_machined_spares" model="product.template">
+            <field name="name">Machine Spares</field>
+            <field name="categ_id" ref="categ_machined"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">190</field>
+            <field name="pnsb_website_highlight" eval="False"/>
+            <field name="pnsb_website_summary">Replacement spares for production machinery, made to drawing or sample.</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/work/machined-spares.jpg"/>
+        </record>
+        <record id="product_milled_components" model="product.template">
+            <field name="name">Milled Components</field>
+            <field name="categ_id" ref="categ_machined"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">200</field>
+            <field name="pnsb_website_highlight" eval="False"/>
+            <field name="pnsb_website_summary">Milled housings, plates and brackets for machinery builders.</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/work/milled-components.jpg"/>
+        </record>
+        <record id="product_creel_fabrication" model="product.template">
+            <field name="name">Creel Stand Fabrication</field>
+            <field name="categ_id" ref="categ_fabrication"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">210</field>
+            <field name="pnsb_website_highlight" eval="True"/>
+            <field name="pnsb_website_summary">Creel stand fabrication for a vendor, with spare assembly parts also available.</field>
+            <field name="pnsb_website_story" type="html"><p>Creel stands fabricated for a vendor, from frame to fitted assembly. Spare assembly parts can also be supplied.</p></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/work/creel-fabrication.jpg"/>
+        </record>
+    </data>
+</odoo>
