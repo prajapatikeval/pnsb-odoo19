@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="page_contact" name="PNSB: Contact">
+        <t t-call="pnsb_website.pn_layout">
+            <t t-set="additional_title">Contact</t>
+            <t t-set="fv" t-value="form_values or {}"/>
+            <section class="pn-section pn-contact">
+                <div class="pn-container pn-contact__grid">
+                    <div class="pn-contact__info">
+                        <p class="pn-eyebrow pn-reveal">Contact</p>
+                        <h1 class="pn-phero__title pn-reveal">Let's discuss your next project.</h1>
+                        <p class="pn-phero__lead pn-reveal">
+                            Tell us about your idea, product or requirement. Attach drawings or photos if you have them;
+                            we will get back to you.
+                        </p>
+                        <ul class="pn-contact__list pn-reveal">
+                            <li t-if="pnsb_address_lines">
+                                <span class="pn-contact__icon"><svg class="pn-i"><use href="#pn-i-pin"/></svg></span>
+                                <div>
+                                    <span class="pn-contact__label">Address</span>
+                                    <address class="pn-contact__value">
+                                        <t t-out="pnsb_company.name"/><br/>
+                                        <t t-foreach="pnsb_address_lines" t-as="line"><t t-out="line"/><br t-if="not line_last"/></t>
+                                    </address>
+                                    <a t-att-href="pnsb_map_url" target="_blank" rel="noopener" class="pn-link pn-link--sm">Open in Google Maps <svg class="pn-i"><use href="#pn-i-arrow-ur"/></svg></a>
+                                </div>
+                            </li>
+                            <li t-if="pnsb_company.phone or pnsb_website.pnsb_phone_alt">
+                                <span class="pn-contact__icon"><svg class="pn-i"><use href="#pn-i-phone"/></svg></span>
+                                <div>
+                                    <span class="pn-contact__label">Phone</span>
+                                    <a t-if="pnsb_company.phone" class="pn-contact__value" t-attf-href="tel:#{pnsb_company.phone.replace(' ', '')}" t-out="pnsb_company.phone"/>
+                                    <a t-if="pnsb_website.pnsb_phone_alt" class="pn-contact__value" t-attf-href="tel:#{pnsb_website.pnsb_phone_alt.replace(' ', '')}" t-out="pnsb_website.pnsb_phone_alt"/>
+                                </div>
+                            </li>
+                            <li t-if="pnsb_website.pnsb_whatsapp_link">
+                                <span class="pn-contact__icon"><svg class="pn-i"><use href="#pn-i-whatsapp"/></svg></span>
+                                <div>
+                                    <span class="pn-contact__label">WhatsApp</span>
+                                    <a class="pn-contact__value" t-att-href="pnsb_website.pnsb_whatsapp_link" target="_blank" rel="noopener" t-out="pnsb_website.pnsb_whatsapp"/>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="pn-contact__form-wrap pn-reveal" id="enquiry">
+                        <form action="/pnsb/enquiry" method="post" enctype="multipart/form-data" class="pn-form"
+                              data-pnsb-enquiry="" novalidate="novalidate">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <input type="hidden" name="items" value="[]" data-pnsb-items-field=""/>
+                            <div class="pn-hp" aria-hidden="true">
+                                <label>Website <input type="text" name="website_url" tabindex="-1" autocomplete="off"/></label>
+                            </div>
+
+                            <div class="pn-form__done" data-pnsb-done="" hidden="hidden">
+                                <span class="pn-form__done-icon"><svg class="pn-i pn-i--lg"><use href="#pn-i-check"/></svg></span>
+                                <h2 class="pn-h3">Thank you, we have your enquiry.</h2>
+                                <p>Your reference is <strong data-pnsb-ref="">-</strong>. We will get back to you soon.</p>
+                                <a href="/products" class="pn-btn pn-btn--outline">Back to products</a>
+                            </div>
+
+                            <div data-pnsb-form-body="">
+                                <h2 class="pn-h3 pn-form__title">Send an enquiry</h2>
+
+                                <div class="pn-enq" data-pnsb-enquiry-list="" hidden="hidden">
+                                    <div class="pn-enq__head">
+                                        <span>Products in your enquiry</span>
+                                        <a href="/products" class="pn-link pn-link--sm">Add more</a>
+                                    </div>
+                                    <ul class="pn-enq__items" data-pnsb-enquiry-items=""/>
+                                </div>
+                                <p class="pn-enq__hint" data-pnsb-enquiry-hint="">
+                                    Looking for specific parts? <a href="/products">Add products to your enquiry</a>, or just describe what you need below.
+                                </p>
+
+                                <div class="pn-form__grid">
+                                    <label class="pn-field">
+                                        <span>Name <em>*</em></span>
+                                        <input type="text" name="name" required="required" maxlength="128" autocomplete="name" t-att-value="fv.get('name')"/>
+                                    </label>
+                                    <label class="pn-field">
+                                        <span>Email <em>*</em></span>
+                                        <input type="email" name="email" required="required" maxlength="254" autocomplete="email" t-att-value="fv.get('email')"/>
+                                    </label>
+                                    <label class="pn-field">
+                                        <span>Phone</span>
+                                        <input type="tel" name="phone" maxlength="40" autocomplete="tel" t-att-value="fv.get('phone')"/>
+                                    </label>
+                                    <label class="pn-field">
+                                        <span>Company</span>
+                                        <input type="text" name="company" maxlength="128" autocomplete="organization" t-att-value="fv.get('company')"/>
+                                    </label>
+                                    <label class="pn-field pn-field--full">
+                                        <span>Message</span>
+                                        <textarea name="message" rows="5" maxlength="5000"
+                                                  placeholder="Your requirement, quantities, material or timeline" t-out="fv.get('message') or ''"/>
+                                    </label>
+                                    <div class="pn-field pn-field--full">
+                                        <span>Drawings or photos <small>(optional, up to 5 files, 15 MB each)</small></span>
+                                        <label class="pn-drop" data-pnsb-drop="">
+                                            <svg class="pn-i"><use href="#pn-i-upload"/></svg>
+                                            <span data-pnsb-drop-label="">Choose files or drop them here</span>
+                                            <input type="file" name="attachments" multiple="multiple" data-pnsb-files=""
+                                                   accept=".pdf,.dwg,.dxf,.step,.stp,.igs,.iges,.stl,.png,.jpg,.jpeg,.webp,.zip,.xlsx,.xls,.csv,.docx"/>
+                                        </label>
+                                        <ul class="pn-files" data-pnsb-file-list=""/>
+                                    </div>
+                                </div>
+                                <p class="pn-form__error" data-pnsb-error="" role="alert" t-att-hidden="None if form_error else 'hidden'" t-out="form_error or ''"/>
+                                <div class="pn-form__foot">
+                                    <p class="pn-muted pn-form__note">We use your details only to reply to this enquiry.</p>
+                                    <button type="submit" class="pn-btn pn-btn--dark pn-btn--lg" data-pnsb-submit="">
+                                        <span>Send enquiry</span><svg class="pn-i"><use href="#pn-i-arrow"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </t>
+    </template>
+
+    <template id="page_thanks" name="PNSB: Thank you">
+        <t t-call="pnsb_website.pn_layout">
+            <t t-set="additional_title">Thank you</t>
+            <section class="pn-section pn-center-page">
+                <div class="pn-container pn-center">
+                    <span class="pn-form__done-icon"><svg class="pn-i pn-i--lg"><use href="#pn-i-check"/></svg></span>
+                    <h1 class="pn-phero__title">Thank you, we have your enquiry.</h1>
+                    <p t-if="reference" class="pn-phero__lead">Your reference is <strong t-out="reference"/>. We will get back to you soon.</p>
+                    <p t-else="" class="pn-phero__lead">We will get back to you soon.</p>
+                    <a href="/" class="pn-btn pn-btn--dark">Back to home</a>
+                </div>
+            </section>
+        </t>
+    </template>
+
+    <!-- Branded 404 for website visitors. Website designers (who get Odoo's
+         "create this page" tools) and non-website contexts keep Odoo's page. -->
+    <template id="page_404_pnsb" inherit_id="http_routing.404" name="PNSB: 404">
+        <xpath expr="//t[@t-call='web.frontend_layout']" position="attributes">
+            <attribute name="t-if">not website or editable</attribute>
+        </xpath>
+        <xpath expr="//t[@t-call='web.frontend_layout']" position="after">
+            <t t-else="" t-call="pnsb_website.page_not_found"/>
+        </xpath>
+    </template>
+
+    <template id="page_not_found" name="PNSB: Page not found">
+        <t t-set="pnsb_values" t-value="website._pnsb_layout_values('404')"/>
+        <t t-set="pnsb_page" t-value="'404'"/>
+        <t t-set="pnsb_company" t-value="pnsb_values['pnsb_company']"/>
+        <t t-set="pnsb_website" t-value="pnsb_values['pnsb_website']"/>
+        <t t-set="pnsb_services" t-value="pnsb_values['pnsb_services']"/>
+        <t t-set="pnsb_industries" t-value="pnsb_values['pnsb_industries']"/>
+        <t t-set="pnsb_address_lines" t-value="pnsb_values['pnsb_address_lines']"/>
+        <t t-set="pnsb_map_url" t-value="pnsb_values['pnsb_map_url']"/>
+        <t t-set="pnsb_map_embed" t-value="pnsb_values['pnsb_map_embed']"/>
+        <t t-set="pnsb_description" t-value="pnsb_values['pnsb_description']"/>
+        <t t-set="pnsb_jsonld" t-value="pnsb_values['pnsb_jsonld']"/>
+        <t t-call="pnsb_website.pn_layout">
+            <t t-set="additional_title">Page not found</t>
+            <section class="pn-section pn-center-page">
+                <div class="pn-container pn-center">
+                    <p class="pn-404">404</p>
+                    <h1 class="pn-phero__title">This page could not be found.</h1>
+                    <p class="pn-phero__lead">The page may have moved. Let's get you back on track.</p>
+                    <div class="pn-hero__actions pn-hero__actions--center">
+                        <a href="/" class="pn-btn pn-btn--dark">Back to home</a>
+                        <a href="/products" class="pn-btn pn-btn--outline">See our products</a>
+                    </div>
+                </div>
+            </section>
+        </t>
+    </template>
+</odoo>

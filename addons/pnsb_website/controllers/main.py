@@ -2,277 +2,267 @@
 import json
 import logging
 import os
-import re
 
+from markupsafe import Markup, escape
 
 from odoo import http
-from odoo.fields import Domain
 from odoo.http import request
 from odoo.tools import email_normalize
 
 _logger = logging.getLogger(__name__)
 
-MAX_LINES = 60
-MAX_FILES = 6
-MAX_FILE_SIZE = 15 * 1024 * 1024  # 15 MB per drawing
+MAX_ITEMS = 40
+MAX_FILES = 5
+MAX_FILE_SIZE = 15 * 1024 * 1024  # 15 MB per file
 ALLOWED_EXTENSIONS = {
-    '.pdf', '.dwg', '.dxf', '.step', '.stp', '.igs', '.iges', '.stl', '.x_t',
+    '.pdf', '.dwg', '.dxf', '.step', '.stp', '.igs', '.iges', '.stl',
     '.png', '.jpg', '.jpeg', '.webp', '.zip', '.xlsx', '.xls', '.csv', '.docx',
 }
-# Nominal diameters offered by the catalogue "thread size" filter.
-SIZE_STEPS = [3, 4, 5, 6, 8, 10, 12, 14, 16, 20, 24, 27, 30, 36, 42, 48, 56, 64, 72]
+
+def _ok_json():
+    return 'application/json' in (request.httprequest.headers.get('Accept') or '')
 
 
-def _published_domain():
-    return Domain('website_published', '=', True) & request.website.website_domain()
-
-
-def sitemap_catalog(env, rule, qs):
-    if '<model' not in rule.rule:
-        if not qs or qs.lower() in '/products':
-            yield {'loc': '/products'}
-        return
-    for category in env['industrial.product.category'].search([('website_published', '=', True)]):
-        loc = '/products/category/%s' % env['ir.http']._slug(category)
-        if not qs or qs.lower() in loc:
-            yield {'loc': loc}
-
-
-class IndustrialPartsWebsite(http.Controller):
+class PnsbWebsite(http.Controller):
 
     # ------------------------------------------------------------------
-    # Shared context
+    # Shared helpers
     # ------------------------------------------------------------------
 
-    def _ip_base_values(self, page, **extra):
-        company = request.website.company_id
-        brand = (company.name or request.website.name or '').strip()
-        categories = request.env['industrial.product.category'].search([])
-        values = {
-            'ip_page': page,
-            'ip_company': company,
-            'ip_nav_categories': categories,
-            'ip_brand': brand,
-            'ip_brand_short': brand.split(' ', 1)[0],
-            'ip_brand_rest': brand.split(' ', 1)[1] if ' ' in brand else '',
-        }
+    def _pnsb_categories(self):
+        return request.env['product.category'].sudo().search(
+            [('pnsb_website_published', '=', True)], order='pnsb_website_sequence, name')
+
+    def _pnsb_products(self, categories=None):
+        domain = [
+            ('pnsb_website_published', '=', True),
+            ('sale_ok', '=', True),
+            ('company_id', 'in', [False, request.website.company_id.id]),
+        ]
+        if categories is not None:
+            domain.append(('categ_id', 'in', categories.ids))
+        return request.env['product.template'].sudo().search(
+            domain, order='pnsb_website_sequence, name')
+
+    def _pnsb_values(self, page, **extra):
+        values = request.website._pnsb_layout_values(page)
         values.update(extra)
         return values
-
-    def _ip_explorer_json(self, materials, finishes):
-        return json.dumps({
-            'materials': [{
-                'id': m.id, 'name': m.name, 'code': m.code or '', 'swatch': m.swatch, 'family': m.family,
-                'description': m.description or '', 'tensile': m.tensile_strength, 'yield': m.yield_strength,
-                'temp': m.max_temperature, 'density': m.density, 'strength': m.strength_rating,
-                'corrosion': m.corrosion_rating, 'cost': m.cost_rating,
-            } for m in materials],
-            'finishes': [{
-                'id': f.id, 'name': f.name, 'code': f.code or '', 'swatch': f.swatch,
-                'description': f.description or '', 'thickness': f.thickness or '',
-                'saltSpray': f.salt_spray_hours, 'corrosion': f.corrosion_rating, 'k': f.nut_factor,
-            } for f in finishes],
-        })
-
-    def _ip_product_counts(self, products):
-        counts = {}
-        for product in products:
-            counts[product.category_id.id] = counts.get(product.category_id.id, 0) + 1
-        return counts
 
     # ------------------------------------------------------------------
     # Pages
     # ------------------------------------------------------------------
 
-    @http.route('/industrial', type='http', auth='public', website=True, sitemap=True)
-    def industrial_home(self, **kw):
-        Product = request.env['industrial.product']
-        products = Product.search(_published_domain())
-        materials = request.env['industrial.material'].search([('show_in_explorer', '=', True)])
-        finishes = request.env['industrial.finish'].search([('show_in_explorer', '=', True)])
-        values = self._ip_base_values(
-            'home',
-            categories=request.env['industrial.product.category'].search([]),
-            category_counts=self._ip_product_counts(products),
-            featured=products.filtered('is_featured')[:4] or products[:4],
-            materials=materials,
-            finishes=finishes,
-            explorer_json=self._ip_explorer_json(materials, finishes),
-            sectors=request.env['industrial.sector'].search([]),
-            product_total=len(products),
-        )
-        return request.render('pnsb_website.page_home', values)
+    @http.route('/industrial', type='http', auth='public', website=True, sitemap=False)
+    def pnsb_home(self, **kw):
+        categories = self._pnsb_categories()
+        products = self._pnsb_products(categories)
+        highlights = products.filtered('pnsb_website_highlight')[:6] or products[:6]
+        return request.render('pnsb_website.page_home', self._pnsb_values(
+            'home', categories=categories, products=products, highlights=highlights))
 
-    @http.route([
-        '/products',
-        '/products/category/<model("industrial.product.category"):category>',
-    ], type='http', auth='public', website=True, sitemap=sitemap_catalog)
-    def industrial_catalog(self, category=None, q='', **kw):
-        products = request.env['industrial.product'].search(_published_domain())
-        categories = request.env['industrial.product.category'].search([])
-        standards = set()
+    @http.route('/about', type='http', auth='public', website=True, sitemap=True)
+    def pnsb_about(self, **kw):
+        return request.render('pnsb_website.page_about', self._pnsb_values('about'))
+
+    @http.route('/services', type='http', auth='public', website=True, sitemap=True)
+    def pnsb_services(self, **kw):
+        return request.render('pnsb_website.page_services', self._pnsb_values('services'))
+
+    @http.route('/industries', type='http', auth='public', website=True, sitemap=True)
+    def pnsb_industries(self, **kw):
+        return request.render('pnsb_website.page_industries', self._pnsb_values('industries'))
+
+    @http.route('/products', type='http', auth='public', website=True, sitemap=True)
+    def pnsb_products(self, line='', **kw):
+        categories = self._pnsb_categories()
+        products = self._pnsb_products(categories)
+        counts = {}
         for product in products:
-            for token in re.split(r'[·,/|]', product.standard or ''):
-                family = token.strip().split(' ')[0].upper()
-                if family:
-                    standards.add(family)
-        size_min = min(products.mapped('size_min') or [0]) or 0
-        size_max = max(products.mapped('size_max') or [0]) or 0
-        sizes = [s for s in SIZE_STEPS if size_min <= s <= size_max] if size_max else []
-        values = self._ip_base_values(
-            'catalog',
-            products=products,
-            categories=categories,
-            category_counts=self._ip_product_counts(products),
-            active_category=category,
-            materials=request.env['industrial.material'].search([]),
-            finishes=request.env['industrial.finish'].search([]),
-            standards=sorted(standards),
-            sizes=sizes,
-            search=(q or '')[:80],
-        )
-        if category:
-            values['main_object'] = category
-        return request.render('pnsb_website.page_catalog', values)
+            counts[product.categ_id.id] = counts.get(product.categ_id.id, 0) + 1
+        active = categories.filtered(lambda c: c.pnsb_website_key == line)[:1]
+        return request.render('pnsb_website.page_products', self._pnsb_values(
+            'products', categories=categories.filtered(lambda c: counts.get(c.id)), products=products,
+            counts=counts, active_key=active.pnsb_website_key or 'all'))
 
-    @http.route(['/about', '/process', '/contact', '/contactus'], type='http', auth='public',
-                website=True, sitemap=False)
-    def legacy_pages(self, **kw):
-        target = {
-            '/about': '/industrial#ip-intro',
-            '/process': '/industrial#process',
-        }.get(request.httprequest.path, '/quote')
+    @http.route('/contact', type='http', auth='public', website=True, sitemap=True)
+    def pnsb_contact(self, **kw):
+        return request.render('pnsb_website.page_contact', self._pnsb_values('contact'))
+
+    @http.route('/contact/thank-you', type='http', auth='public', website=True, sitemap=False)
+    def pnsb_thanks(self, ref='', **kw):
+        return request.render('pnsb_website.page_thanks', self._pnsb_values(
+            'thanks', reference=(ref or '')[:32]))
+
+    @http.route(['/work', '/quote', '/process', '/contactus', '/products/compare',
+                 '/products/category/<path:rest>'],
+                type='http', auth='public', website=True, sitemap=False)
+    def pnsb_legacy(self, **kw):
+        path = request.httprequest.path
+        target = '/products'
+        if path in ('/quote', '/contactus'):
+            target = '/contact'
+        elif path == '/process':
+            target = '/about'
         return request.redirect(target, code=301)
 
-    @http.route('/products/compare', type='http', auth='public', website=True, sitemap=False)
-    def industrial_compare(self, ids='', **kw):
-        product_ids = [int(i) for i in re.findall(r'\d+', ids or '')][:4]
-        products = request.env['industrial.product'].search(
-            _published_domain() & Domain('id', 'in', product_ids)) if product_ids else request.env['industrial.product']
-        products = products.sorted(lambda p: product_ids.index(p.id))
-        spec_names = []
-        for product in products:
-            for spec in product.spec_ids.sorted('sequence'):
-                if spec.name not in spec_names:
-                    spec_names.append(spec.name)
-        spec_map = {p.id: {s.name: s.value for s in p.spec_ids} for p in products}
-        values = self._ip_base_values(
-            'compare',
-            products=products,
-            spec_names=spec_names,
-            spec_map=spec_map,
-        )
-        return request.render('pnsb_website.page_compare', values)
-
-    @http.route('/quote', type='http', auth='public', website=True, sitemap=True)
-    def industrial_quote(self, **kw):
-        values = self._ip_base_values(
-            'quote',
-            countries=request.env['res.country'].sudo().search([]),
-            default_country=request.geoip.country_code and request.env['res.country'].sudo().search(
-                [('code', '=', request.geoip.country_code)], limit=1),
-        )
-        return request.render('pnsb_website.page_quote', values)
+    @http.route('/pnsb/image/<int:product_id>/<int:size>', type='http', auth='public', sitemap=False)
+    def pnsb_product_image(self, product_id, size, unique=None, **kw):
+        """Product images for the public site, limited to published products."""
+        product = request.env['product.template'].sudo().browse(product_id).exists()
+        if not product or not product.pnsb_website_published:
+            raise request.not_found()
+        field = 'image_%s' % (size if size in (128, 256, 512, 1024) else 1920)
+        stream = request.env['ir.binary']._get_image_stream_from(
+            product, field, placeholder='web/static/img/placeholder.png')
+        return stream.get_response(immutable=bool(unique))
 
     # ------------------------------------------------------------------
-    # RFQ submission
+    # Enquiry: products -> Sales quotation, otherwise -> CRM lead
     # ------------------------------------------------------------------
 
-    @http.route('/quote/submit', type='http', auth='public', methods=['POST'], website=True, csrf=True, sitemap=False)
-    def industrial_quote_submit(self, **post):
+    @http.route('/pnsb/enquiry', type='http', auth='public', methods=['POST'], website=True,
+                csrf=True, sitemap=False)
+    def pnsb_enquiry(self, **post):
+        def reply(ok, reference='', error='', status=200):
+            if _ok_json():
+                return request.make_json_response(
+                    {'ok': ok, 'reference': reference, 'error': error}, status=status)
+            if ok:
+                return request.redirect('/contact/thank-you?ref=%s' % reference)
+            return request.render('pnsb_website.page_contact', self._pnsb_values(
+                'contact', form_error=error, form_values=post), status=status)
+
         # Honeypot: bots fill every field, humans never see this one.
-        if post.get('company_website'):
-            return request.make_json_response({'ok': True, 'reference': ''})
+        if post.get('website_url'):
+            return reply(True)
 
         def clean(key, size=255):
             return (post.get(key) or '').strip()[:size]
 
-        contact_name = clean('contact_name', 128)
+        name = clean('name', 128)
         email = email_normalize(clean('email', 254))
-        if not contact_name or not email:
-            return request.make_json_response(
-                {'ok': False, 'error': request.env._('Please provide your name and a valid e-mail address.')},
-                status=400)
+        phone = clean('phone', 40)
+        company_name = clean('company', 128)
+        message = clean('message', 5000)
+        if not name or not email:
+            return reply(False, error=request.env._('Please enter your name and a valid e-mail address.'),
+                         status=400)
 
         try:
-            raw_lines = json.loads(post.get('lines') or '[]')
+            raw_items = json.loads(post.get('items') or '[]')
         except ValueError:
-            raw_lines = []
-        Product = request.env['industrial.product']
-        line_vals = []
-        for raw in raw_lines[:MAX_LINES] if isinstance(raw_lines, list) else []:
-            if not isinstance(raw, dict):
+            raw_items = []
+        Product = request.env['product.template'].sudo()
+        items = []
+        for raw in (raw_items if isinstance(raw_items, list) else [])[:MAX_ITEMS]:
+            if not isinstance(raw, dict) or not str(raw.get('id') or '').isdigit():
                 continue
-            product = Product
-            if str(raw.get('productId') or '').isdigit():
-                product = Product.search(_published_domain() & Domain('id', '=', int(raw['productId'])), limit=1)
-            name = (product.name or str(raw.get('name') or '')).strip()[:200]
-            if not name:
+            product = Product.search([
+                ('id', '=', int(raw['id'])), ('pnsb_website_published', '=', True), ('sale_ok', '=', True),
+            ], limit=1)
+            if not product:
                 continue
             try:
-                quantity = max(1, min(int(raw.get('qty') or 1), 100_000_000))
+                qty = max(1, min(int(raw.get('qty') or 1), 1_000_000))
             except (TypeError, ValueError):
-                quantity = 1
-            line_vals.append((0, 0, {
-                'product_id': product.id or False,
-                'name': name,
-                'size': str(raw.get('size') or '')[:40],
-                'length': str(raw.get('length') or '')[:40],
-                'material': str(raw.get('material') or '')[:80],
-                'finish': str(raw.get('finish') or '')[:80],
-                'quantity': quantity,
-                'note': str(raw.get('note') or '')[:250],
-            }))
+                qty = 1
+            items.append((product, qty))
 
-        files = [f for f in request.httprequest.files.getlist('attachments') if f and f.filename][:MAX_FILES]
-        if not line_vals and not files and not clean('message', 5000):
-            return request.make_json_response(
-                {'ok': False, 'error': request.env._('Add at least one item, a drawing or a message.')}, status=400)
+        if not items and not message:
+            return reply(False, error=request.env._('Please tell us a little about your requirement.'),
+                         status=400)
 
-        country = False
-        if clean('country_id').isdigit():
-            country = request.env['res.country'].sudo().browse(int(clean('country_id'))).exists()
+        website = request.website
+        company = website.company_id
+        body = Markup('<p>%s</p>') % request.env._('Enquiry received from the website contact form.')
+        details = [(request.env._('Name'), name), (request.env._('Company'), company_name),
+                   (request.env._('E-mail'), email), (request.env._('Phone'), phone)]
+        body += Markup('<ul>%s</ul>') % Markup('').join(
+            Markup('<li><b>%s:</b> %s</li>') % (label, value) for label, value in details if value)
+        if message:
+            body += Markup('<p>%s</p>') % Markup('<br/>').join(escape(line) for line in message.splitlines())
 
-        source = clean('source', 20)
-        required_date = clean('required_date', 10)
-        rfq = request.env['industrial.rfq'].sudo().create({
-            'contact_name': contact_name,
-            'company_name': clean('company_name', 128),
-            'email': email,
-            'phone': clean('phone', 40),
-            'country_id': country.id if country else False,
-            'delivery_location': clean('delivery_location', 128),
-            'required_date': required_date if re.match(r'^\d{4}-\d{2}-\d{2}$', required_date) else False,
-            'message': clean('message', 5000),
-            'source': source if source in ('basket', 'custom', 'product') else ('custom' if files and not line_vals else 'basket'),
-            'website_id': request.website.id,
-            'company_id': request.website.company_id.id,
-            'line_ids': line_vals,
-        })
+        if items:
+            record = self._pnsb_create_quotation(company, name, email, phone, company_name, items)
+        else:
+            record = self._pnsb_create_lead(company, name, email, phone, company_name, message)
 
-        attachments = request.env['ir.attachment']
-        for upload in files:
+        attachments = request.env['ir.attachment'].sudo()
+        uploads = [f for f in request.httprequest.files.getlist('attachments') if f and f.filename]
+        for upload in uploads[:MAX_FILES]:
             filename = os.path.basename(upload.filename)[:180]
             if os.path.splitext(filename)[1].lower() not in ALLOWED_EXTENSIONS:
                 continue
             data = upload.read(MAX_FILE_SIZE + 1)
             if not data or len(data) > MAX_FILE_SIZE:
                 continue
-            attachments |= request.env['ir.attachment'].sudo().create({
+            attachments |= attachments.create({
                 'name': filename,
                 'raw': data,
-                'res_model': 'industrial.rfq',
-                'res_id': rfq.id,
+                'res_model': record._name,
+                'res_id': record.id,
             })
-        rfq.message_post(
-            body=request.env._('Request submitted from the website (%(items)s items, %(files)s files).',
-                               items=len(line_vals), files=len(attachments)),
+        record.message_post(
+            body=body,
             attachment_ids=attachments.ids,
             message_type='comment',
             subtype_xmlid='mail.mt_note',
         )
-        try:
-            rfq._send_acknowledgement()
-        except Exception:  # noqa: BLE001 - never block the visitor on mail issues
-            _logger.exception('Could not queue RFQ acknowledgement for %s', rfq.name)
-        return request.make_json_response({'ok': True, 'reference': rfq.name})
+        reference = record.name if record._name == 'sale.order' else 'L%05d' % record.id
+        return reply(True, reference=reference)
+
+    def _pnsb_sales_team(self, company):
+        return request.env['crm.team'].sudo().search(
+            [('company_id', 'in', [False, company.id])], order='sequence, id', limit=1)
+
+    def _pnsb_partner(self, company, name, email, phone, company_name):
+        Partner = request.env['res.partner'].sudo().with_company(company)
+        partner = Partner.search([('email', '=ilike', email), ('company_id', 'in', [False, company.id])],
+                                 order='is_company, id', limit=1)
+        if not partner:
+            country = request.env['res.country'].sudo().search(
+                [('code', '=', request.geoip.country_code)], limit=1) if request.geoip.country_code else False
+            partner = Partner.create({
+                'name': name,
+                'email': email,
+                'phone': phone or False,
+                'company_name': company_name or False,
+                'country_id': country.id if country else False,
+            })
+        elif phone and not partner.phone:
+            partner.phone = phone
+        return partner
+
+    def _pnsb_create_quotation(self, company, name, email, phone, company_name, items):
+        partner = self._pnsb_partner(company, name, email, phone, company_name)
+        team = self._pnsb_sales_team(company)
+        return request.env['sale.order'].sudo().with_company(company).create({
+            'partner_id': partner.id,
+            'company_id': company.id,
+            'origin': request.env._('Website enquiry'),
+            'team_id': team.id or False,
+            # sudo() keeps the public user as env.user: never make it the salesperson.
+            'user_id': team.user_id.id or False,
+            'order_line': [(0, 0, {
+                'product_id': product.product_variant_id.id,
+                'product_uom_qty': qty,
+            }) for product, qty in items],
+        })
+
+    def _pnsb_create_lead(self, company, name, email, phone, company_name, message):
+        partner = self._pnsb_partner(company, name, email, phone, company_name)
+        team = self._pnsb_sales_team(company)
+        subject = (company_name or name)[:60]
+        return request.env['crm.lead'].sudo().with_company(company).create({
+            'name': request.env._('Website enquiry: %(who)s', who=subject),
+            'partner_id': partner.id,
+            'contact_name': name,
+            'partner_name': company_name or False,
+            'email_from': email,
+            'phone': phone or False,
+            'description': Markup('<br/>').join(escape(line) for line in message.splitlines()),
+            'company_id': company.id,
+            'team_id': team.id or False,
+            'user_id': team.user_id.id or False,
+        })

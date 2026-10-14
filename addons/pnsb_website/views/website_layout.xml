@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- =====================================================================
+         Line icons (1.6px strokes), used as <svg class="pn-i"><use href="#pn-i-name"/></svg>
+    ====================================================================== -->
+    <template id="pn_icons" name="PNSB: Icons">
+        <svg xmlns="http://www.w3.org/2000/svg" class="d-none" aria-hidden="true">
+            <symbol id="pn-i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+            <symbol id="pn-i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
+            <symbol id="pn-i-arrow-ur" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></symbol>
+            <symbol id="pn-i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+            <symbol id="pn-i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+            <symbol id="pn-i-check" viewBox="0 0 24 24"><path d="M4 12.5 9.5 18 20 6"/></symbol>
+            <symbol id="pn-i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+            <symbol id="pn-i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+            <symbol id="pn-i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+            <symbol id="pn-i-list" viewBox="0 0 24 24"><rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></symbol>
+            <symbol id="pn-i-upload" viewBox="0 0 24 24"><path d="M12 16V5M7 10l5-5 5 5M5 20h14"/></symbol>
+            <symbol id="pn-i-file" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></symbol>
+            <symbol id="pn-i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1"/></symbol>
+            <symbol id="pn-i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+            <symbol id="pn-i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+            <symbol id="pn-i-whatsapp" viewBox="0 0 24 24"><path d="M4 20l1.3-4.2A8 8 0 1 1 8.4 19z"/><path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.6-2-1-.9.9a4.6 4.6 0 0 1-2.4-2.4l.9-.9-1-2z"/></symbol>
+            <!-- services -->
+            <symbol id="pn-i-design" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></symbol>
+            <symbol id="pn-i-prototype" viewBox="0 0 24 24"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9z"/><path d="M4 7.5 12 12l8-4.5M12 12v9"/></symbol>
+            <symbol id="pn-i-manufacturing" viewBox="0 0 24 24"><path d="M3 21V10l5 3V10l5 3V6l8 4v11z"/><path d="M7 17h2M12 17h2M17 17h1"/></symbol>
+            <symbol id="pn-i-component" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></symbol>
+            <symbol id="pn-i-improvement" viewBox="0 0 24 24"><path d="M3 20h18"/><path d="M5 16l5-5 3 3 6-7"/><path d="M15 7h4v4"/></symbol>
+            <symbol id="pn-i-certification" viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.5 3 8.3 7 10 4-1.7 7-5.5 7-10V6z"/><path d="m9 12 2 2 4-4"/></symbol>
+            <!-- industries -->
+            <symbol id="pn-i-textile" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="5" ry="2.5"/><path d="M7 6v12c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5V6"/><path d="M7 10.5c3 1 7 1 10 0M7 14.5c3 1 7 1 10 0"/></symbol>
+            <symbol id="pn-i-petroleum" viewBox="0 0 24 24"><path d="M12 3c3 4.5 6 7.8 6 11a6 6 0 0 1-12 0c0-3.2 3-6.5 6-11z"/><path d="M9.5 15a2.5 2.5 0 0 0 2.5 2.5"/></symbol>
+            <symbol id="pn-i-surgical" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M12 8v8M8 12h8"/></symbol>
+            <symbol id="pn-i-plastic" viewBox="0 0 24 24"><path d="M9 3h6v3l2 3v10a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V9l2-3z"/><path d="M7 12h10"/></symbol>
+            <symbol id="pn-i-paper" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 11h7M9 15h7M9 19h4"/></symbol>
+            <symbol id="pn-i-fire-safety" viewBox="0 0 24 24"><path d="M12 3c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3.5 2-4.5 0 2 1 3 2 3 0-3-1-5 1-8.5z"/></symbol>
+            <symbol id="pn-i-bearings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5"/><circle cx="12" cy="5.8" r="1.2"/><circle cx="12" cy="18.2" r="1.2"/><circle cx="5.8" cy="12" r="1.2"/><circle cx="18.2" cy="12" r="1.2"/></symbol>
+            <symbol id="pn-i-packaging" viewBox="0 0 24 24"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9z"/><path d="m8 5.3 8 4.5v3.5"/></symbol>
+        </svg>
+    </template>
+
+    <!-- =====================================================================
+         Fragments
+    ====================================================================== -->
+    <template id="pn_logo" name="PNSB: Logo">
+        <a href="/" class="pn-logo" aria-label="PNSB Machinery Industries LLP, home">
+            <img t-att-src="'/pnsb_website/static/src/img/pnsb-logo-light.png' if light else '/pnsb_website/static/src/img/pnsb-logo.png'"
+                 alt="PNSB Machinery Industries LLP" width="652" height="225"/>
+        </a>
+    </template>
+
+    <template id="pn_product_card" name="PNSB: Product Card">
+        <article class="pn-product pn-reveal" t-att-data-line="product.categ_id.pnsb_website_key"
+                 t-att-data-search="('%s %s %s' % (product.name, product.categ_id.name, product._pnsb_summary())).lower()">
+            <div class="pn-product__media">
+                <img t-att-src="product._pnsb_image_url(512)"
+                     t-att-srcset="'%s 512w, %s 1024w' % (product._pnsb_image_url(512), product._pnsb_image_url(1024))"
+                     sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 33vw"
+                     t-att-alt="product.name" loading="lazy" decoding="async" width="512" height="384"/>
+            </div>
+            <div class="pn-product__body">
+                <span class="pn-product__line" t-out="product.categ_id.name"/>
+                <h3 class="pn-product__title" t-out="product.name"/>
+                <p class="pn-product__summary" t-out="product._pnsb_summary()"/>
+                <details t-if="product.pnsb_website_story and not is_html_empty(product.pnsb_website_story)" class="pn-product__story">
+                    <summary>Development story <svg class="pn-i"><use href="#pn-i-plus"/></svg></summary>
+                    <div class="pn-product__story-body" t-out="product.pnsb_website_story"/>
+                </details>
+                <div class="pn-product__actions">
+                    <button type="button" class="pn-btn pn-btn--sm pn-btn--outline" data-pnsb-add=""
+                            t-attf-data-id="#{product.id}" t-att-data-name="product.name"
+                            t-att-data-image="product._pnsb_image_url(128)">
+                        <svg class="pn-i"><use href="#pn-i-plus"/></svg><span>Add to enquiry</span>
+                    </button>
+                </div>
+            </div>
+        </article>
+    </template>
+
+    <template id="pn_cta" name="PNSB: Call to action">
+        <section class="pn-cta">
+            <div class="pn-container">
+                <div class="pn-cta__box pn-reveal">
+                    <div class="pn-cta__main">
+                        <p class="pn-label pn-label--light">Let's build something precise</p>
+                        <h2 class="pn-cta__title">Let's discuss your requirement.</h2>
+                        <p class="pn-cta__text">Send a drawing, a sample photo or just the idea. We review it and come back with how we can help, and a quotation.</p>
+                        <div class="pn-cta__actions">
+                            <a href="/contact" class="pn-btn pn-btn--light">Request a Quote <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
+                            <a t-if="pnsb_website.pnsb_whatsapp_link" t-att-href="pnsb_website.pnsb_whatsapp_link" target="_blank" rel="noopener" class="pn-btn pn-btn--ghost-light">
+                                <svg class="pn-i"><use href="#pn-i-whatsapp"/></svg><span>WhatsApp</span>
+                            </a>
+                        </div>
+                    </div>
+                    <table class="pn-cta__block">
+                        <tr><th>Company</th><td t-out="pnsb_company.name"/></tr>
+                        <tr t-if="pnsb_company.city"><th>Location</th><td><t t-out="pnsb_company.city"/>, <t t-out="pnsb_company.country_id.name or ''"/></td></tr>
+                        <tr t-if="pnsb_company.phone"><th>Phone</th><td><a t-attf-href="tel:#{pnsb_company.phone.replace(' ', '')}" t-out="pnsb_company.phone"/></td></tr>
+                        <tr><th>Scope</th><td>Design · Development · Manufacturing</td></tr>
+                        <tr><th>Time zone</th><td>IST (UTC+5:30)</td></tr>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <template id="pn_page_hero" name="PNSB: Page Hero">
+        <section t-attf-class="pn-phero #{'pn-phero--3d' if part else ''}">
+            <div class="pn-hero__grid-bg" aria-hidden="true"/>
+            <div class="pn-container pn-phero__grid">
+                <div>
+                    <p class="pn-eyebrow pn-reveal" t-out="eyebrow"/>
+                    <h1 class="pn-phero__title pn-reveal" t-out="title"/>
+                    <p t-if="lead" class="pn-phero__lead pn-reveal" t-out="lead"/>
+                </div>
+                <div t-if="part" class="pn-3d pn-phero__stage" t-att-data-pnsb-3d="part"/>
+            </div>
+        </section>
+    </template>
+
+    <!-- =====================================================================
+         Header & footer (shared by PNSB pages and Odoo's own website pages)
+    ====================================================================== -->
+    <template id="pn_header" name="PNSB: Header">
+        <t t-set="pn_nav" t-value="[
+            ('/', 'Home', 'home'),
+            ('/about', 'About', 'about'),
+            ('/services', 'Services', 'services'),
+            ('/industries', 'Industries', 'industries'),
+            ('/products', 'Products', 'products'),
+            ('/contact', 'Contact', 'contact'),
+        ]"/>
+        <t t-set="pn_user" t-value="request.env.user"/>
+        <header class="pn-header" data-pnsb-header="">
+            <div class="pn-container pn-header__inner">
+                <t t-call="pnsb_website.pn_logo"><t t-set="light" t-value="False"/></t>
+                <nav class="pn-nav" aria-label="Main">
+                    <a t-foreach="pn_nav" t-as="item" t-att-href="item[0]"
+                       t-attf-class="pn-nav__link #{'is-active' if pnsb_page == item[2] else ''}"
+                       t-att-aria-current="'page' if pnsb_page == item[2] else None" t-out="item[1]"/>
+                </nav>
+                <div class="pn-header__actions">
+                    <a href="/contact#enquiry" class="pn-basket" data-pnsb-basket-link="" aria-label="Enquiry list">
+                        <svg class="pn-i"><use href="#pn-i-list"/></svg>
+                        <span class="pn-basket__count" data-pnsb-basket-count="">0</span>
+                    </a>
+                    <t t-if="pn_user._is_public()">
+                        <a href="/web/login?redirect=/odoo" class="pn-login"><svg class="pn-i"><use href="#pn-i-user"/></svg><span>Log in</span></a>
+                    </t>
+                    <t t-elif="pn_user._is_internal()">
+                        <a href="/odoo" class="pn-login"><svg class="pn-i"><use href="#pn-i-user"/></svg><span>Dashboard</span></a>
+                    </t>
+                    <t t-else="">
+                        <a href="/my" class="pn-login"><svg class="pn-i"><use href="#pn-i-user"/></svg><span>My account</span></a>
+                    </t>
+                    <a href="/contact" class="pn-btn pn-btn--dark pn-header__cta">Request a Quote</a>
+                    <button type="button" class="pn-burger" data-pnsb-menu-toggle="" aria-label="Open menu"
+                            aria-expanded="false" aria-controls="pn-mobile-menu">
+                        <svg class="pn-i pn-burger__open"><use href="#pn-i-menu"/></svg>
+                        <svg class="pn-i pn-burger__close"><use href="#pn-i-x"/></svg>
+                    </button>
+                </div>
+            </div>
+            </header>
+        <!-- Outside <header>: its backdrop-filter would trap this fixed panel inside it. -->
+        <div class="pn-mobile" id="pn-mobile-menu" data-pnsb-menu="">
+                <nav class="pn-container" aria-label="Mobile">
+                    <a t-foreach="pn_nav" t-as="item" t-att-href="item[0]"
+                       t-attf-class="pn-mobile__link #{'is-active' if pnsb_page == item[2] else ''}">
+                        <span t-out="item[1]"/><svg class="pn-i"><use href="#pn-i-arrow"/></svg>
+                    </a>
+                    <div class="pn-mobile__foot">
+                        <a href="/contact" class="pn-btn pn-btn--dark">Request a Quote</a>
+                        <a t-if="pn_user._is_public()" href="/web/login?redirect=/odoo" class="pn-btn pn-btn--outline">Log in</a>
+                        <a t-elif="pn_user._is_internal()" href="/odoo" class="pn-btn pn-btn--outline">Dashboard</a>
+                        <a t-else="" href="/my" class="pn-btn pn-btn--outline">My account</a>
+                    </div>
+                </nav>
+            </div>
+    </template>
+
+    <template id="pn_footer" name="PNSB: Footer">
+        <t t-set="pn_nav" t-value="[
+            ('/', 'Home', 'home'),
+            ('/about', 'About', 'about'),
+            ('/services', 'Services', 'services'),
+            ('/industries', 'Industries', 'industries'),
+            ('/products', 'Products', 'products'),
+            ('/contact', 'Contact', 'contact'),
+        ]"/>
+        <footer class="pn-footer">
+            <div class="pn-container">
+                <div class="pn-footer__grid">
+                    <div class="pn-footer__brand">
+                        <t t-call="pnsb_website.pn_logo"><t t-set="light" t-value="True"/></t>
+                        <p>Product design, development and manufacturing: from your conceptual idea to continuous production.</p>
+                        <p class="pn-footer__tagline">Machining Excellence, Delivering Reliability.</p>
+                    </div>
+                    <div>
+                        <h3 class="pn-footer__title">Company</h3>
+                        <ul class="pn-footer__list">
+                            <li t-foreach="pn_nav" t-as="item"><a t-att-href="item[0]" t-out="item[1]"/></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="pn-footer__title">Services</h3>
+                        <ul class="pn-footer__list">
+                            <li t-foreach="pnsb_services" t-as="service"><a t-attf-href="/services#service-#{service[0]}" t-out="service[1]"/></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="pn-footer__title">Contact</h3>
+                        <ul class="pn-footer__list pn-footer__contact">
+                            <li t-if="pnsb_address_lines">
+                                <a t-att-href="pnsb_map_url" target="_blank" rel="noopener">
+                                    <t t-foreach="pnsb_address_lines" t-as="line"><t t-out="line"/><br t-if="not line_last"/></t>
+                                </a>
+                            </li>
+                            <li t-if="pnsb_map_embed" class="pn-footer__map">
+                                <iframe t-att-src="pnsb_map_embed" title="PNSB Machinery Industries location on Google Maps"
+                                        loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen="allowfullscreen"/>
+                            </li>
+                            <li t-if="pnsb_company.phone"><a t-attf-href="tel:#{pnsb_company.phone.replace(' ', '')}" t-out="pnsb_company.phone"/></li>
+                            <li t-if="pnsb_website.pnsb_phone_alt"><a t-attf-href="tel:#{pnsb_website.pnsb_phone_alt.replace(' ', '')}" t-out="pnsb_website.pnsb_phone_alt"/></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="pn-footer__bottom">
+                    <span>© <t t-out="datetime.date.today().year"/> <t t-out="pnsb_company.name"/>. All rights reserved.</span>
+                    <span>Ahmedabad, Gujarat, India</span>
+                </div>
+            </div>
+        </footer>
+    </template>
+
+    <!-- Odoo's own website pages (login, portal, ...) get the same branded
+         header and footer instead of the default "Your Logo" placeholders.
+         The original elements stay in the arch (other views patch them) but
+         are not rendered on the website. -->
+    <template id="pn_odoo_chrome" inherit_id="website.layout" name="PNSB: Branded chrome for Odoo pages">
+        <xpath expr="//header[@id='top']" position="attributes">
+            <attribute name="t-if">not no_header and not website</attribute>
+        </xpath>
+        <xpath expr="//header[@id='top']" position="after">
+            <t t-if="not no_header and website">
+                <t t-set="pnsb_chrome" t-value="website._pnsb_layout_values('odoo')"/>
+                <div class="pn-root pn-root--chrome">
+                    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,400..700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap"/>
+                    <t t-call="pnsb_website.pn_icons"/>
+                    <t t-call="pnsb_website.pn_header">
+                        <t t-set="pnsb_page" t-value="'odoo'"/>
+                    </t>
+                    <div class="pn-header-spacer"/>
+                </div>
+            </t>
+        </xpath>
+        <xpath expr="//footer[@id='bottom']" position="attributes">
+            <attribute name="t-if">not no_footer and not website</attribute>
+        </xpath>
+        <xpath expr="//footer[@id='bottom']" position="after">
+            <div t-if="not no_footer and website" class="pn-root pn-root--chrome">
+                <t t-set="pnsb_chrome" t-value="pnsb_chrome or website._pnsb_layout_values('odoo')"/>
+                <t t-call="pnsb_website.pn_footer">
+                    <t t-set="pnsb_company" t-value="pnsb_chrome['pnsb_company']"/>
+                    <t t-set="pnsb_website" t-value="pnsb_chrome['pnsb_website']"/>
+                    <t t-set="pnsb_services" t-value="pnsb_chrome['pnsb_services']"/>
+                    <t t-set="pnsb_address_lines" t-value="pnsb_chrome['pnsb_address_lines']"/>
+                    <t t-set="pnsb_map_url" t-value="pnsb_chrome['pnsb_map_url']"/>
+                    <t t-set="pnsb_map_embed" t-value="pnsb_chrome['pnsb_map_embed']"/>
+                </t>
+            </div>
+        </xpath>
+    </template>
+
+    <!-- =====================================================================
+         Layout
+    ====================================================================== -->
+    <template id="pn_layout" name="PNSB: Layout">
+        <t t-call="website.layout">
+            <t t-set="no_header" t-value="True"/>
+            <t t-set="no_footer" t-value="True"/>
+            <t t-set="pageName" t-value="'pn-site pn-page-%s' % (pnsb_page or 'page')"/>
+            <t t-set="website_meta_description" t-value="website_meta_description or pnsb_description"/>
+            <t t-set="head">
+                <link rel="preconnect" href="https://fonts.googleapis.com"/>
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+                <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,400..700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap"/>
+                <meta name="theme-color" content="#ffffff"/>
+                <script defer="defer" t-att-src="website._pnsb_boot_script_url()"/>
+                <!-- 3D: dynamic import, so the 3D library never delays the page load event. -->
+                <script type="module" t-att-data-pnsb-three="website._pnsb_3d_script_url()">import(document.querySelector("script[data-pnsb-three]").dataset.pnsbThree).catch(() => document.documentElement.classList.add("pn-no3d"));</script>
+                <script>
+                    (function () {
+                        document.documentElement.classList.add('pn-js');
+                        try {
+                            var editing = /[?&amp;](enable_editor|edit_translations)=/.test(window.location.search);
+                            if (!editing &amp;&amp; !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                                document.documentElement.classList.add('pn-motion');
+                            }
+                        } catch (e) { /* keep content visible */ }
+                    })();
+                </script>
+                <script type="application/ld+json" t-out="pnsb_jsonld"/>
+            </t>
+            <div class="pn-root" t-att-data-page="pnsb_page">
+                <t t-call="pnsb_website.pn_icons"/>
+                <a href="#pn-main" class="pn-skip">Skip to content</a>
+
+                <t t-call="pnsb_website.pn_header"/>
+
+                <main id="pn-main" class="pn-main">
+                    <t t-out="0"/>
+                </main>
+
+                <t t-call="pnsb_website.pn_footer"/>
+
+                <button type="button" data-pnsb-totop="" aria-label="Back to top"
+                        t-attf-class="pn-totop #{'pn-totop--stacked' if pnsb_website.pnsb_whatsapp_link else ''}">
+                    <svg class="pn-i"><use href="#pn-i-arrow-up"/></svg>
+                </button>
+                <a t-if="pnsb_website.pnsb_whatsapp_link" t-att-href="pnsb_website.pnsb_whatsapp_link"
+                   class="pn-whatsapp" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
+                    <svg class="pn-i"><use href="#pn-i-whatsapp"/></svg>
+                </a>
+                <div class="pn-toast" data-pnsb-toast="" role="status" aria-live="polite"/>
+            </div>
+        </t>
+    </template>
+</odoo>

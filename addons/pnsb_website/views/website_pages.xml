@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- =====================================================================
+         About
+    ====================================================================== -->
+    <template id="page_about" name="PNSB: About">
+        <t t-call="pnsb_website.pn_layout">
+            <t t-set="additional_title">About Us</t>
+            <t t-call="pnsb_website.pn_page_hero">
+                <t t-set="eyebrow">About us</t>
+                <t t-set="title">Your extended R&amp;D partner.</t>
+                <t t-set="part">seal</t>
+                <t t-set="lead">A product design, development and manufacturing partner for manufacturers: from your conceptual idea to its continuous production.</t>
+            </t>
+
+            <section class="pn-section pn-section--tight">
+                <div class="pn-container pn-split">
+                    <div class="pn-split__copy">
+                        <p class="pn-eyebrow pn-reveal">Who we are</p>
+                        <h2 class="pn-h2 pn-reveal">Design, development and manufacturing under one roof.</h2>
+                        <p class="pn-reveal">
+                            We take your conceptual idea or existing product through the complete cycle of product
+                            development, and on to continuous production with consideration of quality and approval
+                            standards.
+                        </p>
+                        <p class="pn-reveal">
+                            Our technically experienced team and our collaborative design process have helped clients
+                            accomplish products in petroleum, surgical, plastic, textile, paper, fire safety, bearings
+                            and packaging technology.
+                        </p>
+                    </div>
+                    <div class="pn-split__media pn-reveal">
+                        <figure class="pn-figure">
+                            <img src="/pnsb_website/static/src/img/work/creel-stand.jpg" alt="Custom creel stand" loading="lazy" width="675" height="525"/>
+                        </figure>
+                    </div>
+                </div>
+            </section>
+
+            <section class="pn-section pn-section--soft">
+                <div class="pn-container">
+                    <div class="pn-cards3">
+                        <div class="pn-vcard pn-reveal">
+                            <span class="pn-vcard__num">01</span>
+                            <h3>Vision</h3>
+                            <p>To serve as an extended R&amp;D center for manufacturers.</p>
+                        </div>
+                        <div class="pn-vcard pn-reveal">
+                            <span class="pn-vcard__num">02</span>
+                            <h3>Mission</h3>
+                            <p>To provide top-notch services from concept to prototype development, exceeding our clients' expectations.</p>
+                        </div>
+                        <div class="pn-vcard pn-reveal">
+                            <span class="pn-vcard__num">03</span>
+                            <h3>Strength</h3>
+                            <p>Component engineering, material cost reduction, and certification and testing support, all alongside your existing manufacturers.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="pn-section">
+                <div class="pn-container pn-split pn-split--reverse">
+                    <div class="pn-split__copy">
+                        <p class="pn-eyebrow pn-reveal">On the shop floor</p>
+                        <h2 class="pn-h2 pn-reveal">Better products, shorter cycles.</h2>
+                        <p class="pn-reveal">
+                            At the existing-product stage we help improve the product and reduce its time cycle. We will
+                            be happy to evaluate, adopt, equip and collaborate with your current manufacturers to achieve
+                            the required results.
+                        </p>
+                        <ul class="pn-ticks pn-reveal">
+                            <li><svg class="pn-i"><use href="#pn-i-check"/></svg>Component engineering</li>
+                            <li><svg class="pn-i"><use href="#pn-i-check"/></svg>Material cost reduction</li>
+                            <li><svg class="pn-i"><use href="#pn-i-check"/></svg>Certification &amp; testing support</li>
+                            <li><svg class="pn-i"><use href="#pn-i-check"/></svg>Spare assembly parts on request</li>
+                        </ul>
+                    </div>
+                    <div class="pn-split__media pn-reveal">
+                        <div class="pn-collage">
+                            <img src="/pnsb_website/static/src/img/work/breather-box-set.jpg" alt="Sets of breather filtering boxes" loading="lazy" width="679" height="510"/>
+                            <img src="/pnsb_website/static/src/img/work/rotating-assembly.jpg" alt="Rotating assembly" loading="lazy" width="642" height="584"/>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="pn-section pn-section--navy">
+                <div class="pn-container pn-quote pn-reveal">
+                    <p class="pn-quote__text">
+                        Whatever the scale or category of the product or project, we go about stubbornly finding the most
+                        resourceful way to get it done. We love to try new things, learn new technologies and solve new
+                        problems.
+                    </p>
+                    <p class="pn-quote__by">Think of us as your extended innovation-cum-R&amp;D arm.</p>
+                </div>
+            </section>
+
+            <div class="oe_structure" id="pn_about_extra"/>
+            <t t-call="pnsb_website.pn_cta"/>
+        </t>
+    </template>
+
+    <!-- =====================================================================
+         Services
+    ====================================================================== -->
+    <template id="page_services" name="PNSB: Services">
+        <t t-call="pnsb_website.pn_layout">
+            <t t-set="additional_title">Services</t>
+            <t t-call="pnsb_website.pn_page_hero">
+                <t t-set="eyebrow">Services</t>
+                <t t-set="title">From concept to continuous production.</t>
+                <t t-set="part">sprocket</t>
+                <t t-set="lead">Six ways we support your product, whether it is still an idea or already in production.</t>
+            </t>
+            <t t-set="service_images" t-value="{
+                'design': ('yarn-condensing.jpg', 459, 598),
+                'prototype': ('honeycomb-screen.jpg', 535, 428),
+                'manufacturing': ('creel-fabrication.jpg', 738, 554),
+                'component': ('mechanical-seal-2.jpg', 423, 318),
+                'improvement': ('tension-device-2.jpg', 780, 565),
+                'certification': ('milled-components.jpg', 800, 600),
+            }"/>
+            <section class="pn-section pn-section--tight">
+                <div class="pn-container">
+                    <div class="pn-services">
+                        <article t-foreach="pnsb_services" t-as="service" t-attf-id="service-#{service[0]}"
+                                 t-attf-class="pn-service #{'pn-service--reverse' if service_index % 2 else ''}">
+                            <t t-set="img" t-value="service_images.get(service[0])"/>
+                            <figure class="pn-service__media pn-reveal">
+                                <img t-attf-src="/pnsb_website/static/src/img/work/#{img[0]}" t-att-alt="service[1]"
+                                     loading="lazy" t-attf-width="#{img[1]}" t-attf-height="#{img[2]}"/>
+                            </figure>
+                            <div class="pn-service__body pn-reveal">
+                                <span class="pn-service__num"><t t-out="'%02d' % (service_index + 1)"/></span>
+                                <h2 class="pn-h3"><svg class="pn-i pn-i--lg"><use t-attf-href="#pn-i-#{service[0]}"/></svg><t t-out="service[1]"/></h2>
+                                <p t-out="service[2]"/>
+                                <a href="/contact" class="pn-link">Discuss this service <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <section class="pn-section pn-section--soft">
+                <div class="pn-container">
+                    <div class="pn-head pn-head--center">
+                        <p class="pn-eyebrow pn-reveal">Workshop</p>
+                        <h2 class="pn-h2 pn-reveal">Processes we work with.</h2>
+                    </div>
+                    <div class="pn-pills pn-reveal">
+                        <span>Turning</span><span>Milling</span><span>Drilling</span><span>Shaping</span>
+                        <span>Sheet-metal profile cutting</span><span>Fabrication &amp; assembly</span>
+                        <span>Dimensional inspection</span>
+                    </div>
+                </div>
+            </section>
+
+            <div class="oe_structure" id="pn_services_extra"/>
+            <t t-call="pnsb_website.pn_cta"/>
+        </t>
+    </template>
+
+    <!-- =====================================================================
+         Industries
+    ====================================================================== -->
+    <template id="page_industries" name="PNSB: Industries">
+        <t t-call="pnsb_website.pn_layout">
+            <t t-set="additional_title">Industries</t>
+            <t t-call="pnsb_website.pn_page_hero">
+                <t t-set="eyebrow">Industries</t>
+                <t t-set="title">Engineering for the industries that make things.</t>
+                <t t-set="part">honeycomb</t>
+                <t t-set="lead">Our team's design and manufacturing work has supported products across these industries.</t>
+            </t>
+            <section class="pn-section pn-section--tight">
+                <div class="pn-container">
+                    <div class="pn-industries">
+                        <article t-foreach="pnsb_industries" t-as="industry" t-attf-id="industry-#{industry[0]}" class="pn-industry pn-reveal">
+                            <span class="pn-industry__icon"><svg class="pn-i pn-i--lg"><use t-attf-href="#pn-i-#{industry[0]}"/></svg></span>
+                            <h2 class="pn-industry__title" t-out="industry[1]"/>
+                            <p t-out="industry[2]"/>
+                        </article>
+                    </div>
+                </div>
+            </section>
+            <section class="pn-section pn-section--soft">
+                <div class="pn-container pn-split">
+                    <div class="pn-split__copy">
+                        <p class="pn-eyebrow pn-reveal">Not on the list?</p>
+                        <h2 class="pn-h2 pn-reveal">We love new problems.</h2>
+                        <p class="pn-reveal">
+                            We enjoy learning new technologies and understanding new products. If your industry is not
+                            listed, tell us what you need and we will tell you honestly how we can help.
+                        </p>
+                        <a href="/contact" class="pn-btn pn-btn--dark pn-reveal">Request a Quote <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
+                    </div>
+                    <div class="pn-split__media pn-reveal">
+                        <figure class="pn-figure">
+                            <img src="/pnsb_website/static/src/img/work/honeycomb.jpg" alt="Honeycomb screen media" loading="lazy" width="1135" height="501"/>
+                        </figure>
+                    </div>
+                </div>
+            </section>
+            <div class="oe_structure" id="pn_industries_extra"/>
+            <t t-call="pnsb_website.pn_cta"/>
+        </t>
+    </template>
+</odoo>

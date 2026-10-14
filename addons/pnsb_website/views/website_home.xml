@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="page_home" name="PNSB: Home">
+        <t t-call="pnsb_website.pn_layout">
+            <t t-set="additional_title">Design, Development &amp; Manufacturing</t>
+            <t t-set="turntable_parts" t-value="[
+                ('Timing pulley', 'Machined to your pitch, width and bore, and produced in batches.'),
+                ('Chain sprocket', 'Sprockets for drives and conveyors, made to sample or drawing.'),
+                ('Mechanical seal', 'Seal assemblies and replacement seal parts, supplied as complete units.'),
+                ('Honeycomb screen', 'Air straightening unit for the textile field, built on a honeycomb screen.'),
+            ]"/>
+
+            <!-- Hero: PNSB's parts on a 3D turntable -->
+            <section class="pn-hero" data-pnsb-turntable="">
+                <div class="pn-container pn-hero__grid">
+                    <div class="pn-hero__copy">
+                        <p class="pn-hero__tagline pn-reveal">Machining Excellence, Delivering Reliability.</p>
+                        <h1 class="pn-hero__title" data-pnsb-split="">From your idea to <em>continuous production.</em></h1>
+                        <p class="pn-hero__lead pn-reveal">
+                            PNSB Machinery Industries designs, develops and manufactures machine spares, mechanical
+                            components and custom assemblies in Ahmedabad, India, working from your concept,
+                            drawing or sample.
+                        </p>
+                        <div class="pn-hero__actions pn-reveal">
+                            <a href="/contact" class="pn-btn pn-btn--dark pn-btn--lg">Request a Quote <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
+                            <a href="/products" class="pn-btn pn-btn--outline pn-btn--lg">See our work</a>
+                        </div>
+                        <dl class="pn-facts pn-reveal">
+                            <div><dt>Scope</dt><dd>Concept to production</dd></div>
+                            <div><dt>Drawings</dt><dd>PDF · STEP · DWG · DXF</dd></div>
+                            <div><dt>Time zone</dt><dd>IST (UTC+5:30)</dd></div>
+                        </dl>
+                    </div>
+
+                    <div class="pn-turntable pn-reveal">
+                        <div class="pn-3d pn-turntable__stage" data-pnsb-3d="turntable">
+                            <img class="pn-3d__fallback" src="/pnsb_website/static/src/img/work/timing-pulley.jpg"
+                                 alt="Timing pulleys made by PNSB" width="524" height="393"/>
+                            <span class="pn-3d__loading" aria-hidden="true">Loading 3D model</span>
+                            <span class="pn-turntable__hint" aria-hidden="true">Drag to rotate</span>
+                        </div>
+                        <div class="pn-turntable__captions" aria-live="polite">
+                            <p t-foreach="turntable_parts" t-as="part" data-pnsb-part-caption=""
+                               t-attf-class="pn-turntable__caption #{'is-active' if part_first else ''}" t-out="part[1]"/>
+                        </div>
+                        <div class="pn-turntable__parts" role="group" aria-label="Parts we make">
+                            <button t-foreach="turntable_parts" t-as="part" type="button" data-pnsb-part=""
+                                    t-attf-class="pn-turntable__part #{'is-active' if part_first else ''}"
+                                    t-att-aria-pressed="'true' if part_first else 'false'">
+                                <span class="pn-turntable__num" t-out="'%02d' % (part_index + 1)"/>
+                                <span class="pn-turntable__name" t-out="part[0]"/>
+                                <span class="pn-turntable__bar"><span/></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Who we are -->
+            <section class="pn-section pn-intro">
+                <div class="pn-container pn-intro__grid">
+                    <figure class="pn-intro__media pn-reveal">
+                        <img src="/pnsb_website/static/src/img/work/creel-stand.jpg" alt="Customised creel stand made by PNSB"
+                             loading="lazy" width="675" height="525"/>
+                        <figcaption>Customized creel stand for the textile field</figcaption>
+                    </figure>
+                    <div class="pn-intro__copy">
+                        <p class="pn-label pn-reveal">01 · Who we are</p>
+                        <h2 class="pn-h2" data-pnsb-split="">Your extended innovation-cum-R&amp;D arm.</h2>
+                        <p class="pn-intro__text" data-pnsb-words="">
+                            A product design, development and manufacturing facility: for your conceptual idea or an
+                            existing product, for the complete cycle of product development, and for its continuous
+                            production with quality and approval standards in mind.
+                        </p>
+                        <dl class="pn-spec pn-reveal">
+                            <div><dt>Vision</dt><dd>To serve as an extended R&amp;D center for manufacturers.</dd></div>
+                            <div><dt>Mission</dt><dd>Top-notch services from concept to prototype development.</dd></div>
+                            <div><dt>Manufacturing</dt><dd>Component engineering, material cost reduction, certification and testing.</dd></div>
+                            <div><dt>Approach</dt><dd>We evaluate, adopt, equip and collaborate with your current manufacturers.</dd></div>
+                        </dl>
+                        <a href="/about" class="pn-link pn-reveal">About PNSB <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Design / Develop / Manufacture -->
+            <section class="pn-trio">
+                <div class="pn-container">
+                    <div class="pn-trio__grid">
+                        <article class="pn-trio__item pn-reveal">
+                            <span class="pn-trio__num">A</span>
+                            <h2>Design</h2>
+                            <p>Product design for your conceptual idea or an existing product, with component engineering and material selection.</p>
+                            <a href="/services#service-design" class="pn-link pn-link--sm">Design services <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
+                        </article>
+                        <article class="pn-trio__item pn-reveal">
+                            <span class="pn-trio__num">B</span>
+                            <h2>Develop</h2>
+                            <p>The complete development cycle, from concept to a working prototype you can test before production.</p>
+                            <a href="/services#service-prototype" class="pn-link pn-link--sm">Prototyping <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
+                        </article>
+                        <article class="pn-trio__item pn-reveal">
+                            <span class="pn-trio__num">C</span>
+                            <h2>Manufacture</h2>
+                            <p>Continuous production, material cost reduction, and certification and testing support, working alongside your current suppliers.</p>
+                            <a href="/services#service-manufacturing" class="pn-link pn-link--sm">Manufacturing support <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recent developments: sticky image that wipes between projects -->
+            <section t-if="highlights" class="pn-section pn-cases" data-pnsb-cases="">
+                <div class="pn-container">
+                    <div class="pn-head">
+                        <div>
+                            <p class="pn-label pn-reveal">02 · Recent developments</p>
+                            <h2 class="pn-h2" data-pnsb-split="">Problems we have solved for clients.</h2>
+                        </div>
+                        <a href="/products" class="pn-link pn-reveal">All products <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
+                    </div>
+                    <div class="pn-cases__grid">
+                        <div class="pn-cases__media">
+                            <div class="pn-cases__frame">
+                                <img t-foreach="highlights" t-as="product" t-att-src="product._pnsb_image_url(1024)"
+                                     t-att-alt="product.name" width="1024" height="768" loading="lazy"
+                                     t-attf-class="pn-cases__img #{'is-active' if product_first else ''}"/>
+                                <span class="pn-cases__counter"><span data-pnsb-case-index="">01</span> / <t t-out="'%02d' % len(highlights)"/></span>
+                            </div>
+                        </div>
+                        <ol class="pn-cases__list">
+                            <li t-foreach="highlights" t-as="product" data-pnsb-case=""
+                                t-attf-class="pn-cases__item #{'is-active' if product_first else ''}">
+                                <img class="pn-cases__inline" t-att-src="product._pnsb_image_url(1024)" t-att-alt="product.name"
+                                     width="1024" height="768" loading="lazy"/>
+                                <div class="pn-cases__meta">
+                                    <span t-out="'%02d' % (product_index + 1)"/>
+                                    <span t-out="product.categ_id.name"/>
+                                </div>
+                                <h3 class="pn-cases__title" t-out="product.name"/>
+                                <div class="pn-cases__text">
+                                    <t t-if="product.pnsb_website_story and not is_html_empty(product.pnsb_website_story)" t-out="product.pnsb_website_story"/>
+                                    <p t-else="" t-out="product._pnsb_summary()"/>
+                                </div>
+                                <button type="button" class="pn-btn pn-btn--sm pn-btn--outline" data-pnsb-add=""
+                                        t-attf-data-id="#{product.id}" t-att-data-name="product.name"
+                                        t-att-data-image="product._pnsb_image_url(128)">
+                                    <svg class="pn-i"><use href="#pn-i-plus"/></svg><span>Add to enquiry</span>
+                                </button>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            <!-- How we work: steps drive the 3D assembly (auto-plays, clickable, no scroll pinning) -->
+            <section class="pn-section pn-story" data-pnsb-process="" data-step="0">
+                <div class="pn-container pn-story__grid">
+                    <div class="pn-story__copy">
+                        <p class="pn-label pn-reveal">03 · How we work</p>
+                        <h2 class="pn-h2" data-pnsb-split="">Precision. Built for industry.</h2>
+                        <ol class="pn-story__steps">
+                            <li class="pn-story__step is-active" data-pnsb-step="" role="button" tabindex="0" aria-pressed="true">
+                                <span class="pn-story__num">01</span>
+                                <div>
+                                    <h3>Understand</h3>
+                                    <p>We study your idea, drawing, sample or existing product, and the problem it has to solve.</p>
+                                </div>
+                                <span class="pn-story__bar"/>
+                            </li>
+                            <li class="pn-story__step" data-pnsb-step="" role="button" tabindex="0" aria-pressed="false">
+                                <span class="pn-story__num">02</span>
+                                <div>
+                                    <h3>Engineer</h3>
+                                    <p>Design, material selection and component engineering, with cost and manufacturability in mind.</p>
+                                </div>
+                                <span class="pn-story__bar"/>
+                            </li>
+                            <li class="pn-story__step" data-pnsb-step="" role="button" tabindex="0" aria-pressed="false">
+                                <span class="pn-story__num">03</span>
+                                <div>
+                                    <h3>Build</h3>
+                                    <p>A prototype first, so you can check fit and function before production starts.</p>
+                                </div>
+                                <span class="pn-story__bar"/>
+                            </li>
+                            <li class="pn-story__step" data-pnsb-step="" role="button" tabindex="0" aria-pressed="false">
+                                <span class="pn-story__num">04</span>
+                                <div>
+                                    <h3>Deliver</h3>
+                                    <p>Production parts and assemblies as agreed, with continued support for spares and improvements.</p>
+                                </div>
+                                <span class="pn-story__bar"/>
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="pn-story__visual pn-reveal">
+                        <div class="pn-3d pn-story__stage" data-pnsb-3d="process">
+                            <img class="pn-3d__fallback" src="/pnsb_website/static/src/img/work/rotating-assembly.jpg"
+                                 alt="Rotating assembly" loading="lazy" width="642" height="584"/>
+                            <span class="pn-3d__loading" aria-hidden="true">Loading 3D model</span>
+                        </div>
+                        <div class="pn-story__labels" aria-hidden="true">
+                            <span>Concept</span><span>Engineering</span><span>Prototype</span><span>Production</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- What we make: catalogue index with a photo that follows the cursor -->
+            <section t-if="categories" class="pn-section pn-index" data-pnsb-index="">
+                <div class="pn-container">
+                    <div class="pn-head">
+                        <div>
+                            <p class="pn-label pn-reveal">04 · What we make</p>
+                            <h2 class="pn-h2" data-pnsb-split="">Product lines.</h2>
+                        </div>
+                        <a href="/products" class="pn-link pn-reveal">All products <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
+                    </div>
+                    <ol class="pn-index__list">
+                        <t t-foreach="categories" t-as="category">
+                            <t t-set="line_products" t-value="products.filtered(lambda p: p.categ_id == category)"/>
+                            <li t-if="line_products" class="pn-reveal">
+                                <a t-attf-href="/products?line=#{category.pnsb_website_key}" class="pn-index__row"
+                                   t-att-data-img="line_products[0]._pnsb_image_url(512)">
+                                    <span class="pn-index__num" t-out="'%02d' % (category_index + 1)"/>
+                                    <img class="pn-index__thumb" t-att-src="line_products[0]._pnsb_image_url(256)"
+                                         t-att-alt="category.name" loading="lazy" width="256" height="192"/>
+                                    <span class="pn-index__name" t-out="category.name"/>
+                                    <span class="pn-index__desc" t-out="category.pnsb_website_description or ''"/>
+                                    <span class="pn-index__count"><t t-out="'%02d' % len(line_products)"/> <t t-out="'item' if len(line_products) == 1 else 'items'"/></span>
+                                    <span class="pn-index__go"><svg class="pn-i"><use href="#pn-i-arrow-ur"/></svg></span>
+                                </a>
+                            </li>
+                        </t>
+                    </ol>
+                </div>
+                <div class="pn-index__float" data-pnsb-index-float="" aria-hidden="true"><img alt=""/></div>
+            </section>
+
+            <!-- Industries: marquee -->
+            <section class="pn-industries-band">
+                <div class="pn-container pn-industries-band__head">
+                    <p class="pn-label">05 · Industries</p>
+                    <p class="pn-industries-band__text">
+                        Our team's design and manufacturing work has supported products in these industries.
+                        <a href="/industries" class="pn-link pn-link--sm">See industries <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
+                    </p>
+                </div>
+                <div class="pn-marquee" data-pnsb-marquee="">
+                    <div class="pn-marquee__track">
+                        <t t-foreach="pnsb_industries" t-as="industry">
+                            <span class="pn-marquee__item" t-out="industry[1]"/>
+                        </t>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Working with us from overseas -->
+            <section class="pn-section pn-section--soft">
+                <div class="pn-container pn-remote">
+                    <div class="pn-remote__intro">
+                        <p class="pn-label pn-reveal">06 · Partner with us from anywhere</p>
+                        <h2 class="pn-h2" data-pnsb-split="">Simple to work with, wherever your plant is.</h2>
+                        <p class="pn-reveal">
+                            Everything starts with your drawing or a sample. You get one point of contact from the
+                            first review to the finished parts.
+                        </p>
+                        <a href="/contact" class="pn-btn pn-btn--dark pn-reveal">Send your drawing <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
+                    </div>
+                    <ol class="pn-remote__steps">
+                        <li class="pn-reveal">
+                            <span class="pn-remote__num">1</span>
+                            <h3>Send your drawing or sample</h3>
+                            <p>Upload PDF, STEP, DWG or DXF files with your enquiry, or describe the part and quantities.</p>
+                        </li>
+                        <li class="pn-reveal">
+                            <span class="pn-remote__num">2</span>
+                            <h3>Engineering review &amp; quotation</h3>
+                            <p>We review material, manufacturability and quantities, then reply with a quotation.</p>
+                        </li>
+                        <li class="pn-reveal">
+                            <span class="pn-remote__num">3</span>
+                            <h3>Prototype approval</h3>
+                            <p>A prototype or first sample for you to check before production starts.</p>
+                        </li>
+                        <li class="pn-reveal">
+                            <span class="pn-remote__num">4</span>
+                            <h3>Production &amp; delivery</h3>
+                            <p>Parts made in agreed batches, with spares and product improvements supported over time.</p>
+                        </li>
+                    </ol>
+                </div>
+            </section>
+
+            <div class="oe_structure" id="pn_home_extra"/>
+            <t t-call="pnsb_website.pn_cta"/>
+        </t>
+    </template>
+</odoo>

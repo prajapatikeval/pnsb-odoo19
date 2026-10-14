@@ -4,9 +4,11 @@ Guidance for AI assistants working in this repository. Read it fully before chan
 
 ## What this is
 
-- Public website + light backend for **PNSB Machinery Industries** (Ahmedabad, Gujarat, India):
-  precision machinery and engineered components (bolts, nuts, washers, rods, structural
-  sets, CNC parts). Live at https://pnsb-odoo19.onrender.com.
+- Public website for **PNSB Machinery Industries LLP** (Ahmedabad, Gujarat, India): a product
+  design, development and manufacturing partner (textile machinery spares, filtration &
+  airflow assemblies, mechanical components, precision machined parts, custom fabrication).
+  Live at https://pnsb-odoo19.onrender.com. Source material: the client's company profile
+  PDFs (VishwakarmaDDM APR22 / MC DETAIL 2020) and an earlier design brief (white theme).
 - Odoo **19.0** (official `odoo:19.0` Docker image), one custom addon: `addons/pnsb_website`.
 - Hosted on **Render** (free plan: 0.1 CPU, 512 MB RAM, disk wiped on every restart/deploy,
   service sleeps after 15 min idle, free PostgreSQL expires after 30 days).
@@ -23,21 +25,35 @@ README.md              human deployment guide
 
 ## Hard rules (the owner asked for these)
 
-1. **No product detail pages.** Products appear only in listings (home featured stack,
-   `/products`, `/products/category/<slug>`, `/products/compare`). Product cards must not link
-   to a per-product page; `industrial.product.website_url` points to the category page.
-2. **No fabricated claims** on the live site: no fake testimonials, certifications (ISO/IATF…),
-   founding year, customer counts, countries or defect rates. Home stats are computed from real
-   data (counts of product families, categories, materials, finishes). Company copy comes from
-   PNSB's own texts ("Precision. Built for industry.", Understand → Engineer → Build → Deliver,
-   "Let's discuss your requirement", "Let's build something precise").
-3. **Keep the design system** (dark graphite + forge orange `#ff5b1f`, Archivo / Geist / Geist Mono,
-   double-bezel cards, pill buttons with nested icon). Do not replace with Bootstrap defaults.
-4. **Header has a Log in button** (`/web/login?redirect=/odoo`; shows "Dashboard" when logged in,
+1. **No product detail pages.** Products appear only in listings (home showcase, `/products`
+   with client-side line filter). Cards must not link to a per-product page.
+2. **No fabricated claims** on the live site: no fake testimonials, certifications, founding
+   year, customer counts, countries or statistics. Company copy comes from PNSB's own texts
+   (company profile; "Machining Excellence, Delivering Reliability.", "Precision ideas. Real
+   impact.", Understand → Engineer → Build → Deliver, "Let's discuss your requirement").
+   Industries list = the 8 named in the profile only.
+3. **No machine details**: never show machine names, brands, quantities, capacities or specs
+   (client instruction). Don't use machine-brand names in product names either.
+4. **Only non-private product information**: short generic summaries, no client names,
+   drawings or specifications. Contact details shown: address + phones (+ WhatsApp), not the
+   personal e-mail addresses or contact names from the PDFs.
+5. **Design: "engineering drawing", white theme, must not look AI-generated.** Paper-white sheets,
+   1px ink rules, square corners (no pill buttons, no soft shadows/gradients, no rounded card
+   grids), monospace technical labels (`.pn-label`, IBM Plex Mono) instead of "eyebrows",
+   Archivo headings (font-stretch 80-88%), IBM Plex Sans body, navy ink `#0f1e38`, logo blue
+   `#1f52c4`. Drawing-sheet details (zone markers, title blocks) are part of the identity.
+   Copy comes from the PDFs and is aimed at US/overseas B2B buyers (US spelling, "Request a
+   Quote", IST time zone). Logo = cleaned PNG from the client's JPEG.
+10. **3D shows only parts PNSB makes** (company profile): timing pulley, shaft/bearings, chain
+   sprocket, mechanical seal, honeycomb air-straightening panel. No generic gears/bolts.
+11. **No custom backend menus.** Use Odoo's own apps; additions go on top of base views
+   (Website tab on the product form, fields on categories/website).
+6. **Header has a Log in button** (`/web/login?redirect=/odoo`; "Dashboard" when logged in,
    "My account" for portal users). Keep it.
-5. **Never commit secrets.** Passwords come only from Render environment variables.
-6. Keep the module name `pnsb_website`: the live database already has it installed; renaming would
-   leave an orphan module and force a reinstall.
+7. **Never commit secrets.** Passwords come only from Render environment variables.
+8. Keep the module name `pnsb_website`: the live database already has it installed.
+9. **Use standard Odoo**: products are `product.template` (Sales), enquiries become
+   `sale.order` quotations or `crm.lead`. Don't reintroduce custom catalogue/RFQ models.
 
 ## Render / boot architecture (why it looks like this)
 
@@ -52,7 +68,8 @@ and Render restarts the container mid-transaction. `docker/boot.py` fixes this. 
 3. Waits for PostgreSQL; if the DB is empty, runs `odoo -i base --stop-after-init`.
 4. Once per database: sets `ir_attachment.location = db`, deletes attachment rows whose files are
    gone, and `force_storage()`. All attachments live in PostgreSQL because the disk is ephemeral.
-5. Module sync via SQL (fast): installs custom addons that aren't installed plus `EXTRA_MODULES`; runs
+5. Module sync via SQL (fast): installs custom addons that aren't installed, the `depends` of
+   their manifests (e.g. `sale_management`, `crm`) and `EXTRA_MODULES`; runs
    `-u` on custom addons only when the sha256 of `/opt/pnsb/addons` differs from the stored
    `pnsb.boot.addons_hash` parameter. Unchanged deploys boot in ~10–20 s.
 6. Applies `ADMIN_PASSWORD` to the admin user (via passlib pbkdf2_sha512) when it changes (marker in
@@ -77,42 +94,66 @@ Operational answers:
 
 ## Module map (`addons/pnsb_website`)
 
-Backend models (menu **Industrial Parts**):
-- `industrial.product.category`, `industrial.product` (+ `.spec`, `.size`, `.image`),
-  `industrial.material`, `industrial.finish`, `industrial.sector` — catalogue; images via
-  `industrial.image.source` (uploaded image or `image_url` fallback, `_ip_image_src(width)`).
-- `industrial.rfq` / `industrial.rfq.line` — quote requests (kanban pipeline, chatter, drawings as
-  attachments, sequence `RFQ/%(year)s/`, acknowledgement mail template).
-- `website._pnsb_bootstrap()` — idempotent setup (company name/address, website name,
-  `homepage_url = /industrial`), called by `post_init_hook` and `data/website_setup_data.xml` on
-  every install/upgrade; only overwrites untouched Odoo defaults.
-- Security: groups *Industrial Parts › User / Administrator*; public/portal read access with record
-  rules limited to published records.
+Depends on `website`, `sale_management`, `crm` (installing these also pulls `l10n_in`).
 
-Routes (`controllers/main.py`): `/industrial` (home, served on `/` via `homepage_url`), `/products`,
-`/products/category/<slug>`, `/products/compare?ids=`, `/quote`, `POST /quote/submit` (multipart,
-CSRF, honeypot `company_website`, max 6 files × 15 MB, extension whitelist), and 301 redirects
-`/about`, `/process`, `/contact`, `/contactus`.
+Backend:
+- `product.template` + fields `pnsb_website_published`, `_sequence`, `_summary`, `_highlight`
+  (home showcase), `_story` (optional expandable case study); **Website** tab on the product
+  form; menu Sales › Products › Website Products.
+- `product.category` + `pnsb_website_published`, `_sequence`, `_description`; categories are
+  the website's product lines (`pnsb_website_key` = slug-id used by the filter).
+- `website` + `pnsb_phone_alt`, `pnsb_whatsapp`, `pnsb_map_lat/lng` (exact workshop location:
+  Google Maps link + footer map embed); `_pnsb_layout_values(page)` returns the
+  values every page needs (company, address, services, industries, JSON-LD, meta description);
+  `_pnsb_bootstrap()` (data/website_setup_data.xml, every install/upgrade) fills company
+  name/address/phone/logo, website name/logo/favicon/contacts and `homepage_url = /industrial`,
+  only where values are still empty/defaults. Contact details confirmed by the client (address
+  350/4 Ahmedabad Udhyogic Vasahat, phones +91 88496 38874 / +91 96246 84555, WhatsApp
+  96246 84555) are applied once per database (marker `pnsb_website.contact_version`); bump
+  `CONTACT_VERSION` in models/website.py to push new ones.
+- `data/product_data.xml` (noupdate): 5 categories, 21 products with photos from the PDFs.
+- `migrations/19.0.3.0.0/end-remove_industrial_models.py`: drops the old `industrial_*`
+  tables and leftovers of version <= 19.0.2.
 
-Templates: `views/website_layout_templates.xml` (layout, icon sprite `#ip-i-*`, header, menu,
-footer, basket drawer, compare tray), `website_home_templates.xml`, `website_catalog_templates.xml`,
-`website_compare_templates.xml`, `website_quote_templates.xml`. All site CSS is scoped under
-`.ip-root`; pages set `no_header/no_footer` and render their own chrome.
+Routes (`controllers/main.py`): `/industrial` (home, served on `/`), `/about`, `/services`,
+`/industries`, `/products` (`?line=<key>`), `/contact`, `/contact/thank-you`,
+`/pnsb/image/<product_id>/<size>` (public images of published products only; visitors have
+no ACL on product.template), `POST /pnsb/enquiry` (CSRF, honeypot `website_url`, max 5 files ×
+15 MB, extension whitelist, JSON reply when `Accept: application/json`, redirect otherwise).
+Items → `sale.order` draft (origin "Website enquiry"); no items → `crm.lead`. Partner found by
+e-mail or created. `user_id` is set explicitly (sudo keeps the public user as env.user).
+Old URLs `/quote`, `/contactus`, `/process`, `/work`, `/products/compare`,
+`/products/category/*` 301-redirect.
 
-Frontend JS (Odoo 19 **Interaction** framework, `@web/public/interaction`, registered in
-`registry.category("public.interactions")`):
-- `static/src/boot/boot.js` — loaded with `defer` outside the bundle (Odoo loads
-  `web.assets_frontend_lazy` only after `window.load`, i.e. after all images). Runs the preloader,
-  page-enter curtain, text splitting and scroll reveals as soon as the DOM is parsed.
-- `js/core/motion.js` (shared rAF ticker, inertial wheel scroll, `motion.scrollTo`),
-  `split.js`, `store.js` (quote basket + compare in localStorage), `prism.js` (3D hex prism shading).
-- `js/interactions/`: `root.js` (smooth scroll, header hide/show with hysteresis, menu, cursor,
-  magnetic buttons, anchors, page transitions, toasts), `reveal.js`, `scrub.js` (hero, parallax,
-  word fill), `sections.js` (pinned category rail, stacking cards, marquee, 3D nut-on-bolt process,
-  materials explorer, industries hover image, torque calculator), `commerce.js`, `catalog.js`,
-  `quote.js` (compare page + multi-step RFQ).
-- SCSS: `tokens.scss` (CSS variables + mixins, must stay first), `base`, `components`, `chrome`,
-  `home`, `catalog`, `product` (compare table styles), `quote`.
+Templates: `website_layout.xml` (icon sprite `#pn-i-*`, `pn_header`, `pn_footer`, product
+card, CTA, `pn_layout`, and `pn_odoo_chrome` which renders the PNSB header/footer on Odoo's
+own website pages such as /web/login and /my instead of the default "Your Logo" chrome),
+`website_home.xml`, `website_pages.xml` (about, services, industries),
+`website_products.xml`, `website_contact.xml` (contact form, thank-you, branded 404 via
+`http_routing.404` inheritance). PNSB pages set `no_header/no_footer` and render their own
+chrome inside `.pn-root`.
+
+Frontend:
+- `static/src/scss/pnsb.scss`: all styles, scoped under `.pn-root`.
+- `static/src/js/pnsb.js` (bundle, Interactions): `PnsbChrome` (always-visible header, mobile
+  menu, enquiry badge/add buttons, back-to-top button, toast), `PnsbCatalog`, `PnsbEnquiryForm`,
+  and effects ported from the previous site on one rAF ticker: `PnsbWordFill`
+  (`data-pnsb-words`), `PnsbCases` (recent developments: sticky image wipes to the project in
+  view), `PnsbIndex` (product-line index, photo follows the cursor), `PnsbMarquee`.
+  **No scroll pinning / scroll-jacking** (the client found pinned sections "stuck").
+  Enquiry list in localStorage (`pnsb_enquiry_v1`).
+- `static/src/boot/boot.js` (`defer`, outside the bundle): scroll reveals (`.pn-reveal`) and
+  masked heading splits (`data-pnsb-split`). Odoo loads the bundle only after `window.load`,
+  so anything that hides content must live here (CSS failsafe shows it after 3 s otherwise).
+- `static/src/three/pnsb3d.js` (native ES module, dynamically imported so it never delays
+  `load`) + vendored `static/lib/three/three.module.min.js` (three.js r160, MIT). Scenes on
+  `[data-pnsb-3d]`: `turntable` (home hero: PNSB's parts, auto-advances, drag to rotate, part
+  list `[data-pnsb-part]`), `process` (how we work, driven by clickable auto-playing
+  `[data-pnsb-step]` items), `seal`, `sprocket`, `honeycomb`, `pulley`. The fallback photo is
+  shown only with `html.pn-no3d` / without JS (never flashes on load); a "Loading 3D model"
+  line shows meanwhile. Procedural geometry, studio env
+  map, renders only while visible, skipped in iframes (website builder) and without WebGL.
+- Scripts outside the bundle get content-hashed URLs via `website._pnsb_static_url()`.
 
 ## Odoo 19 / tooling pitfalls learned the hard way
 
@@ -124,7 +165,27 @@ Frontend JS (Odoo 19 **Interaction** framework, `@web/public/interaction`, regis
   builder. Every interaction's `destroy()` must undo its DOM changes (split text restored,
   `is-in`/`is-split` removed, inline styles cleared) or they get saved into the page. Hidden
   "reveal" states only apply under `html.ip-motion`.
-- Don't reuse the class `is-in` for anything else (reveal cleanup strips it everywhere).
+- Reveal hidden states only apply under `html.pn-motion`, which the layout never sets inside
+  an iframe (website builder), and `PnsbReveal.destroy()` removes `pn-shown`.
+- Visitors' 404s render `http_routing.404` directly; `website.page_404` is only used for
+  website designers. Override the former.
+- Colibri calls `updateContent()` after every handled event: use `.noUpdate` for scroll/keydown.
+- Headless Edge/Chrome `--screenshot` doesn't write a file for HTTP 404 responses, and headless
+  windows have a ~500px minimum width (use DevTools device emulation for phone captures).
+- Odoo's theme CSS forces `section { height: auto !important }` below 768px: use `min-height`
+  for scroll-driven sections.
+- `data-pnsb-3d` maps to `dataset["pnsb-3d"]` (a dash before a digit is not camel-cased): use
+  `getAttribute`.
+- `pn-split` is the two-column layout class; the word-split effect uses `pn-splitw`.
+- The Website app shows the site in an iframe: 3D and animations must run there; only edit
+  mode (`body.editor_enable`, or `?enable_editor=1` on load) switches them off.
+- External links (WhatsApp, Google Maps) always use `target="_blank" rel="noopener"`.
+- In the test helpers, never `pkill -f odoo-bin` from a shell whose own command line contains
+  that string (it kills itself); run the script file directly.
+- A `backdrop-filter` on the header traps fixed children: the mobile menu panel is rendered
+  outside `<header>`.
+- The 19.0.3.0.0 migration must not delete external ids Odoo still needs: `_process_end` runs
+  after `end-` scripts and finds the old menus/views/groups through them.
 - Colibri `dynamicContent`: use `.noUpdate` on high-frequency events (`t-on-pointermove.noUpdate`),
   `.capture`, `.prevent` modifiers exist; handlers are wrapped async but run synchronously first.
 - Never pass `main_object=None` to `website.layout` (500 error); omit the key instead.
@@ -143,18 +204,19 @@ Site on http://localhost:10000, admin password `change-me-locally` (local only).
 changes `docker compose up -d --build` is enough (boot upgrades the module when the hash changes);
 use `docker compose down -v` to reset the local database.
 
-Checks worth running after changes: routes `/ /products /quote /products/compare /web/login` return
-200, `/web/health` 200, frontend CSS bundle 200, `select count(*) from ir_attachment where
-store_fname is not null` stays 0, a quote submission creates an `industrial.rfq` with lines and
-attachments. Validate XML (`python3 -c "import xml.dom.minidom as m; m.parse(file)"`) and Python
+Checks worth running after changes: routes `/ /about /services /industries /products /contact
+/web/login` return 200, an unknown URL returns the branded 404, `/web/health` 200, frontend CSS
+bundle 200, `select count(*) from ir_attachment where store_fname is not null` stays 0, an
+enquiry with products creates a draft `sale.order` (with the drawing attached) and one without
+products creates a `crm.lead`. Validate XML (`python3 -c "import xml.dom.minidom as m; m.parse(file)"`) and Python
 (`python3 -m py_compile`) before pushing — a failed module update blocks the Render deploy.
 
 ## Known gaps / TODO
 
-- Website-editor edit mode was not verified end to end after the last changes.
-- Sample catalogue entries (14 families) and Pexels stock photos are placeholders; replace with real
-  products/photos (or unpublish) in the backend.
-- Outgoing mail server not configured: RFQ acknowledgement e-mails stay queued.
-- Free plan limits (sleep, 30-day DB) — recommend a paid plan for production.
+- Website-editor edit mode was not verified end to end.
+- Outgoing mail server not configured, so quotations can't be e-mailed from Odoo yet.
+- Free plan limits (sleep, 30-day DB): recommend a paid plan for production.
 - The git history before commit `a57655d` contains an old, now unused master password; rewrite
   history if that matters.
+- Backup of the previous (dark/orange, custom-model) version: branch
+  `backup/2026-10-13-before-redesign`, tag `backup-2026-10-13-before-redesign`.

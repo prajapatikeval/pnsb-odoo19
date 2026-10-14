@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="page_products" name="PNSB: Products">
+        <t t-call="pnsb_website.pn_layout">
+            <t t-set="additional_title">Products &amp; Work</t>
+            <t t-call="pnsb_website.pn_page_hero">
+                <t t-set="eyebrow">Products &amp; work</t>
+                <t t-set="title">Turning ideas into real products.</t>
+                <t t-set="part">pulley</t>
+                <t t-set="lead">A selection of what we design, develop and manufacture. Add items to your enquiry list and we will come back with a quotation.</t>
+            </t>
+
+            <section class="pn-section pn-section--tight" data-pnsb-catalog="">
+                <div class="pn-container">
+                    <div class="pn-catalog">
+                        <aside class="pn-catalog__side" aria-label="Find products">
+                            <label class="pn-catalog__search">
+                                <span class="pn-catalog__label">Search</span>
+                                <span class="pn-catalog__field">
+                                    <svg class="pn-i"><use href="#pn-i-search"/></svg>
+                                    <input type="search" placeholder="Part name or application" data-pnsb-search=""/>
+                                </span>
+                            </label>
+                            <div class="pn-catalog__lines">
+                                <span class="pn-catalog__label">Product lines</span>
+                                <select class="pn-catalog__select" data-pnsb-filter-select="" aria-label="Product line">
+                                    <option value="all" t-att-selected="'selected' if active_key == 'all' else None">All products (<t t-out="len(products)"/>)</option>
+                                    <option t-foreach="categories" t-as="category" t-att-value="category.pnsb_website_key"
+                                            t-att-selected="'selected' if active_key == category.pnsb_website_key else None">
+                                        <t t-out="category.name"/> (<t t-out="counts.get(category.id, 0)"/>)
+                                    </option>
+                                </select>
+                                <div class="pn-catalog__list" role="tablist" aria-label="Product lines">
+                                    <button type="button" role="tab" data-pnsb-filter="all"
+                                            t-attf-class="pn-filter #{'is-active' if active_key == 'all' else ''}"
+                                            t-att-aria-selected="'true' if active_key == 'all' else 'false'">
+                                        <span>All products</span><span class="pn-filter__count" t-out="len(products)"/>
+                                    </button>
+                                    <button t-foreach="categories" t-as="category" type="button" role="tab"
+                                            t-att-data-pnsb-filter="category.pnsb_website_key"
+                                            t-attf-class="pn-filter #{'is-active' if active_key == category.pnsb_website_key else ''}"
+                                            t-att-aria-selected="'true' if active_key == category.pnsb_website_key else 'false'">
+                                        <span t-out="category.name"/><span class="pn-filter__count" t-out="counts.get(category.id, 0)"/>
+                                    </button>
+                                </div>
+                            </div>
+                            <p class="pn-catalog__result"><span data-pnsb-count="" t-out="len(products)"/> products shown</p>
+                        </aside>
+
+                        <div class="pn-catalog__main">
+                            <t t-foreach="categories" t-as="category">
+                                <p t-if="category.pnsb_website_description" class="pn-line-intro"
+                                   t-att-data-pnsb-intro="category.pnsb_website_key"
+                                   t-att-hidden="None if active_key == category.pnsb_website_key else 'hidden'"
+                                   t-out="category.pnsb_website_description"/>
+                            </t>
+                            <div class="pn-products" data-pnsb-grid="">
+                                <t t-foreach="products" t-as="product">
+                                    <t t-call="pnsb_website.pn_product_card"/>
+                                </t>
+                            </div>
+                            <div class="pn-empty" data-pnsb-empty="" t-att-hidden="None if not products else 'hidden'">
+                                <svg class="pn-i pn-i--lg"><use href="#pn-i-search"/></svg>
+                                <p>No products match your search.</p>
+                                <p class="pn-muted">We also make parts to your drawing or sample: <a href="/contact">send us your requirement</a>.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="pn-section pn-section--soft">
+                <div class="pn-container pn-split">
+                    <div class="pn-split__copy">
+                        <p class="pn-eyebrow pn-reveal">Custom requirement</p>
+                        <h2 class="pn-h2 pn-reveal">Have a drawing or a sample?</h2>
+                        <p class="pn-reveal">
+                            Most of our work is made to order. Send us a drawing, a photo of the sample or a short
+                            description, and we will review how to design, develop or manufacture it.
+                        </p>
+                        <a href="/contact" class="pn-btn pn-btn--dark pn-reveal">Send your requirement <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
+                    </div>
+                    <div class="pn-split__media pn-reveal">
+                        <figure class="pn-figure">
+                            <img src="/pnsb_website/static/src/img/work/creel-fabrication-2.jpg" alt="Creel stand fabrication" loading="lazy" width="1400" height="513"/>
+                        </figure>
+                    </div>
+                </div>
+            </section>
+            <div class="oe_structure" id="pn_products_extra"/>
+        </t>
+    </template>
+</odoo>
