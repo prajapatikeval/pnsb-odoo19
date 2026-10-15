@@ -627,6 +627,7 @@ export class PnsbCases extends Interaction {
         this.items = [...this.el.querySelectorAll("[data-pnsb-case]")];
         this.images = [...this.el.querySelectorAll(".pn-cases__img")];
         this.counter = this.el.querySelector("[data-pnsb-case-index]");
+        this.caseName = this.el.querySelector("[data-pnsb-case-name]");
         this.active = 0;
         if (!window.IntersectionObserver || this.items.length < 2) {
             return;
@@ -654,6 +655,9 @@ export class PnsbCases extends Interaction {
         if (this.counter) {
             this.counter.textContent = String(index + 1).padStart(2, "0");
         }
+        if (this.caseName) {
+            this.caseName.textContent = this.images[index]?.alt || "";
+        }
         this.active = index;
     }
 
@@ -671,121 +675,4 @@ export class PnsbCases extends Interaction {
 }
 interactions.add("pnsb_website.cases", PnsbCases);
 
-/** Product lines index: a photo of the line follows the cursor (mouse only). */
-export class PnsbIndex extends Interaction {
-    static selector = "[data-pnsb-index]";
-    dynamicContent = {
-        ".pn-index__list": {
-            "t-on-pointermove.noUpdate": this.onMove,
-            "t-on-pointerleave.noUpdate": this.onLeave,
-        },
-    };
 
-    start() {
-        this.float = this.el.querySelector("[data-pnsb-index-float]");
-        this.img = this.float?.querySelector("img");
-        this.pos = { x: 0, y: 0, tx: 0, ty: 0, r: 0 };
-        this.current = null;
-        if (!this.float || !motionAllowed()) {
-            return;
-        }
-        this.unsubscribe = ticker.subscribe(({ dt }) => {
-            if (!this.float.classList.contains("is-visible")) {
-                return;
-            }
-            const k = 1 - Math.exp(-dt * 0.012);
-            const p = this.pos;
-            const prevX = p.x;
-            p.x += (p.tx - p.x) * k;
-            p.y += (p.ty - p.y) * k;
-            p.r += (clamp((p.x - prevX) * 0.5, -10, 10) - p.r) * 0.1;
-            this.float.style.transform = `translate3d(${p.x.toFixed(1)}px, ${p.y.toFixed(1)}px, 0) rotate(${p.r.toFixed(2)}deg)`;
-        });
-    }
-
-    onMove(ev) {
-        if (ev.pointerType !== "mouse" || !this.unsubscribe) {
-            return;
-        }
-        const rect = this.el.getBoundingClientRect();
-        this.pos.tx = ev.clientX - rect.left + 28;
-        this.pos.ty = ev.clientY - rect.top - this.float.offsetHeight / 2;
-        if (!this.float.classList.contains("is-visible")) {
-            this.pos.x = this.pos.tx;
-            this.pos.y = this.pos.ty;
-            this.float.classList.add("is-visible");
-        }
-        const row = ev.target.closest(".pn-index__row");
-        if (row && row !== this.current) {
-            this.current = row;
-            if (row.dataset.img && this.img.getAttribute("src") !== row.dataset.img) {
-                this.img.src = row.dataset.img;
-            }
-        }
-    }
-
-    onLeave() {
-        this.float?.classList.remove("is-visible");
-        this.current = null;
-    }
-
-    destroy() {
-        this.unsubscribe?.();
-        this.float?.classList.remove("is-visible");
-        this.float?.style.removeProperty("transform");
-    }
-}
-interactions.add("pnsb_website.index", PnsbIndex);
-
-/** Endless marquee that speeds up with scroll velocity and follows its direction. */
-export class PnsbMarquee extends Interaction {
-    static selector = "[data-pnsb-marquee]";
-
-    start() {
-        this.track = this.el.querySelector(".pn-marquee__track");
-        this.clones = [];
-        if (!this.track || !motionAllowed()) {
-            return;
-        }
-        const originals = [...this.track.children];
-        let guard = 0;
-        while (this.track.scrollWidth < window.innerWidth * 2.2 && guard++ < 6) {
-            for (const child of originals) {
-                const clone = child.cloneNode(true);
-                clone.setAttribute("aria-hidden", "true");
-                this.track.appendChild(clone);
-                this.clones.push(clone);
-            }
-        }
-        const gap = parseFloat(getComputedStyle(this.track).columnGap) || 0;
-        this.loop = originals.reduce((w, el) => w + el.offsetWidth + gap, 0) || this.track.scrollWidth / 2;
-        this.x = 0;
-        this.dir = 1;
-        this.visible = false;
-        this.io = new IntersectionObserver(([entry]) => (this.visible = entry.isIntersecting));
-        this.io.observe(this.el);
-        this.unsubscribe = ticker.subscribe(({ vy, dt }) => {
-            if (!this.visible) {
-                return;
-            }
-            if (Math.abs(vy) > 0.5) {
-                this.dir = vy > 0 ? 1 : -1;
-            }
-            this.x -= (0.6 + Math.min(12, Math.abs(vy) * 0.2)) * this.dir * (dt / 16);
-            if (this.x <= -this.loop) {
-                this.x += this.loop;
-            } else if (this.x > 0) {
-                this.x -= this.loop;
-            }
-            this.track.style.transform = `translate3d(${this.x.toFixed(2)}px, 0, 0)`;
-        });
-    }
-
-    destroy() {
-        this.unsubscribe?.();
-        this.io?.disconnect();
-        (this.clones || []).forEach((clone) => clone.remove());
-        this.track?.style.removeProperty("transform");
-    }
-}
-interactions.add("pnsb_website.marquee", PnsbMarquee);

@@ -139,12 +139,6 @@ class Website(models.Model):
         return 'https://www.google.com/maps/search/?api=1&query=%s' % quote_plus(', '.join(filter(None, [
             company.street, company.street2, company.city, company.zip])))
 
-    def _pnsb_map_embed_url(self):
-        self.ensure_one()
-        if not (self.pnsb_map_lat and self.pnsb_map_lng):
-            return False
-        return 'https://www.google.com/maps?q=%.7f,%.7f&z=16&output=embed' % (self.pnsb_map_lat, self.pnsb_map_lng)
-
     def _pnsb_layout_values(self, page):
         self.ensure_one()
         company = self.company_id.sudo()
@@ -179,7 +173,6 @@ class Website(models.Model):
             'pnsb_industries': INDUSTRIES,
             'pnsb_address_lines': address_lines,
             'pnsb_map_url': self._pnsb_map_url(),
-            'pnsb_map_embed': self._pnsb_map_embed_url(),
             'pnsb_description': PAGE_DESCRIPTIONS.get(page, PAGE_DESCRIPTIONS['home']),
             'pnsb_jsonld': Markup(json.dumps(organization).replace('</', '<\\/')),
         }

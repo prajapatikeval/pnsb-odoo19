@@ -60,6 +60,46 @@
             </section>
 
             <section class="pn-section">
+                <div class="pn-container">
+                    <div class="pn-head">
+                        <div>
+                            <p class="pn-label pn-reveal">What we support</p>
+                            <h2 class="pn-h2" data-pnsb-split="">From the first idea to the existing product line.</h2>
+                        </div>
+                    </div>
+                    <dl class="pn-spec pn-spec--wide pn-reveal">
+                        <div><dt>Product design</dt><dd>Design for your conceptual idea or an existing product, through the complete cycle of product development.</dd></div>
+                        <div><dt>Prototype development</dt><dd>Top-notch services from concept to prototype development.</dd></div>
+                        <div><dt>Component engineering</dt><dd>Engineering of components and assemblies for function, fit and manufacturability.</dd></div>
+                        <div><dt>Material cost reduction</dt><dd>Reviewing materials and processes to bring the cost of a part down.</dd></div>
+                        <div><dt>Certification &amp; testing</dt><dd>Support through certification and testing against approval standards.</dd></div>
+                        <div><dt>Existing products</dt><dd>Improving products already in production and reducing their time cycle.</dd></div>
+                        <div><dt>Your suppliers</dt><dd>We evaluate, adopt, equip and collaborate with your current manufacturers.</dd></div>
+                        <div><dt>Continuous production</dt><dd>Production with consideration of quality and approval standards, plus spare assembly parts.</dd></div>
+                    </dl>
+                </div>
+            </section>
+
+            <section class="pn-section pn-section--soft">
+                <div class="pn-container">
+                    <div class="pn-head">
+                        <div>
+                            <p class="pn-label pn-reveal">Industries</p>
+                            <h2 class="pn-h2" data-pnsb-split="">Industries our work has supported.</h2>
+                        </div>
+                        <a href="/industries" class="pn-link pn-reveal">See industries <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
+                    </div>
+                    <div class="pn-industries">
+                        <article t-foreach="pnsb_industries" t-as="industry" t-attf-id="industry-#{industry[0]}" class="pn-industry pn-reveal">
+                            <span class="pn-industry__icon"><svg class="pn-i pn-i--lg"><use t-attf-href="#pn-i-#{industry[0]}"/></svg></span>
+                            <h3 class="pn-industry__title" t-out="industry[1]"/>
+                            <p t-out="industry[2]"/>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <section class="pn-section">
                 <div class="pn-container pn-split pn-split--reverse">
                     <div class="pn-split__copy">
                         <p class="pn-eyebrow pn-reveal">On the shop floor</p>

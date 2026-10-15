@@ -79,7 +79,9 @@ service hosts this single database. To start over, use `RESET_DATABASE`.
 
 The home page and inner pages render real-time 3D models of parts PNSB makes, using
 [three.js](https://threejs.org) r160 (MIT licence), bundled in
-`addons/pnsb_website/static/lib/three/` so the site never depends on a CDN. Visitors without
+`addons/pnsb_website/static/lib/three/` so the site never depends on a CDN. The Contact page
+map uses [Leaflet](https://leafletjs.com) 1.9.4 (BSD-2, bundled in `static/lib/leaflet/`) with
+© OpenStreetMap contributors tiles. Visitors without
 WebGL, and the website editor, see photos instead.
 
 ## Run locally

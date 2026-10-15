@@ -783,8 +783,17 @@ function processScene(container) {
             el.setAttribute("aria-pressed", String(k === i));
             el.style.removeProperty("--p");
         });
+        section.querySelectorAll("[data-pnsb-step-tab]").forEach((tab) => {
+            tab.setAttribute("aria-pressed", String(Number(tab.getAttribute("data-pnsb-step-tab")) === i));
+        });
         section.dataset.step = String(i);
     };
+    section.querySelectorAll("[data-pnsb-step-tab]").forEach((tab) => {
+        tab.addEventListener("click", () => {
+            auto = false;
+            setStep(Number(tab.getAttribute("data-pnsb-step-tab")));
+        });
+    });
     steps.forEach((el, i) => {
         el.addEventListener("click", () => {
             auto = false;

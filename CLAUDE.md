@@ -138,8 +138,8 @@ Frontend:
 - `static/src/js/pnsb.js` (bundle, Interactions): `PnsbChrome` (always-visible header, mobile
   menu, enquiry badge/add buttons, back-to-top button, toast), `PnsbCatalog`, `PnsbEnquiryForm`,
   and effects ported from the previous site on one rAF ticker: `PnsbWordFill`
-  (`data-pnsb-words`), `PnsbCases` (recent developments: sticky image wipes to the project in
-  view), `PnsbIndex` (product-line index, photo follows the cursor), `PnsbMarquee`.
+  (`data-pnsb-words`), `PnsbCases` (recent developments: sticky image crossfades to the
+  project in view, caption bar).
   **No scroll pinning / scroll-jacking** (the client found pinned sections "stuck").
   Enquiry list in localStorage (`pnsb_enquiry_v1`).
 - `static/src/boot/boot.js` (`defer`, outside the bundle): scroll reveals (`.pn-reveal`) and
@@ -153,6 +153,10 @@ Frontend:
   shown only with `html.pn-no3d` / without JS (never flashes on load); a "Loading 3D model"
   line shows meanwhile. Procedural geometry, studio env
   map, renders only while visible, skipped in iframes (website builder) and without WebGL.
+- `static/src/map/pnsb_map.js` (`defer`, Contact page only) + vendored
+  `static/lib/leaflet/` (Leaflet 1.9.4, BSD-2): "Visit us" map with OpenStreetMap tiles
+  (greyscale via CSS), brand pin, info card and Google Maps directions; Leaflet is fetched only
+  when the map nears the viewport. Scroll-zoom is enabled only after a click; no drag on touch.
 - Scripts outside the bundle get content-hashed URLs via `website._pnsb_static_url()`.
 
 ## Odoo 19 / tooling pitfalls learned the hard way
