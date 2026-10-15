@@ -72,13 +72,7 @@
                             existing product, for the complete cycle of product development, and for its continuous
                             production with quality and approval standards in mind.
                         </p>
-                        <dl class="pn-spec pn-reveal">
-                            <div><dt>Vision</dt><dd>To serve as an extended R&amp;D center for manufacturers.</dd></div>
-                            <div><dt>Mission</dt><dd>Top-notch services from concept to prototype development.</dd></div>
-                            <div><dt>Manufacturing</dt><dd>Component engineering, material cost reduction, certification and testing.</dd></div>
-                            <div><dt>Approach</dt><dd>We evaluate, adopt, equip and collaborate with your current manufacturers.</dd></div>
-                        </dl>
-                        <a href="/about" class="pn-link pn-reveal">About PNSB <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
+                        <a href="/about" class="pn-btn pn-btn--dark pn-btn--lg pn-reveal">Read more about us <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
                     </div>
                 </div>
             </section>
@@ -109,12 +103,61 @@
                 </div>
             </section>
 
-            <!-- Recent developments: sticky image that wipes between projects -->
+            <!-- Industries -->
+            <section class="pn-industries-band">
+                <div class="pn-container pn-industries-band__head">
+                    <p class="pn-label">02 · Industries</p>
+                    <p class="pn-industries-band__text">
+                        Our team's design and manufacturing work has supported products in these industries.
+                        <a href="/industries" class="pn-link pn-link--sm">See industries <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
+                    </p>
+                </div>
+                <div class="pn-container pn-industries-band__grid">
+                    <div class="pn-industries">
+                        <article t-foreach="pnsb_industries" t-as="industry" t-attf-id="industry-#{industry[0]}" class="pn-industry pn-reveal">
+                            <span class="pn-industry__icon"><svg class="pn-i pn-i--lg"><use t-attf-href="#pn-i-#{industry[0]}"/></svg></span>
+                            <h3 class="pn-industry__title" t-out="industry[1]"/>
+                            <p t-out="industry[2]"/>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Our top products: catalogue index -->
+            <section t-if="categories" class="pn-section pn-index">
+                <div class="pn-container">
+                    <div class="pn-head">
+                        <div>
+                            <p class="pn-label pn-reveal">03 · What we make</p>
+                            <h2 class="pn-h2" data-pnsb-split="">Our Top Products</h2>
+                        </div>
+                        <a href="/products" class="pn-link pn-reveal">All products <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
+                    </div>
+                    <ol class="pn-index__list">
+                        <t t-foreach="categories" t-as="category">
+                            <t t-set="line_products" t-value="products.filtered(lambda p: p.categ_id == category)"/>
+                            <li t-if="line_products" class="pn-reveal">
+                                <a t-attf-href="/products?line=#{category.pnsb_website_key}" class="pn-index__row">
+                                    <span class="pn-index__num" t-out="'%02d' % (category_index + 1)"/>
+                                    <img class="pn-index__thumb" t-att-src="line_products[0]._pnsb_image_url(512)"
+                                         t-att-alt="category.name" loading="lazy" width="512" height="384"/>
+                                    <span class="pn-index__name" t-out="category.name"/>
+                                    <span class="pn-index__desc" t-out="category.pnsb_website_description or ''"/>
+                                    <span class="pn-index__count"><t t-out="'%02d' % len(line_products)"/> <t t-out="'item' if len(line_products) == 1 else 'items'"/></span>
+                                    <span class="pn-index__go"><svg class="pn-i"><use href="#pn-i-arrow-ur"/></svg></span>
+                                </a>
+                            </li>
+                        </t>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- Recent developments: sticky image that crossfades between projects -->
             <section t-if="highlights" class="pn-section pn-cases" data-pnsb-cases="">
                 <div class="pn-container">
                     <div class="pn-head">
                         <div>
-                            <p class="pn-label pn-reveal">02 · Recent developments</p>
+                            <p class="pn-label pn-reveal">04 · Recent developments</p>
                             <h2 class="pn-h2" data-pnsb-split="">Problems we have solved for clients.</h2>
                         </div>
                         <a href="/products" class="pn-link pn-reveal">All products <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
@@ -123,9 +166,12 @@
                         <div class="pn-cases__media">
                             <div class="pn-cases__frame">
                                 <img t-foreach="highlights" t-as="product" t-att-src="product._pnsb_image_url(1024)"
-                                     t-att-alt="product.name" width="1024" height="768" loading="lazy"
+                                     t-att-alt="product.name" width="1024" height="768" decoding="async"
                                      t-attf-class="pn-cases__img #{'is-active' if product_first else ''}"/>
-                                <span class="pn-cases__counter"><span data-pnsb-case-index="">01</span> / <t t-out="'%02d' % len(highlights)"/></span>
+                                <div class="pn-cases__caption">
+                                    <span class="pn-cases__counter"><span data-pnsb-case-index="">01</span> / <t t-out="'%02d' % len(highlights)"/></span>
+                                    <span class="pn-cases__name" data-pnsb-case-name="" t-out="highlights[0].name"/>
+                                </div>
                             </div>
                         </div>
                         <ol class="pn-cases__list">
@@ -157,7 +203,7 @@
             <section class="pn-section pn-story" data-pnsb-process="" data-step="0">
                 <div class="pn-container pn-story__grid">
                     <div class="pn-story__copy">
-                        <p class="pn-label pn-reveal">03 · How we work</p>
+                        <p class="pn-label pn-reveal">05 · How we work</p>
                         <h2 class="pn-h2" data-pnsb-split="">Precision. Built for industry.</h2>
                         <ol class="pn-story__steps">
                             <li class="pn-story__step is-active" data-pnsb-step="" role="button" tabindex="0" aria-pressed="true">
@@ -200,58 +246,9 @@
                                  alt="Rotating assembly" loading="lazy" width="642" height="584"/>
                             <span class="pn-3d__loading" aria-hidden="true">Loading 3D model</span>
                         </div>
-                        <div class="pn-story__labels" aria-hidden="true">
-                            <span>Concept</span><span>Engineering</span><span>Prototype</span><span>Production</span>
+                        <div class="pn-story__labels" role="group" aria-label="Model stage">
+                            <button type="button" data-pnsb-step-tab="0">Concept</button><button type="button" data-pnsb-step-tab="1">Engineering</button><button type="button" data-pnsb-step-tab="2">Prototype</button><button type="button" data-pnsb-step-tab="3">Production</button>
                         </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- What we make: catalogue index with a photo that follows the cursor -->
-            <section t-if="categories" class="pn-section pn-index" data-pnsb-index="">
-                <div class="pn-container">
-                    <div class="pn-head">
-                        <div>
-                            <p class="pn-label pn-reveal">04 · What we make</p>
-                            <h2 class="pn-h2" data-pnsb-split="">Product lines.</h2>
-                        </div>
-                        <a href="/products" class="pn-link pn-reveal">All products <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
-                    </div>
-                    <ol class="pn-index__list">
-                        <t t-foreach="categories" t-as="category">
-                            <t t-set="line_products" t-value="products.filtered(lambda p: p.categ_id == category)"/>
-                            <li t-if="line_products" class="pn-reveal">
-                                <a t-attf-href="/products?line=#{category.pnsb_website_key}" class="pn-index__row"
-                                   t-att-data-img="line_products[0]._pnsb_image_url(512)">
-                                    <span class="pn-index__num" t-out="'%02d' % (category_index + 1)"/>
-                                    <img class="pn-index__thumb" t-att-src="line_products[0]._pnsb_image_url(256)"
-                                         t-att-alt="category.name" loading="lazy" width="256" height="192"/>
-                                    <span class="pn-index__name" t-out="category.name"/>
-                                    <span class="pn-index__desc" t-out="category.pnsb_website_description or ''"/>
-                                    <span class="pn-index__count"><t t-out="'%02d' % len(line_products)"/> <t t-out="'item' if len(line_products) == 1 else 'items'"/></span>
-                                    <span class="pn-index__go"><svg class="pn-i"><use href="#pn-i-arrow-ur"/></svg></span>
-                                </a>
-                            </li>
-                        </t>
-                    </ol>
-                </div>
-                <div class="pn-index__float" data-pnsb-index-float="" aria-hidden="true"><img alt=""/></div>
-            </section>
-
-            <!-- Industries: marquee -->
-            <section class="pn-industries-band">
-                <div class="pn-container pn-industries-band__head">
-                    <p class="pn-label">05 · Industries</p>
-                    <p class="pn-industries-band__text">
-                        Our team's design and manufacturing work has supported products in these industries.
-                        <a href="/industries" class="pn-link pn-link--sm">See industries <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
-                    </p>
-                </div>
-                <div class="pn-marquee" data-pnsb-marquee="">
-                    <div class="pn-marquee__track">
-                        <t t-foreach="pnsb_industries" t-as="industry">
-                            <span class="pn-marquee__item" t-out="industry[1]"/>
-                        </t>
                     </div>
                 </div>
             </section>

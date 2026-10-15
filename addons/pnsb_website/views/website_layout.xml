@@ -217,10 +217,6 @@
                                     <t t-foreach="pnsb_address_lines" t-as="line"><t t-out="line"/><br t-if="not line_last"/></t>
                                 </a>
                             </li>
-                            <li t-if="pnsb_map_embed" class="pn-footer__map">
-                                <iframe t-att-src="pnsb_map_embed" title="PNSB Machinery Industries location on Google Maps"
-                                        loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen="allowfullscreen"/>
-                            </li>
                             <li t-if="pnsb_company.phone"><a t-attf-href="tel:#{pnsb_company.phone.replace(' ', '')}" t-out="pnsb_company.phone"/></li>
                             <li t-if="pnsb_website.pnsb_phone_alt"><a t-attf-href="tel:#{pnsb_website.pnsb_phone_alt.replace(' ', '')}" t-out="pnsb_website.pnsb_phone_alt"/></li>
                         </ul>
@@ -267,7 +263,6 @@
                     <t t-set="pnsb_services" t-value="pnsb_chrome['pnsb_services']"/>
                     <t t-set="pnsb_address_lines" t-value="pnsb_chrome['pnsb_address_lines']"/>
                     <t t-set="pnsb_map_url" t-value="pnsb_chrome['pnsb_map_url']"/>
-                    <t t-set="pnsb_map_embed" t-value="pnsb_chrome['pnsb_map_embed']"/>
                 </t>
             </div>
         </xpath>

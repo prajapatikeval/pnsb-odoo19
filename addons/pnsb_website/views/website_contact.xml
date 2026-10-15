@@ -41,6 +41,7 @@
                                 </div>
                             </li>
                         </ul>
+                        <a href="#visit" class="pn-link pn-link--sm pn-contact__maplink">See the map <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
                     </div>
 
                     <div class="pn-contact__form-wrap pn-reveal" id="enquiry">
@@ -118,6 +119,44 @@
                     </div>
                 </div>
             </section>
+
+            <!-- Visit us: interactive map (Leaflet + OpenStreetMap), Google Maps buttons as fallback -->
+            <section class="pn-section pn-section--soft pn-visit" id="visit">
+                <div class="pn-container">
+                    <div class="pn-head">
+                        <div>
+                            <p class="pn-label pn-reveal">Visit us</p>
+                            <h2 class="pn-h2" data-pnsb-split="">Find our workshop in Ahmedabad.</h2>
+                        </div>
+                    </div>
+                    <div class="pn-map pn-reveal" data-pnsb-map="" t-att-data-lat="pnsb_website.pnsb_map_lat"
+                         t-att-data-lng="pnsb_website.pnsb_map_lng" data-lib="/pnsb_website/static/lib/leaflet/">
+                        <div class="pn-map__canvas" data-pnsb-map-canvas="" role="region" aria-label="Map showing the PNSB workshop"/>
+                        <span class="pn-map__hint" aria-hidden="true">Click the map to zoom with the scroll wheel</span>
+                        <div class="pn-map__coords" aria-hidden="true">
+                            <t t-out="'%.4f° N' % pnsb_website.pnsb_map_lat"/> · <t t-out="'%.4f° E' % pnsb_website.pnsb_map_lng"/>
+                        </div>
+                        <aside class="pn-map__card">
+                            <span class="pn-map__kicker">Workshop</span>
+                            <h3 class="pn-map__title" t-out="pnsb_company.name"/>
+                            <address class="pn-map__address">
+                                <t t-foreach="pnsb_address_lines" t-as="line"><t t-out="line"/><br t-if="not line_last"/></t>
+                            </address>
+                            <ul class="pn-map__phones">
+                                <li t-if="pnsb_company.phone"><a t-attf-href="tel:#{pnsb_company.phone.replace(' ', '')}"><svg class="pn-i"><use href="#pn-i-phone"/></svg><t t-out="pnsb_company.phone"/></a></li>
+                                <li t-if="pnsb_website.pnsb_phone_alt"><a t-attf-href="tel:#{pnsb_website.pnsb_phone_alt.replace(' ', '')}"><svg class="pn-i"><use href="#pn-i-phone"/></svg><t t-out="pnsb_website.pnsb_phone_alt"/></a></li>
+                            </ul>
+                            <div class="pn-map__actions">
+                                <a t-attf-href="https://www.google.com/maps/dir/?api=1&amp;destination=#{pnsb_website.pnsb_map_lat},#{pnsb_website.pnsb_map_lng}"
+                                   target="_blank" rel="noopener" class="pn-btn pn-btn--dark pn-btn--sm">Get directions <svg class="pn-i"><use href="#pn-i-arrow-ur"/></svg></a>
+                                <a t-att-href="pnsb_map_url" target="_blank" rel="noopener" class="pn-btn pn-btn--outline pn-btn--sm">Open in Google Maps</a>
+                            </div>
+                            <button type="button" class="pn-map__recenter" data-pnsb-map-recenter=""><svg class="pn-i"><use href="#pn-i-pin"/></svg>Re-center</button>
+                        </aside>
+                    </div>
+                </div>
+                <script defer="defer" t-att-src="website._pnsb_static_url('pnsb_website/static/src/map/pnsb_map.js')"/>
+            </section>
         </t>
     </template>
 
@@ -156,7 +195,6 @@
         <t t-set="pnsb_industries" t-value="pnsb_values['pnsb_industries']"/>
         <t t-set="pnsb_address_lines" t-value="pnsb_values['pnsb_address_lines']"/>
         <t t-set="pnsb_map_url" t-value="pnsb_values['pnsb_map_url']"/>
-        <t t-set="pnsb_map_embed" t-value="pnsb_values['pnsb_map_embed']"/>
         <t t-set="pnsb_description" t-value="pnsb_values['pnsb_description']"/>
         <t t-set="pnsb_jsonld" t-value="pnsb_values['pnsb_jsonld']"/>
         <t t-call="pnsb_website.pn_layout">
