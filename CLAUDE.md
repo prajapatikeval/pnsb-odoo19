@@ -220,7 +220,7 @@ products creates a `crm.lead`. Validate XML (`python3 -c "import xml.dom.minidom
 - Website-editor edit mode was not verified end to end.
 - Outgoing mail server not configured, so quotations can't be e-mailed from Odoo yet.
 - Free plan limits (sleep, 30-day DB): recommend a paid plan for production.
-- The git history before commit `a57655d` contains an old, now unused master password; rewrite
+- The git history before commit `2a72822` contains an old, now unused master password; rewrite
   history if that matters.
 - Backup of the previous (dark/orange, custom-model) version: branch
   `backup/2026-10-13-before-redesign`, tag `backup-2026-10-13-before-redesign`.
