@@ -37,12 +37,13 @@ _STATIC_URLS = {}
 
 # Industries named in PNSB's own company profile. Do not add industries the
 # client has not confirmed. The text describes typical needs, not past clients.
+# Rubber replaces the profile's Paper at the client's request (2026-10).
 INDUSTRIES = [
     ('textile', 'Textile', 'Creel stands, yarn handling assemblies, tension devices and loom spares.'),
     ('petroleum', 'Petroleum', 'Seals, filtration and machined parts for process equipment.'),
     ('surgical', 'Surgical', 'Precision components developed to strict quality requirements.'),
     ('plastic', 'Plastic', 'Machine spares and parts that keep processing lines running.'),
-    ('paper', 'Paper', 'Rotating parts, shafts and replacement spares for converting machinery.'),
+    ('rubber', 'Rubber', 'Rotating parts, shafts and replacement spares for processing machinery.'),
     ('fire-safety', 'Fire Safety', 'Machined and fabricated parts for safety equipment.'),
     ('bearings', 'Bearings', 'Turned components and assemblies made to drawing.'),
     ('packaging', 'Packaging', 'Custom parts, guides and pulleys for packaging machinery.'),
@@ -73,11 +74,11 @@ SERVICES = [
 PAGE_DESCRIPTIONS = {
     'home': 'PNSB Machinery Industries LLP, Ahmedabad: product design, development and manufacturing '
             'partner for machine spares, mechanical components and custom fabrication.',
-    'about': 'Your extended R&D partner: PNSB supports manufacturers from concept and prototype to '
-             'continuous production.',
+    'about': 'PNSB Machinery Industries, established in 2019: customized products, specialized assemblies '
+             'and engineering solutions for industrial customers and OEMs.',
     'services': 'Product design and development, prototypes, manufacturing support, component '
                 'engineering, product improvement and certification support.',
-    'industries': 'Industries PNSB works with: textile, petroleum, surgical, plastic, paper, fire safety, '
+    'industries': 'Industries PNSB works with: textile, petroleum, surgical, plastic, rubber, fire safety, '
                   'bearings and packaging.',
     'products': 'Textile machinery spares, filtration and airflow assemblies, mechanical components, '
                 'precision machined parts and custom fabrication.',

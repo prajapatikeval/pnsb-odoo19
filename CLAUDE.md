@@ -31,7 +31,10 @@ README.md              human deployment guide
    year, customer counts, countries or statistics. Company copy comes from PNSB's own texts
    (company profile; "Machining Excellence, Delivering Reliability.", "Precision ideas. Real
    impact.", Understand → Engineer → Build → Deliver, "Let's discuss your requirement").
-   Industries list = the 8 named in the profile only.
+   Industries list = the 8 named in the profile only, except that the client replaced Paper
+   with Rubber (2026-10).
+   The About page text and "What we do" list come from the client's About.docx (2026-10),
+   which also gives the founding year (established 2019).
 3. **No machine details**: never show machine names, brands, quantities, capacities or specs
    (client instruction). Don't use machine-brand names in product names either.
 4. **Only non-private product information**: short generic summaries, no client names,
@@ -97,10 +100,14 @@ Operational answers:
 Depends on `website`, `sale_management`, `crm` (installing these also pulls `l10n_in`).
 
 Backend:
-- `product.template` + fields `pnsb_website_published`, `_sequence`, `_summary`, `_highlight`
-  (home showcase), `_story` (optional expandable case study); **Website** tab on the product
-  form; menu Sales › Products › Website Products.
-- `product.category` + `pnsb_website_published`, `_sequence`, `_description`; categories are
+- `product.template` + fields `pnsb_website_published` ("Show on Website" = the site's publish
+  switch; website_sale is not installed), `_sequence`, `_summary`, `_highlight` ("Is Recently
+  Developed": home Recent developments, max 6, no fallback), `_story` (optional expandable case
+  study); **Website** tab on the product form (groups Website / Home Page); menu Sales ›
+  Products › Website Products.
+- `product.category` + `pnsb_website_published`, `_sequence`, `_description`, `_top` ("Is Top
+  Product Category": home Our Top Products, max `TOP_CATEGORY_LIMIT` = 5 by sequence, only with
+  published products; the form warns when a ticked category won't show); categories are
   the website's product lines (`pnsb_website_key` = slug-id used by the filter).
 - `website` + `pnsb_phone_alt`, `pnsb_whatsapp`, `pnsb_map_lat/lng` (exact workshop location:
   Google Maps link + footer map embed); `_pnsb_layout_values(page)` returns the
@@ -140,6 +147,8 @@ Frontend:
   and effects ported from the previous site on one rAF ticker: `PnsbWordFill`
   (`data-pnsb-words`), `PnsbCases` (recent developments: sticky image crossfades to the
   project in view, caption bar).
+  `PnsbIndustries` (/industries: big industry list drives a sticky drawing sheet; the row at
+  ~40% of the viewport is active, mouse movement or click selects; one fixed quote button).
   **No scroll pinning / scroll-jacking** (the client found pinned sections "stuck").
   Enquiry list in localStorage (`pnsb_enquiry_v1`).
 - `static/src/boot/boot.js` (`defer`, outside the bundle): scroll reveals (`.pn-reveal`) and

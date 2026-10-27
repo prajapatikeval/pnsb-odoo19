@@ -675,4 +675,63 @@ export class PnsbCases extends Interaction {
 }
 interactions.add("pnsb_website.cases", PnsbCases);
 
+/**
+ * Industries page: the industry list drives a sticky drawing sheet. The row in
+ * the middle of the viewport becomes active while scrolling; hover and click
+ * select a row directly. The page itself scrolls normally.
+ */
+export class PnsbIndustries extends Interaction {
+    static selector = "[data-pnsb-industries]";
+    dynamicContent = {
+        "[data-pnsb-ind]": {
+            "t-on-click": (ev) => this.activate(Number(ev.currentTarget.dataset.pnsbInd)),
+            // Only a real mouse movement selects on hover: browsers also send
+            // pointer events while the page scrolls under a resting cursor.
+            "t-on-pointermove.noUpdate": (ev) => {
+                const index = Number(ev.currentTarget.dataset.pnsbInd);
+                if (ev.pointerType === "mouse" && (ev.movementX || ev.movementY) && index !== this.active) {
+                    this.activate(index);
+                    this.updateContent();
+                }
+            },
+            "t-att-class": (el) => ({ "is-active": Number(el.dataset.pnsbInd) === this.active }),
+        },
+        "[data-pnsb-ind] .pn-ind__btn": {
+            "t-att-aria-pressed": (el) => String(Number(el.parentElement.dataset.pnsbInd) === this.active),
+        },
+        "[data-pnsb-ind-panel]": {
+            "t-att-class": (el) => ({ "is-active": Number(el.dataset.pnsbIndPanel) === this.active }),
+        },
+    };
+
+    setup() {
+        this.active = 0;
+    }
+
+    start() {
+        if (!window.IntersectionObserver) {
+            return;
+        }
+        const items = [...this.el.querySelectorAll("[data-pnsb-ind]")];
+        this.io = new IntersectionObserver((entries) => {
+            for (const entry of entries) {
+                if (entry.isIntersecting) {
+                    this.activate(Number(entry.target.dataset.pnsbInd));
+                    this.updateContent();
+                }
+            }
+        }, { rootMargin: "-40% 0px -58% 0px" });
+        items.forEach((item) => this.io.observe(item));
+    }
+
+    activate(index) {
+        this.active = index;
+    }
+
+    destroy() {
+        this.io?.disconnect();
+    }
+}
+interactions.add("pnsb_website.industries", PnsbIndustries);
+
 
