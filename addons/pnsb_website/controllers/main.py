@@ -9,6 +9,8 @@ from odoo import http
 from odoo.http import request
 from odoo.tools import email_normalize
 
+from odoo.addons.pnsb_website.models.product import TOP_CATEGORY_LIMIT
+
 _logger = logging.getLogger(__name__)
 
 MAX_ITEMS = 40
@@ -57,9 +59,14 @@ class PnsbWebsite(http.Controller):
     def pnsb_home(self, **kw):
         categories = self._pnsb_categories()
         products = self._pnsb_products(categories)
-        highlights = products.filtered('pnsb_website_highlight')[:6] or products[:6]
+        # Our Top Products: categories marked "Is Top Product Category" that have
+        # products on the website, at most 5. Recent developments: products marked
+        # "Is Recently Developed", at most 6.
+        top_categories = categories.filtered(
+            lambda c: c.pnsb_website_top and c in products.categ_id)[:TOP_CATEGORY_LIMIT]
+        highlights = products.filtered('pnsb_website_highlight')[:6]
         return request.render('pnsb_website.page_home', self._pnsb_values(
-            'home', categories=categories, products=products, highlights=highlights))
+            'home', categories=top_categories, products=products, highlights=highlights))
 
     @http.route('/about', type='http', auth='public', website=True, sitemap=True)
     def pnsb_about(self, **kw):

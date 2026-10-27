@@ -8,30 +8,37 @@
             <t t-set="additional_title">About Us</t>
             <t t-call="pnsb_website.pn_page_hero">
                 <t t-set="eyebrow">About us</t>
-                <t t-set="title">Your extended R&amp;D partner.</t>
+                <t t-set="title">Customized engineering. Diverse manufacturing. Reliable solutions.</t>
                 <t t-set="part">seal</t>
-                <t t-set="lead">A product design, development and manufacturing partner for manufacturers: from your conceptual idea to its continuous production.</t>
+                <t t-set="lead">A manufacturing and industrial solutions company focused on customized products, specialized assemblies and engineering requirements across diverse industries.</t>
             </t>
 
             <section class="pn-section pn-section--tight">
                 <div class="pn-container pn-split">
                     <div class="pn-split__copy">
                         <p class="pn-eyebrow pn-reveal">Who we are</p>
-                        <h2 class="pn-h2 pn-reveal">Design, development and manufacturing under one roof.</h2>
+                        <h2 class="pn-h2 pn-reveal">PNSB Machinery Industries</h2>
                         <p class="pn-reveal">
-                            We take your conceptual idea or existing product through the complete cycle of product
-                            development, and on to continuous production with consideration of quality and approval
-                            standards.
+                            Established in 2019, PNSB Machinery Industries is a manufacturing and industrial solutions
+                            company focused on customized products, specialized assemblies, and engineering requirements
+                            across diverse industries.
                         </p>
                         <p class="pn-reveal">
-                            Our technically experienced team and our collaborative design process have helped clients
-                            accomplish products in petroleum, surgical, plastic, textile, paper, fire safety, bearings
-                            and packaging technology.
+                            We work with industrial customers and Original Equipment Manufacturers (OEMs) to develop and
+                            supply products tailored to their specific applications and technical requirements. Our
+                            approach combines practical engineering knowledge, customization, and a commitment to
+                            understanding each customer's unique needs.
+                        </p>
+                        <p class="pn-reveal">
+                            With a diverse product portfolio spanning electrical components, textile machinery parts,
+                            specialized industrial products, customized fasteners, and metal assemblies, we aim to provide
+                            flexible solutions for a wide range of industrial applications.
                         </p>
                     </div>
                     <div class="pn-split__media pn-reveal">
                         <figure class="pn-figure">
-                            <img src="/pnsb_website/static/src/img/work/creel-stand.jpg" alt="Custom creel stand" loading="lazy" width="675" height="525"/>
+                            <img src="/pnsb_website/static/src/img/about-us.jpg" alt="Engineering team reviewing drawings at a project table"
+                                 loading="lazy" width="678" height="452"/>
                         </figure>
                     </div>
                 </div>
@@ -39,21 +46,47 @@
 
             <section class="pn-section pn-section--soft">
                 <div class="pn-container">
-                    <div class="pn-cards3">
+                    <div class="pn-head">
+                        <div>
+                            <p class="pn-label pn-reveal">What we do</p>
+                            <h2 class="pn-h2" data-pnsb-split="">A product portfolio across industrial segments.</h2>
+                        </div>
+                    </div>
+                    <p class="pn-lead-text pn-reveal">
+                        Our manufacturing and product portfolio covers multiple industrial segments: petroleum and
+                        electrical components, textile machinery parts, surgical and laboratory instruments, specialized
+                        industrial products, customized fasteners, and metal assemblies.
+                    </p>
+                    <div class="pn-cards3 pn-cards3--compact">
                         <div class="pn-vcard pn-reveal">
                             <span class="pn-vcard__num">01</span>
-                            <h3>Vision</h3>
-                            <p>To serve as an extended R&amp;D center for manufacturers.</p>
+                            <h3>Copper Busbars &amp; Surface Treatment</h3>
+                            <p>Copper busbars and related components with surface treatment options to meet application-specific requirements in electrical and industrial systems.</p>
                         </div>
                         <div class="pn-vcard pn-reveal">
                             <span class="pn-vcard__num">02</span>
-                            <h3>Mission</h3>
-                            <p>To provide top-notch services from concept to prototype development, exceeding our clients' expectations.</p>
+                            <h3>Textile Machinery Components &amp; Assemblies</h3>
+                            <p>Components for the textile industry, ranging from small screws and precision parts to larger assemblies such as creel assemblies.</p>
                         </div>
                         <div class="pn-vcard pn-reveal">
                             <span class="pn-vcard__num">03</span>
-                            <h3>Strength</h3>
-                            <p>Component engineering, material cost reduction, and certification and testing support, all alongside your existing manufacturers.</p>
+                            <h3>Specialized Industrial Products</h3>
+                            <p>Products for specialized applications across industries, including selected medical and surgical product categories, with specific product details kept confidential where required.</p>
+                        </div>
+                        <div class="pn-vcard pn-reveal">
+                            <span class="pn-vcard__num">04</span>
+                            <h3>Petroleum Industry Products</h3>
+                            <p>Industrial products and components intended for applications within the petroleum sector, developed according to relevant customer requirements.</p>
+                        </div>
+                        <div class="pn-vcard pn-reveal">
+                            <span class="pn-vcard__num">05</span>
+                            <h3>Customized Screws &amp; Fasteners</h3>
+                            <p>Customized screws, fasteners, and related components designed around specific dimensions, configurations, and application needs.</p>
+                        </div>
+                        <div class="pn-vcard pn-reveal">
+                            <span class="pn-vcard__num">06</span>
+                            <h3>Aluminum Honeycomb Assemblies &amp; Metal Solutions</h3>
+                            <p>Aluminum honeycomb assemblies and products involving different metals, supporting varied industrial and engineering applications.</p>
                         </div>
                     </div>
                 </div>
@@ -81,25 +114,6 @@
             </section>
 
             <section class="pn-section pn-section--soft">
-                <div class="pn-container">
-                    <div class="pn-head">
-                        <div>
-                            <p class="pn-label pn-reveal">Industries</p>
-                            <h2 class="pn-h2" data-pnsb-split="">Industries our work has supported.</h2>
-                        </div>
-                        <a href="/industries" class="pn-link pn-reveal">See industries <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
-                    </div>
-                    <div class="pn-industries">
-                        <article t-foreach="pnsb_industries" t-as="industry" t-attf-id="industry-#{industry[0]}" class="pn-industry pn-reveal">
-                            <span class="pn-industry__icon"><svg class="pn-i pn-i--lg"><use t-attf-href="#pn-i-#{industry[0]}"/></svg></span>
-                            <h3 class="pn-industry__title" t-out="industry[1]"/>
-                            <p t-out="industry[2]"/>
-                        </article>
-                    </div>
-                </div>
-            </section>
-
-            <section class="pn-section">
                 <div class="pn-container pn-split pn-split--reverse">
                     <div class="pn-split__copy">
                         <p class="pn-eyebrow pn-reveal">On the shop floor</p>
@@ -156,7 +170,7 @@
             <t t-set="service_images" t-value="{
                 'design': ('yarn-condensing.jpg', 459, 598),
                 'prototype': ('honeycomb-screen.jpg', 535, 428),
-                'manufacturing': ('creel-fabrication.jpg', 738, 554),
+                'manufacturing': ('machined-spares.jpg', 843, 562),
                 'component': ('mechanical-seal-2.jpg', 423, 318),
                 'improvement': ('tension-device-2.jpg', 780, 565),
                 'certification': ('milled-components.jpg', 800, 600),
@@ -189,9 +203,9 @@
                         <h2 class="pn-h2 pn-reveal">Processes we work with.</h2>
                     </div>
                     <div class="pn-pills pn-reveal">
-                        <span>Turning</span><span>Milling</span><span>Drilling</span><span>Shaping</span>
-                        <span>Sheet-metal profile cutting</span><span>Fabrication &amp; assembly</span>
-                        <span>Dimensional inspection</span>
+                        <span>Turning</span><span>VMC and CNC</span><span>Drilling and Tapping</span>
+                        <span>Laser Cutting, Bending and Welding</span><span>Surface Treatment</span>
+                        <span>Component Assembly</span>
                     </div>
                 </div>
             </section>
@@ -213,14 +227,55 @@
                 <t t-set="part">honeycomb</t>
                 <t t-set="lead">Our team's design and manufacturing work has supported products across these industries.</t>
             </t>
-            <section class="pn-section pn-section--tight">
+            <!-- Industry explorer: the list drives a sticky drawing sheet (hover, click or scroll) -->
+            <section class="pn-section pn-section--tight pn-ind" data-pnsb-industries="">
                 <div class="pn-container">
-                    <div class="pn-industries">
-                        <article t-foreach="pnsb_industries" t-as="industry" t-attf-id="industry-#{industry[0]}" class="pn-industry pn-reveal">
-                            <span class="pn-industry__icon"><svg class="pn-i pn-i--lg"><use t-attf-href="#pn-i-#{industry[0]}"/></svg></span>
-                            <h2 class="pn-industry__title" t-out="industry[1]"/>
-                            <p t-out="industry[2]"/>
-                        </article>
+                    <div class="pn-head">
+                        <div>
+                            <p class="pn-label pn-reveal">Industries · <t t-out="'%02d' % len(pnsb_industries)"/></p>
+                            <h2 class="pn-h2" data-pnsb-split="">One engineering partner, <em>eight industries.</em></h2>
+                        </div>
+                        <a href="/contact" class="pn-link pn-reveal">Discuss your part <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
+                    </div>
+                    <div class="pn-ind__grid">
+                        <ol class="pn-ind__list">
+                            <li t-foreach="pnsb_industries" t-as="industry" t-attf-id="industry-#{industry[0]}"
+                                t-attf-class="pn-ind__item #{'is-active' if industry_first else ''}" t-attf-data-pnsb-ind="#{industry_index}">
+                                <button type="button" class="pn-ind__btn" t-att-aria-pressed="'true' if industry_first else 'false'">
+                                    <span class="pn-ind__num" t-out="'%02d' % (industry_index + 1)"/>
+                                    <span class="pn-ind__name" t-out="industry[1]"/>
+                                    <svg class="pn-i pn-ind__go" aria-hidden="true"><use href="#pn-i-arrow"/></svg>
+                                </button>
+                                <div class="pn-ind__inline">
+                                    <span class="pn-ind__icon" aria-hidden="true"><svg class="pn-i pn-i--lg"><use t-attf-href="#pn-i-#{industry[0]}"/></svg></span>
+                                    <p t-out="industry[2]"/>
+                                </div>
+                            </li>
+                        </ol>
+
+                        <div class="pn-ind__sheet">
+                            <div class="pn-ind__ruler" aria-hidden="true"><span>A</span><span>B</span><span>C</span><span>D</span></div>
+                            <div class="pn-ind__body">
+                                <div t-foreach="pnsb_industries" t-as="industry"
+                                     t-attf-class="pn-ind__panel #{'is-active' if industry_first else ''}" t-attf-data-pnsb-ind-panel="#{industry_index}">
+                                    <div class="pn-ind__canvas">
+                                        <span class="pn-ind__detail">Detail <t t-out="'%02d' % (industry_index + 1)"/> · <t t-out="industry[1]"/></span>
+                                        <svg class="pn-ind__art" viewBox="0 0 24 24" aria-hidden="true"><use t-attf-href="#pn-i-#{industry[0]}"/></svg>
+                                        <span class="pn-ind__big" aria-hidden="true" t-out="'%02d' % (industry_index + 1)"/>
+                                        <span class="pn-ind__dim" aria-hidden="true"><span>IND-<t t-out="'%02d' % (industry_index + 1)"/></span></span>
+                                    </div>
+                                    <table class="pn-ind__block">
+                                        <tr><th>Industry</th><td class="pn-ind__block-name" t-out="industry[1]"/></tr>
+                                        <tr><th>Scope</th><td class="pn-ind__block-scope" t-out="industry[2]"/></tr>
+                                        <tr><th>Sheet</th><td class="pn-ind__block-sheet"><t t-out="'%02d' % (industry_index + 1)"/> / <t t-out="'%02d' % len(pnsb_industries)"/></td></tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="pn-ind__cta">
+                                <p>Have a part for this industry? Send us your drawing or sample.</p>
+                                <a href="/contact" class="pn-btn pn-btn--dark pn-btn--lg">Request a Quote <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -235,7 +290,7 @@
                         </p>
                         <a href="/contact" class="pn-btn pn-btn--dark pn-reveal">Request a Quote <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
                     </div>
-                    <div class="pn-split__media pn-reveal">
+                    <div class="pn-split__media pn-split__media--desktop pn-reveal">
                         <figure class="pn-figure">
                             <img src="/pnsb_website/static/src/img/work/honeycomb.jpg" alt="Honeycomb screen media" loading="lazy" width="1135" height="501"/>
                         </figure>

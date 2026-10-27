@@ -60,9 +60,9 @@
             <section class="pn-section pn-intro">
                 <div class="pn-container pn-intro__grid">
                     <figure class="pn-intro__media pn-reveal">
-                        <img src="/pnsb_website/static/src/img/work/creel-stand.jpg" alt="Customised creel stand made by PNSB"
-                             loading="lazy" width="675" height="525"/>
-                        <figcaption>Customized creel stand for the textile field</figcaption>
+                        <img src="/pnsb_website/static/src/img/team-work.jpg" alt="Product design sketches being reviewed at the drawing table"
+                             loading="lazy" width="568" height="380"/>
+                        <figcaption>From concept sketch to finished part</figcaption>
                     </figure>
                     <div class="pn-intro__copy">
                         <p class="pn-label pn-reveal">01 · Who we are</p>
@@ -109,8 +109,8 @@
                     <p class="pn-label">02 · Industries</p>
                     <p class="pn-industries-band__text">
                         Our team's design and manufacturing work has supported products in these industries.
-                        <a href="/industries" class="pn-link pn-link--sm">See industries <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
                     </p>
+                    <a href="/industries" class="pn-link pn-industries-band__link">See industries <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
                 </div>
                 <div class="pn-container pn-industries-band__grid">
                     <div class="pn-industries">

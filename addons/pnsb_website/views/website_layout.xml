@@ -33,7 +33,7 @@
             <symbol id="pn-i-petroleum" viewBox="0 0 24 24"><path d="M12 3c3 4.5 6 7.8 6 11a6 6 0 0 1-12 0c0-3.2 3-6.5 6-11z"/><path d="M9.5 15a2.5 2.5 0 0 0 2.5 2.5"/></symbol>
             <symbol id="pn-i-surgical" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M12 8v8M8 12h8"/></symbol>
             <symbol id="pn-i-plastic" viewBox="0 0 24 24"><path d="M9 3h6v3l2 3v10a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V9l2-3z"/><path d="M7 12h10"/></symbol>
-            <symbol id="pn-i-paper" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 11h7M9 15h7M9 19h4"/></symbol>
+            <symbol id="pn-i-rubber" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M5.6 18.4l1.8-1.8M16.6 7.4l1.8-1.8"/></symbol>
             <symbol id="pn-i-fire-safety" viewBox="0 0 24 24"><path d="M12 3c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3.5 2-4.5 0 2 1 3 2 3 0-3-1-5 1-8.5z"/></symbol>
             <symbol id="pn-i-bearings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5"/><circle cx="12" cy="5.8" r="1.2"/><circle cx="12" cy="18.2" r="1.2"/><circle cx="5.8" cy="12" r="1.2"/><circle cx="18.2" cy="12" r="1.2"/></symbol>
             <symbol id="pn-i-packaging" viewBox="0 0 24 24"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9z"/><path d="m8 5.3 8 4.5v3.5"/></symbol>
