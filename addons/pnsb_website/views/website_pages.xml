@@ -233,22 +233,27 @@
                     <div class="pn-head">
                         <div>
                             <p class="pn-label pn-reveal">Industries · <t t-out="'%02d' % len(pnsb_industries)"/></p>
-                            <h2 class="pn-h2" data-pnsb-split="">One engineering partner, <em>eight industries.</em></h2>
+                            <t t-set="count_words" t-value="['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve']"/>
+                            <h2 class="pn-h2" data-pnsb-split="">One engineering partner, <em><t t-out="count_words[len(pnsb_industries)] if len(pnsb_industries) &lt; 13 else len(pnsb_industries)"/> <t t-out="'industry' if len(pnsb_industries) == 1 else 'industries'"/>.</em></h2>
                         </div>
                         <a href="/contact" class="pn-link pn-reveal">Discuss your part <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
                     </div>
                     <div class="pn-ind__grid">
                         <ol class="pn-ind__list">
-                            <li t-foreach="pnsb_industries" t-as="industry" t-attf-id="industry-#{industry[0]}"
-                                t-attf-class="pn-ind__item #{'is-active' if industry_first else ''}" t-attf-data-pnsb-ind="#{industry_index}">
-                                <button type="button" class="pn-ind__btn" t-att-aria-pressed="'true' if industry_first else 'false'">
+                            <li t-foreach="pnsb_industries" t-as="industry" t-attf-id="industry-#{industry.url_key}"
+                                t-attf-class="pn-ind__item #{'is-active' if industry_first else ''}" t-attf-data-pnsb-ind="#{industry_index}"
+                                t-att-data-pnsb-ind-url="industry.website_url" t-att-data-pnsb-ind-name="industry.name">
+                                <a t-att-href="industry.website_url" class="pn-ind__btn">
                                     <span class="pn-ind__num" t-out="'%02d' % (industry_index + 1)"/>
-                                    <span class="pn-ind__name" t-out="industry[1]"/>
+                                    <span class="pn-ind__name" t-out="industry.name"/>
                                     <svg class="pn-i pn-ind__go" aria-hidden="true"><use href="#pn-i-arrow"/></svg>
-                                </button>
+                                </a>
                                 <div class="pn-ind__inline">
-                                    <span class="pn-ind__icon" aria-hidden="true"><svg class="pn-i pn-i--lg"><use t-attf-href="#pn-i-#{industry[0]}"/></svg></span>
-                                    <p t-out="industry[2]"/>
+                                    <span class="pn-ind__icon" aria-hidden="true"><svg class="pn-i pn-i--lg"><use t-attf-href="#pn-i-#{industry.icon}"/></svg></span>
+                                    <div>
+                                        <p t-out="industry.summary"/>
+                                        <a t-att-href="industry.website_url" class="pn-link pn-link--sm">View industry <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
+                                    </div>
                                 </div>
                             </li>
                         </ol>
@@ -259,20 +264,20 @@
                                 <div t-foreach="pnsb_industries" t-as="industry"
                                      t-attf-class="pn-ind__panel #{'is-active' if industry_first else ''}" t-attf-data-pnsb-ind-panel="#{industry_index}">
                                     <div class="pn-ind__canvas">
-                                        <span class="pn-ind__detail">Detail <t t-out="'%02d' % (industry_index + 1)"/> · <t t-out="industry[1]"/></span>
-                                        <svg class="pn-ind__art" viewBox="0 0 24 24" aria-hidden="true"><use t-attf-href="#pn-i-#{industry[0]}"/></svg>
+                                        <span class="pn-ind__detail">Detail <t t-out="'%02d' % (industry_index + 1)"/> · <t t-out="industry.name"/></span>
+                                        <svg class="pn-ind__art" viewBox="0 0 24 24" aria-hidden="true"><use t-attf-href="#pn-i-#{industry.icon}"/></svg>
                                         <span class="pn-ind__big" aria-hidden="true" t-out="'%02d' % (industry_index + 1)"/>
                                         <span class="pn-ind__dim" aria-hidden="true"><span>IND-<t t-out="'%02d' % (industry_index + 1)"/></span></span>
                                     </div>
                                     <table class="pn-ind__block">
-                                        <tr><th>Industry</th><td class="pn-ind__block-name" t-out="industry[1]"/></tr>
-                                        <tr><th>Scope</th><td class="pn-ind__block-scope" t-out="industry[2]"/></tr>
+                                        <tr><th>Industry</th><td class="pn-ind__block-name" t-out="industry.name"/></tr>
+                                        <tr><th>Scope</th><td class="pn-ind__block-scope" t-out="industry.summary"/></tr>
                                         <tr><th>Sheet</th><td class="pn-ind__block-sheet"><t t-out="'%02d' % (industry_index + 1)"/> / <t t-out="'%02d' % len(pnsb_industries)"/></td></tr>
                                     </table>
                                 </div>
                             </div>
                             <div class="pn-ind__cta">
-                                <p>Have a part for this industry? Send us your drawing or sample.</p>
+                                <a t-att-href="pnsb_industries[:1].website_url" class="pn-btn pn-btn--outline pn-btn--lg" data-pnsb-ind-open="">View industry <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
                                 <a href="/contact" class="pn-btn pn-btn--dark pn-btn--lg">Request a Quote <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
                             </div>
                         </div>
@@ -298,6 +303,102 @@
                 </div>
             </section>
             <div class="oe_structure" id="pn_industries_extra"/>
+            <t t-call="pnsb_website.pn_cta"/>
+        </t>
+    </template>
+
+    <!-- =====================================================================
+         Industry page (/industries/<key>), content from Machinery › Industries
+    ====================================================================== -->
+    <template id="page_industry" name="PNSB: Industry">
+        <t t-call="pnsb_website.pn_layout">
+            <t t-set="additional_title" t-value="industry.name"/>
+            <t t-set="sheet_no" t-value="'%02d' % (industry_index + 1)"/>
+            <section class="pn-phero pn-ihero">
+                <div class="pn-hero__grid-bg" aria-hidden="true"/>
+                <div class="pn-container pn-ihero__grid">
+                    <div>
+                        <nav class="pn-crumbs pn-reveal" aria-label="Breadcrumb">
+                            <a href="/industries">Industries</a><span aria-hidden="true">/</span><span t-out="industry.name"/>
+                        </nav>
+                        <p class="pn-eyebrow pn-reveal">Industry · <t t-out="sheet_no"/></p>
+                        <h1 class="pn-phero__title pn-reveal" t-out="industry.name"/>
+                        <p class="pn-phero__lead pn-reveal" t-out="industry.summary"/>
+                        <div class="pn-hero__actions pn-reveal">
+                            <a href="/contact" class="pn-btn pn-btn--dark pn-btn--lg">Request a Quote <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
+                            <a t-if="products" href="#industry-products" class="pn-btn pn-btn--outline pn-btn--lg">See products</a>
+                        </div>
+                    </div>
+                    <div class="pn-ind__sheet pn-ihero__sheet pn-reveal">
+                        <div class="pn-ind__ruler" aria-hidden="true"><span>A</span><span>B</span><span>C</span><span>D</span></div>
+                        <div class="pn-ind__panel is-active">
+                            <div class="pn-ind__canvas">
+                                <span class="pn-ind__detail">Detail <t t-out="sheet_no"/> · <t t-out="industry.name"/></span>
+                                <svg class="pn-ind__art" viewBox="0 0 24 24" aria-hidden="true"><use t-attf-href="#pn-i-#{industry.icon}"/></svg>
+                                <span class="pn-ind__big" aria-hidden="true" t-out="sheet_no"/>
+                                <span class="pn-ind__dim" aria-hidden="true"><span>IND-<t t-out="sheet_no"/></span></span>
+                            </div>
+                            <table class="pn-ind__block">
+                                <tr><th>Industry</th><td class="pn-ind__block-name" t-out="industry.name"/></tr>
+                                <tr><th>Work</th><td class="pn-ind__block-sheet">Made to your drawing or sample</td></tr>
+                                <tr><th>Sheet</th><td class="pn-ind__block-sheet"><t t-out="sheet_no"/> / <t t-out="'%02d' % industry_total"/></td></tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section t-if="(industry.description and not is_html_empty(industry.description)) or industry.image" class="pn-section pn-section--tight">
+                <div t-attf-class="pn-container #{'pn-split' if industry.image else ''}">
+                    <div class="pn-split__copy pn-ihero__content pn-reveal">
+                        <t t-if="industry.description and not is_html_empty(industry.description)" t-out="industry.description"/>
+                    </div>
+                    <div t-if="industry.image" class="pn-split__media pn-reveal">
+                        <figure class="pn-figure">
+                            <img t-att-src="industry._pnsb_image_url()" t-att-alt="industry.name" loading="lazy"/>
+                        </figure>
+                    </div>
+                </div>
+            </section>
+
+            <section t-if="products" id="industry-products" class="pn-section pn-section--soft">
+                <div class="pn-container">
+                    <div class="pn-head">
+                        <div>
+                            <p class="pn-label pn-reveal">Products</p>
+                            <h2 class="pn-h2" data-pnsb-split="">Parts we make for <em t-out="industry.name"/>.</h2>
+                        </div>
+                        <a href="/products" class="pn-link pn-reveal">All products <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
+                    </div>
+                    <div class="pn-products">
+                        <t t-foreach="products" t-as="product">
+                            <t t-call="pnsb_website.pn_product_card"/>
+                        </t>
+                    </div>
+                </div>
+            </section>
+
+            <section t-if="other_industries" class="pn-section">
+                <div class="pn-container">
+                    <div class="pn-head">
+                        <div>
+                            <p class="pn-label pn-reveal">Other industries</p>
+                            <h2 class="pn-h2" data-pnsb-split="">Where else our parts go to work.</h2>
+                        </div>
+                        <a href="/industries" class="pn-link pn-reveal">All industries <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
+                    </div>
+                    <div class="pn-industries">
+                        <a t-foreach="other_industries" t-as="other" t-att-href="other.website_url" class="pn-industry pn-industry--link pn-reveal">
+                            <span class="pn-industry__icon"><svg class="pn-i pn-i--lg"><use t-attf-href="#pn-i-#{other.icon}"/></svg></span>
+                            <h3 class="pn-industry__title" t-out="other.name"/>
+                            <p t-out="other.summary"/>
+                            <svg class="pn-i pn-industry__go" aria-hidden="true"><use href="#pn-i-arrow-ur"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <div class="oe_structure" id="pn_industry_extra"/>
             <t t-call="pnsb_website.pn_cta"/>
         </t>
     </template>

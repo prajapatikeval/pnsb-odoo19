@@ -677,14 +677,16 @@ interactions.add("pnsb_website.cases", PnsbCases);
 
 /**
  * Industries page: the industry list drives a sticky drawing sheet. The row in
- * the middle of the viewport becomes active while scrolling; hover and click
- * select a row directly. The page itself scrolls normally.
+ * the middle of the viewport becomes active while scrolling; mouse movement or
+ * keyboard focus selects a row directly and a click opens the industry page.
+ * The page itself scrolls normally.
  */
 export class PnsbIndustries extends Interaction {
     static selector = "[data-pnsb-industries]";
     dynamicContent = {
         "[data-pnsb-ind]": {
-            "t-on-click": (ev) => this.activate(Number(ev.currentTarget.dataset.pnsbInd)),
+            // Clicking a row opens the industry page; keyboard focus selects it.
+            "t-on-focusin": (ev) => this.activate(Number(ev.currentTarget.dataset.pnsbInd)),
             // Only a real mouse movement selects on hover: browsers also send
             // pointer events while the page scrolls under a resting cursor.
             "t-on-pointermove.noUpdate": (ev) => {
@@ -696,8 +698,9 @@ export class PnsbIndustries extends Interaction {
             },
             "t-att-class": (el) => ({ "is-active": Number(el.dataset.pnsbInd) === this.active }),
         },
-        "[data-pnsb-ind] .pn-ind__btn": {
-            "t-att-aria-pressed": (el) => String(Number(el.parentElement.dataset.pnsbInd) === this.active),
+        "[data-pnsb-ind-open]": {
+            "t-att-href": (el) => this.urls[this.active] || el.getAttribute("href"),
+            "t-att-aria-label": () => `View industry: ${this.names[this.active] || ""}`,
         },
         "[data-pnsb-ind-panel]": {
             "t-att-class": (el) => ({ "is-active": Number(el.dataset.pnsbIndPanel) === this.active }),
@@ -706,6 +709,9 @@ export class PnsbIndustries extends Interaction {
 
     setup() {
         this.active = 0;
+        const items = [...this.el.querySelectorAll("[data-pnsb-ind]")];
+        this.urls = items.map((item) => item.dataset.pnsbIndUrl);
+        this.names = items.map((item) => item.dataset.pnsbIndName);
     }
 
     start() {

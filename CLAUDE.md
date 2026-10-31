@@ -49,14 +49,18 @@ README.md              human deployment guide
    Quote", IST time zone). Logo = cleaned PNG from the client's JPEG.
 10. **3D shows only parts PNSB makes** (company profile): timing pulley, shaft/bearings, chain
    sprocket, mechanical seal, honeycomb air-straightening panel. No generic gears/bolts.
-11. **No custom backend menus.** Use Odoo's own apps; additions go on top of base views
-   (Website tab on the product form, fields on categories/website).
+11. **One backend app menu only: "PNSB Machinery"** (owner's request, 2026-10-31) that groups
+   the website configuration: Website › Industries / Products / Product Categories, Sales ›
+   Quotations / Orders, CRM › Pipeline / Leads, Configuration › Website & Contact Details.
+   Except Industries, every entry reuses Odoo's own action (all standard views and filters);
+   don't add custom actions or other menus, and keep using base views for product/category fields.
 6. **Header has a Log in button** (`/web/login?redirect=/odoo`; "Dashboard" when logged in,
    "My account" for portal users). Keep it.
 7. **Never commit secrets.** Passwords come only from Render environment variables.
 8. Keep the module name `pnsb_website`: the live database already has it installed.
 9. **Use standard Odoo**: products are `product.template` (Sales), enquiries become
    `sale.order` quotations or `crm.lead`. Don't reintroduce custom catalogue/RFQ models.
+   The only custom model is `pnsb.industry` (website industries and their pages).
 
 ## Render / boot architecture (why it looks like this)
 
@@ -109,6 +113,15 @@ Backend:
   Product Category": home Our Top Products, max `TOP_CATEGORY_LIMIT` = 5 by sequence, only with
   published products; the form warns when a ticked category won't show); categories are
   the website's product lines (`pnsb_website_key` = slug-id used by the filter).
+- `pnsb.industry` (models/industry.py): name, sequence, `website_published`, `url_key` (unique,
+  slugified; page `/industries/<url_key>`), `icon` (selection of sprite icons), `summary`,
+  `description` (HTML page content), `image`, `product_ids` (m2m, inverse
+  `product.template.pnsb_industry_ids` shown in the product's Website tab). Records in
+  `data/industry_data.xml` (noupdate, the 8 confirmed industries); the Textile industry gets the
+  textile spares once per database (`_pnsb_link_industry_products`, marker
+  `pnsb_website.industry_products_linked`). Access: users read, sales managers and website
+  designers edit. Backend views and actions in `views/industry_views.xml`, menu in
+  `views/pnsb_menus.xml`.
 - `website` + `pnsb_phone_alt`, `pnsb_whatsapp`, `pnsb_map_lat/lng` (exact workshop location:
   Google Maps link + footer map embed); `_pnsb_layout_values(page)` returns the
   values every page needs (company, address, services, industries, JSON-LD, meta description);
@@ -123,7 +136,9 @@ Backend:
   tables and leftovers of version <= 19.0.2.
 
 Routes (`controllers/main.py`): `/industrial` (home, served on `/`), `/about`, `/services`,
-`/industries`, `/products` (`?line=<key>`), `/contact`, `/contact/thank-you`,
+`/industries`, `/industries/<url_key>` (industry page: drawing-sheet hero, optional content and
+photo via `/pnsb/industry-image/<id>`, its published products, other industries; in the
+sitemap), `/products` (`?line=<key>`), `/contact`, `/contact/thank-you`,
 `/pnsb/image/<product_id>/<size>` (public images of published products only; visitors have
 no ACL on product.template), `POST /pnsb/enquiry` (CSRF, honeypot `website_url`, max 5 files ×
 15 MB, extension whitelist, JSON reply when `Accept: application/json`, redirect otherwise).
