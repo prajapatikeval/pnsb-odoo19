@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="pnsb_industry_view_list" model="ir.ui.view">
+        <field name="name">pnsb.industry.list</field>
+        <field name="model">pnsb.industry</field>
+        <field name="arch" type="xml">
+            <list string="Industries">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="summary" optional="show"/>
+                <field name="url_key" optional="hide"/>
+                <field name="icon" optional="hide"/>
+                <field name="product_count"/>
+                <field name="website_published" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="pnsb_industry_view_form" model="ir.ui.view">
+        <field name="name">pnsb.industry.form</field>
+        <field name="model">pnsb.industry</field>
+        <field name="arch" type="xml">
+            <form string="Industry">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_on_website" type="object" class="oe_stat_button" icon="fa-globe"
+                                invisible="not website_published or not id">
+                            <div class="o_stat_info"><span class="o_stat_text">View Page</span></div>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. Textile"/></h1>
+                    </div>
+                    <group>
+                        <group string="Website">
+                            <field name="website_published"/>
+                            <field name="url_key"/>
+                            <field name="website_url" widget="url" readonly="1"/>
+                            <field name="icon"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                        <group string="Short Description">
+                            <field name="summary" nolabel="1" colspan="2"
+                                   placeholder="One sentence shown in the industry lists and at the top of the page."/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Products" name="products">
+                            <field name="product_ids">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="categ_id"/>
+                                    <field name="pnsb_website_published" string="On Website"/>
+                                </list>
+                            </field>
+                            <div class="text-muted">
+                                Only products marked "Show on Website" appear on the industry page.
+                            </div>
+                        </page>
+                        <page string="Page Content" name="content">
+                            <field name="description"
+                                   placeholder="Optional text for the industry page. Keep client names and specifications out of it."/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="pnsb_industry_view_search" model="ir.ui.view">
+        <field name="name">pnsb.industry.search</field>
+        <field name="model">pnsb.industry</field>
+        <field name="arch" type="xml">
+            <search string="Industries">
+                <field name="name"/>
+                <filter string="On Website" name="published" domain="[('website_published', '=', True)]"/>
+                <filter string="Not on Website" name="unpublished" domain="[('website_published', '=', False)]"/>
+                <separator/>
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_pnsb_industry" model="ir.actions.act_window">
+        <field name="name">Industries</field>
+        <field name="res_model">pnsb.industry</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Add an industry</p>
+            <p>Each industry gets a page on the website at /industries/&lt;key&gt; and appears in the industry lists.</p>
+        </field>
+    </record>
+</odoo>

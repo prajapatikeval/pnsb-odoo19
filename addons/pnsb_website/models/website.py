@@ -20,6 +20,7 @@ COMPANY_NAME = 'PNSB Machinery Industries LLP'
 # (see CONTACT_MARKER); later edits in the backend are kept.
 CONTACT_VERSION = '2026-10'
 CONTACT_MARKER = 'pnsb_website.contact_version'
+INDUSTRY_PRODUCTS_MARKER = 'pnsb_website.industry_products_linked'
 COMPANY_ADDRESS = {
     'street': '350/4 Ahmedabad Udhyogic Vasahat, Near Punmaji Estate',
     'street2': 'Dhobi Ghaat Road, Dudheshwar',
@@ -35,19 +36,6 @@ SCRIPT_3D_PATH = 'pnsb_website/static/src/three/pnsb3d.js'
 SCRIPT_BOOT_PATH = 'pnsb_website/static/src/boot/boot.js'
 _STATIC_URLS = {}
 
-# Industries named in PNSB's own company profile. Do not add industries the
-# client has not confirmed. The text describes typical needs, not past clients.
-# Rubber replaces the profile's Paper at the client's request (2026-10).
-INDUSTRIES = [
-    ('textile', 'Textile', 'Creel stands, yarn handling assemblies, tension devices and loom spares.'),
-    ('petroleum', 'Petroleum', 'Seals, filtration and machined parts for process equipment.'),
-    ('surgical', 'Surgical', 'Precision components developed to strict quality requirements.'),
-    ('plastic', 'Plastic', 'Machine spares and parts that keep processing lines running.'),
-    ('rubber', 'Rubber', 'Rotating parts, shafts and replacement spares for processing machinery.'),
-    ('fire-safety', 'Fire Safety', 'Machined and fabricated parts for safety equipment.'),
-    ('bearings', 'Bearings', 'Turned components and assemblies made to drawing.'),
-    ('packaging', 'Packaging', 'Custom parts, guides and pulleys for packaging machinery.'),
-]
 
 # Services, worded from PNSB's company profile.
 SERVICES = [
@@ -78,8 +66,6 @@ PAGE_DESCRIPTIONS = {
              'and engineering solutions for industrial customers and OEMs.',
     'services': 'Product design and development, prototypes, manufacturing support, component '
                 'engineering, product improvement and certification support.',
-    'industries': 'Industries PNSB works with: textile, petroleum, surgical, plastic, rubber, fire safety, '
-                  'bearings and packaging.',
     'products': 'Textile machinery spares, filtration and airflow assemblies, mechanical components, '
                 'precision machined parts and custom fabrication.',
     'contact': "Let's discuss your requirement. Send your enquiry, drawing or sample details to PNSB "
@@ -166,15 +152,19 @@ class Website(models.Model):
             ' '.join(filter(None, [company.city, company.zip])),
             ', '.join(filter(None, [company.state_id.name, company.country_id.name])),
         ] if line]
+        industries = self.env['pnsb.industry'].sudo().search([('website_published', '=', True)])
+        description = PAGE_DESCRIPTIONS.get(page, PAGE_DESCRIPTIONS['home'])
+        if page == 'industries' and industries:
+            description = 'Industries PNSB works with: %s.' % ', '.join(industries.mapped('name'))
         return {
             'pnsb_page': page,
             'pnsb_company': company,
             'pnsb_website': self,
             'pnsb_services': SERVICES,
-            'pnsb_industries': INDUSTRIES,
+            'pnsb_industries': industries,
             'pnsb_address_lines': address_lines,
             'pnsb_map_url': self._pnsb_map_url(),
-            'pnsb_description': PAGE_DESCRIPTIONS.get(page, PAGE_DESCRIPTIONS['home']),
+            'pnsb_description': description,
             'pnsb_jsonld': Markup(json.dumps(organization).replace('</', '<\\/')),
         }
 
@@ -227,6 +217,22 @@ class Website(models.Model):
                 website.write(vals)
         if apply_contact:
             params.set_param(CONTACT_MARKER, CONTACT_VERSION)
+        if not params.get_param(INDUSTRY_PRODUCTS_MARKER):
+            self._pnsb_link_industry_products()
+            params.set_param(INDUSTRY_PRODUCTS_MARKER, '1')
+
+    @api.model
+    def _pnsb_link_industry_products(self):
+        """Once per database: list the textile spares on the Textile industry page.
+
+        Only this link is set up front (the product line is textile by name);
+        other industries get their products from the backend."""
+        textile = self.env.ref('pnsb_website.industry_textile', raise_if_not_found=False)
+        category = self.env.ref('pnsb_website.categ_textile', raise_if_not_found=False)
+        if textile and category:
+            products = self.env['product.template'].with_context(active_test=False).search(
+                [('categ_id', '=', category.id)])
+            textile.write({'product_ids': [(4, product.id) for product in products]})
 
     @api.model
     def _pnsb_read_image(self, path):

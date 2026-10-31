@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Industries named in PNSB's company profile (Rubber replaces Paper at the
+         client's request, 2026-10). noupdate: edits in the backend are kept.
+         Do not add industries the client has not confirmed. -->
+    <data noupdate="1">
+        <record id="industry_textile" model="pnsb.industry">
+            <field name="name">Textile</field>
+            <field name="sequence">10</field>
+            <field name="url_key">textile</field>
+            <field name="icon">textile</field>
+            <field name="summary">Creel stands, yarn handling assemblies, tension devices and loom spares.</field>
+        </record>
+        <record id="industry_petroleum" model="pnsb.industry">
+            <field name="name">Petroleum</field>
+            <field name="sequence">20</field>
+            <field name="url_key">petroleum</field>
+            <field name="icon">petroleum</field>
+            <field name="summary">Seals, filtration and machined parts for process equipment.</field>
+        </record>
+        <record id="industry_surgical" model="pnsb.industry">
+            <field name="name">Surgical</field>
+            <field name="sequence">30</field>
+            <field name="url_key">surgical</field>
+            <field name="icon">surgical</field>
+            <field name="summary">Precision components developed to strict quality requirements.</field>
+        </record>
+        <record id="industry_plastic" model="pnsb.industry">
+            <field name="name">Plastic</field>
+            <field name="sequence">40</field>
+            <field name="url_key">plastic</field>
+            <field name="icon">plastic</field>
+            <field name="summary">Machine spares and parts that keep processing lines running.</field>
+        </record>
+        <record id="industry_rubber" model="pnsb.industry">
+            <field name="name">Rubber</field>
+            <field name="sequence">50</field>
+            <field name="url_key">rubber</field>
+            <field name="icon">rubber</field>
+            <field name="summary">Rotating parts, shafts and replacement spares for processing machinery.</field>
+        </record>
+        <record id="industry_fire_safety" model="pnsb.industry">
+            <field name="name">Fire Safety</field>
+            <field name="sequence">60</field>
+            <field name="url_key">fire-safety</field>
+            <field name="icon">fire-safety</field>
+            <field name="summary">Machined and fabricated parts for safety equipment.</field>
+        </record>
+        <record id="industry_bearings" model="pnsb.industry">
+            <field name="name">Bearings</field>
+            <field name="sequence">70</field>
+            <field name="url_key">bearings</field>
+            <field name="icon">bearings</field>
+            <field name="summary">Turned components and assemblies made to drawing.</field>
+        </record>
+        <record id="industry_packaging" model="pnsb.industry">
+            <field name="name">Packaging</field>
+            <field name="sequence">80</field>
+            <field name="url_key">packaging</field>
+            <field name="icon">packaging</field>
+            <field name="summary">Custom parts, guides and pulleys for packaging machinery.</field>
+        </record>
+    </data>
+</odoo>

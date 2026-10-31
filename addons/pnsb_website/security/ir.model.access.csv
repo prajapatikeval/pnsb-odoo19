@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_pnsb_industry_user,pnsb.industry user,model_pnsb_industry,base.group_user,1,0,0,0
+access_pnsb_industry_sale_manager,pnsb.industry sales manager,model_pnsb_industry,sales_team.group_sale_manager,1,1,1,1
+access_pnsb_industry_designer,pnsb.industry website designer,model_pnsb_industry,website.group_website_designer,1,1,1,1

@@ -80,6 +80,25 @@ class PnsbWebsite(http.Controller):
     def pnsb_industries(self, **kw):
         return request.render('pnsb_website.page_industries', self._pnsb_values('industries'))
 
+    def sitemap_industries(env, rule, qs):
+        for industry in env['pnsb.industry'].sudo().search([('website_published', '=', True)]):
+            if not qs or qs.lower() in industry.website_url:
+                yield {'loc': industry.website_url}
+
+    @http.route('/industries/<string:key>', type='http', auth='public', website=True,
+                sitemap=sitemap_industries)
+    def pnsb_industry(self, key, **kw):
+        industries = request.env['pnsb.industry'].sudo().search([('website_published', '=', True)])
+        industry = industries.filtered(lambda i: i.url_key == key)[:1]
+        if not industry:
+            raise request.not_found()
+        # Only products that are on the website, in the catalogue order.
+        products = self._pnsb_products(self._pnsb_categories()) & industry.product_ids
+        return request.render('pnsb_website.page_industry', self._pnsb_values(
+            'industries', industry=industry, industry_index=list(industries).index(industry),
+            industry_total=len(industries), other_industries=industries - industry,
+            products=products, pnsb_description=industry.summary))
+
     @http.route('/products', type='http', auth='public', website=True, sitemap=True)
     def pnsb_products(self, line='', **kw):
         categories = self._pnsb_categories()
@@ -122,6 +141,15 @@ class PnsbWebsite(http.Controller):
         field = 'image_%s' % (size if size in (128, 256, 512, 1024) else 1920)
         stream = request.env['ir.binary']._get_image_stream_from(
             product, field, placeholder='web/static/img/placeholder.png')
+        return stream.get_response(immutable=bool(unique))
+
+    @http.route('/pnsb/industry-image/<int:industry_id>', type='http', auth='public', sitemap=False)
+    def pnsb_industry_image(self, industry_id, unique=None, **kw):
+        """Industry photos for the public site, limited to published industries."""
+        industry = request.env['pnsb.industry'].sudo().browse(industry_id).exists()
+        if not industry or not industry.website_published or not industry.image:
+            raise request.not_found()
+        stream = request.env['ir.binary']._get_image_stream_from(industry, 'image')
         return stream.get_response(immutable=bool(unique))
 
     # ------------------------------------------------------------------

@@ -114,11 +114,12 @@
                 </div>
                 <div class="pn-container pn-industries-band__grid">
                     <div class="pn-industries">
-                        <article t-foreach="pnsb_industries" t-as="industry" t-attf-id="industry-#{industry[0]}" class="pn-industry pn-reveal">
-                            <span class="pn-industry__icon"><svg class="pn-i pn-i--lg"><use t-attf-href="#pn-i-#{industry[0]}"/></svg></span>
-                            <h3 class="pn-industry__title" t-out="industry[1]"/>
-                            <p t-out="industry[2]"/>
-                        </article>
+                        <a t-foreach="pnsb_industries" t-as="industry" t-att-href="industry.website_url" t-attf-id="industry-#{industry.url_key}" class="pn-industry pn-industry--link pn-reveal">
+                            <span class="pn-industry__icon"><svg class="pn-i pn-i--lg"><use t-attf-href="#pn-i-#{industry.icon}"/></svg></span>
+                            <h3 class="pn-industry__title" t-out="industry.name"/>
+                            <p t-out="industry.summary"/>
+                            <svg class="pn-i pn-industry__go" aria-hidden="true"><use href="#pn-i-arrow-ur"/></svg>
+                        </a>
                     </div>
                 </div>
             </section>

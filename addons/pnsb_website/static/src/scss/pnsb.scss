@@ -1452,8 +1452,64 @@ html:not(.pn-js) .pn-root, html.pn-no3d .pn-root, .pn-root .pn-3d.is-3d-failed {
         padding: 18px 16px;
         border-top: 1px solid var(--pn-ink);
         background: var(--pn-paper);
-        p { margin: 0; font-size: 14.5px; max-width: 280px; color: var(--pn-text); }
-        .pn-btn { flex: none; }
+        .pn-btn { flex: 1 1 0; justify-content: center; }
+    }
+    .pn-ind__btn { text-decoration: none; }
+
+    // Industry cards that open the industry page (home, industry page)
+    .pn-industry--link {
+        position: relative;
+        display: block;
+        color: var(--pn-text);
+        text-decoration: none;
+        &:hover { color: var(--pn-text); }
+        &:hover .pn-industry__title { color: var(--pn-blue); }
+        &:focus-visible { outline: 2px solid var(--pn-blue); outline-offset: -2px; }
+    }
+    .pn-industry__title { transition: color 0.2s; }
+    .pn-industry__go {
+        position: absolute;
+        top: 26px;
+        right: 22px;
+        width: 20px;
+        height: 20px;
+        color: var(--pn-blue);
+        opacity: 0;
+        transform: translate(-6px, 6px);
+        transition: opacity 0.25s, transform 0.4s var(--pn-ease);
+    }
+    .pn-industry--link:hover .pn-industry__go, .pn-industry--link:focus-visible .pn-industry__go { opacity: 1; transform: none; }
+
+    // Industry page: hero with the industry's drawing sheet
+    .pn-ihero__grid {
+        position: relative;
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 56px;
+        align-items: center;
+    }
+    .pn-ihero__sheet { position: relative; top: auto; }
+    .pn-crumbs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 22px;
+        font-family: var(--pn-mono);
+        font-size: 12px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--pn-muted);
+        a { color: var(--pn-blue); }
+    }
+    .pn-ihero__content {
+        max-width: 760px;
+        font-size: 17px;
+        h2 { font-size: clamp(28px, 3vw, 40px); margin: 0 0 18px; }
+        h3 { font-size: 24px; margin: 28px 0 12px; }
+        ul, ol { margin: 0 0 1em; padding-left: 1.2em; }
+        ul { list-style: square; }
+        ol { list-style: decimal; }
+        li { margin-bottom: 6px; }
     }
     .pn-industry__title { font-size: 26px; margin-bottom: 10px; }
 }
@@ -1562,27 +1618,55 @@ html:not(.pn-js) .pn-root, html.pn-no3d .pn-root, .pn-root .pn-3d.is-3d-failed {
         background: #fff;
         border-right: 1px solid var(--pn-ink);
         border-bottom: 1px solid var(--pn-ink);
-        &:hover .pn-product__media img { transform: scale(1.04); }
+        transition: background-color 0.25s;
+        &:hover .pn-product__media img { transform: scale(1.05); }
+        &:hover .pn-product__media::after { transform: scaleX(1); }
+        &:hover .pn-product__title { color: var(--pn-blue); }
         &.is-filtered { display: none; }
     }
     .pn-product__media {
+        position: relative;
         aspect-ratio: 4 / 3;
         overflow: hidden;
         background: var(--pn-paper);
-        border-bottom: 1px solid var(--pn-line);
-        img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--pn-ease); }
+        border-bottom: 1px solid var(--pn-ink);
+        img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--pn-ease); }
+        // Blue rule drawn along the photo's edge on hover.
+        &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 3px;
+            background: var(--pn-blue);
+            transform: scaleX(0);
+            transform-origin: 0 50%;
+            transition: transform 0.5s var(--pn-ease);
+        }
     }
-    .pn-product__body { display: flex; flex-direction: column; flex: 1; padding: 22px 24px 24px; }
+    .pn-product__body { display: flex; flex-direction: column; flex: 1; padding: 22px 24px 0; }
     .pn-product__line {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
         font-family: var(--pn-mono);
-        font-size: 11.5px;
-        letter-spacing: 0.04em;
+        font-size: 11px;
+        letter-spacing: 0.06em;
         text-transform: uppercase;
         color: var(--pn-blue);
-        margin-bottom: 10px;
+        margin-bottom: 12px;
+        &::before { content: ""; width: 6px; height: 6px; background: var(--pn-blue); flex: none; }
     }
-    .pn-product__title { font-size: 23px; margin-bottom: 8px; }
-    .pn-product__summary { font-size: 15px; line-height: 1.55; margin-bottom: 16px; }
+    .pn-product__title { font-size: 22px; line-height: 1.15; margin-bottom: 10px; transition: color 0.2s; }
+    .pn-product__summary { font-size: 14.5px; line-height: 1.6; margin-bottom: 18px; }
+    // Actions sit on a ruled footer at the bottom, so buttons line up across a row.
+    .pn-product__actions {
+        margin: auto -24px 0;
+        padding: 14px 24px 16px;
+        border-top: 1px solid var(--pn-line);
+        .pn-btn { width: 100%; justify-content: center; }
+    }
     .pn-product__story {
         margin: 0 0 18px;
         border-top: 1px solid var(--pn-line);
@@ -1604,7 +1688,6 @@ html:not(.pn-js) .pn-root, html.pn-no3d .pn-root, .pn-root .pn-3d.is-3d-failed {
         &[open] summary .pn-i { transform: rotate(45deg); }
     }
     .pn-product__story-body { padding-top: 10px; font-size: 14.5px; line-height: 1.6; }
-    .pn-product__actions { margin-top: auto; }
 
     .pn-empty {
         display: grid;
@@ -2197,6 +2280,9 @@ html.pn-motion .pn-root .pn-ind__panel.is-active .pn-ind__art { animation: pn-dr
             p { margin: 0; font-size: 15.5px; }
         }
         .pn-ind__icon { color: var(--pn-blue); }
+        .pn-ind__inline .pn-link { margin-top: 10px; }
+        .pn-ihero__grid { grid-template-columns: 1fr; gap: 36px; }
+        .pn-ihero__sheet { display: block; }
         .pn-cases__media { display: none; }
         .pn-cases__item { min-height: 0; padding: 32px 0; opacity: 1; }
         .pn-cases__item::before { display: none; }

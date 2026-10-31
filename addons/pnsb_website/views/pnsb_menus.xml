@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- One app menu for everything the public website is configured from
+         (requested by the owner, 2026-10-31). Apart from Industries, every entry
+         opens Odoo's own action, with all its standard views and filters. -->
+    <menuitem id="menu_pnsb_root" name="PNSB Machinery" sequence="45"
+              web_icon="pnsb_website,static/description/icon.png"
+              groups="sales_team.group_sale_salesman"/>
+
+    <menuitem id="menu_pnsb_website" name="Website" parent="menu_pnsb_root" sequence="10"/>
+    <menuitem id="menu_pnsb_industries" name="Industries" parent="menu_pnsb_website"
+              action="action_pnsb_industry" sequence="10"/>
+    <menuitem id="menu_pnsb_products" name="Products" parent="menu_pnsb_website"
+              action="sale.product_template_action" sequence="20"/>
+    <menuitem id="menu_pnsb_product_categories" name="Product Categories" parent="menu_pnsb_website"
+              action="product.product_category_action_form" sequence="30"/>
+
+    <menuitem id="menu_pnsb_sales" name="Sales" parent="menu_pnsb_root" sequence="20"/>
+    <menuitem id="menu_pnsb_quotations" name="Quotations" parent="menu_pnsb_sales"
+              action="sale.action_quotations_with_onboarding" sequence="10"/>
+    <menuitem id="menu_pnsb_orders" name="Orders" parent="menu_pnsb_sales"
+              action="sale.action_orders" sequence="20"/>
+
+    <menuitem id="menu_pnsb_crm" name="CRM" parent="menu_pnsb_root" sequence="30"/>
+    <menuitem id="menu_pnsb_pipeline" name="Pipeline" parent="menu_pnsb_crm"
+              action="crm.crm_lead_action_pipeline" sequence="10"/>
+    <menuitem id="menu_pnsb_leads" name="Leads" parent="menu_pnsb_crm"
+              action="crm.crm_lead_all_leads" sequence="20" groups="crm.group_use_lead"/>
+
+    <menuitem id="menu_pnsb_configuration" name="Configuration" parent="menu_pnsb_root" sequence="90"
+              groups="website.group_website_designer"/>
+    <menuitem id="menu_pnsb_website_settings" name="Website &amp; Contact Details" parent="menu_pnsb_configuration"
+              action="website.action_website_list" sequence="10"/>
+</odoo>
