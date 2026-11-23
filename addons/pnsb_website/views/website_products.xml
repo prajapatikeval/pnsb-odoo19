@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="page_products" name="PNSB: Products">
+    <!-- =====================================================================
+         Products: Odoo eCommerce's /shop rendered with PNSB templates
+         (controllers/shop.py). No prices, no cart: "Add to enquiry".
+    ====================================================================== -->
+    <template id="shop_products" name="PNSB: Shop">
         <t t-call="pnsb_website.pn_layout">
-            <t t-set="additional_title">Products &amp; Work</t>
+            <t t-set="additional_title" t-value="category.name if category else 'Products &amp; Work'"/>
             <t t-call="pnsb_website.pn_page_hero">
                 <t t-set="eyebrow">Products &amp; work</t>
                 <t t-set="title">Turning ideas into real products.</t>
@@ -10,60 +14,52 @@
                 <t t-set="lead">A selection of what we design, develop and manufacture. Add items to your enquiry list and we will come back with a quotation.</t>
             </t>
 
-            <section class="pn-section pn-section--tight" data-pnsb-catalog="">
+            <section class="pn-section pn-section--tight">
                 <div class="pn-container">
                     <div class="pn-catalog">
                         <aside class="pn-catalog__side" aria-label="Find products">
-                            <label class="pn-catalog__search">
-                                <span class="pn-catalog__label">Search</span>
+                            <form method="get" t-att-action="pnsb_shop_path" class="pn-catalog__search" role="search">
+                                <label class="pn-catalog__label" for="pn-shop-search">Search</label>
                                 <span class="pn-catalog__field">
                                     <svg class="pn-i"><use href="#pn-i-search"/></svg>
-                                    <input type="search" placeholder="Part name or application" data-pnsb-search=""/>
+                                    <input id="pn-shop-search" type="search" name="search" t-att-value="search"
+                                           placeholder="Part name or application"/>
                                 </span>
-                            </label>
+                            </form>
                             <div class="pn-catalog__lines">
-                                <span class="pn-catalog__label">Product lines</span>
-                                <select class="pn-catalog__select" data-pnsb-filter-select="" aria-label="Product line">
-                                    <option value="all" t-att-selected="'selected' if active_key == 'all' else None">All products (<t t-out="len(products)"/>)</option>
-                                    <option t-foreach="categories" t-as="category" t-att-value="category.pnsb_website_key"
-                                            t-att-selected="'selected' if active_key == category.pnsb_website_key else None">
-                                        <t t-out="category.name"/> (<t t-out="counts.get(category.id, 0)"/>)
-                                    </option>
-                                </select>
-                                <div class="pn-catalog__list" role="tablist" aria-label="Product lines">
-                                    <button type="button" role="tab" data-pnsb-filter="all"
-                                            t-attf-class="pn-filter #{'is-active' if active_key == 'all' else ''}"
-                                            t-att-aria-selected="'true' if active_key == 'all' else 'false'">
-                                        <span>All products</span><span class="pn-filter__count" t-out="len(products)"/>
-                                    </button>
-                                    <button t-foreach="categories" t-as="category" type="button" role="tab"
-                                            t-att-data-pnsb-filter="category.pnsb_website_key"
-                                            t-attf-class="pn-filter #{'is-active' if active_key == category.pnsb_website_key else ''}"
-                                            t-att-aria-selected="'true' if active_key == category.pnsb_website_key else 'false'">
-                                        <span t-out="category.name"/><span class="pn-filter__count" t-out="counts.get(category.id, 0)"/>
-                                    </button>
-                                </div>
+                                <span class="pn-catalog__label">Product categories</span>
+                                <nav class="pn-catalog__links" aria-label="Product categories">
+                                    <a href="/shop" t-attf-class="pn-filter #{'' if category else 'is-active'}">
+                                        <span>All products</span><span class="pn-filter__count" t-out="pnsb_total"/>
+                                    </a>
+                                    <a t-foreach="pnsb_shop_categories" t-as="entry" t-att-href="entry['url']"
+                                       t-attf-class="pn-filter #{'is-active' if category and category.id == entry['category'].id else ''}">
+                                        <span t-out="entry['category'].name"/><span class="pn-filter__count" t-out="entry['count']"/>
+                                    </a>
+                                </nav>
                             </div>
-                            <p class="pn-catalog__result"><span data-pnsb-count="" t-out="len(products)"/> products shown</p>
+                            <p class="pn-catalog__result"><t t-out="search_count"/> <t t-out="'product' if search_count == 1 else 'products'"/> shown</p>
                         </aside>
 
                         <div class="pn-catalog__main">
-                            <t t-foreach="categories" t-as="category">
-                                <p t-if="category.pnsb_website_description" class="pn-line-intro"
-                                   t-att-data-pnsb-intro="category.pnsb_website_key"
-                                   t-att-hidden="None if active_key == category.pnsb_website_key else 'hidden'"
-                                   t-out="category.pnsb_website_description"/>
-                            </t>
-                            <div class="pn-products" data-pnsb-grid="">
-                                <t t-foreach="products" t-as="product">
+                            <p t-if="search" class="pn-line-intro">
+                                Results for "<t t-out="search"/>" · <a t-att-href="pnsb_shop_path">Clear search</a>
+                            </p>
+                            <div t-if="pnsb_products" class="pn-products">
+                                <t t-foreach="pnsb_products" t-as="product">
                                     <t t-call="pnsb_website.pn_product_card"/>
                                 </t>
                             </div>
-                            <div class="pn-empty" data-pnsb-empty="" t-att-hidden="None if not products else 'hidden'">
+                            <div t-else="" class="pn-empty">
                                 <svg class="pn-i pn-i--lg"><use href="#pn-i-search"/></svg>
                                 <p>No products match your search.</p>
                                 <p class="pn-muted">We also make parts to your drawing or sample: <a href="/contact">send us your requirement</a>.</p>
                             </div>
+                            <nav t-if="pager and pager.get('page_count', 1) &gt; 1" class="pn-pager" aria-label="Pages">
+                                <a t-if="pager['page']['num'] &gt; 1" t-att-href="pager['page_previous']['url']" class="pn-btn pn-btn--outline pn-btn--sm">Previous</a>
+                                <span>Page <t t-out="pager['page']['num']"/> of <t t-out="pager['page_count']"/></span>
+                                <a t-if="pager['page']['num'] &lt; pager['page_count']" t-att-href="pager['page_next']['url']" class="pn-btn pn-btn--outline pn-btn--sm">Next</a>
+                            </nav>
                         </div>
                     </div>
                 </div>
@@ -88,6 +84,126 @@
                 </div>
             </section>
             <div class="oe_structure" id="pn_products_extra"/>
+        </t>
+    </template>
+
+    <!-- =====================================================================
+         Product page: eCommerce's /shop/<product> rendered with PNSB templates
+    ====================================================================== -->
+    <template id="shop_product" name="PNSB: Shop Product">
+        <t t-call="pnsb_website.pn_layout">
+            <t t-set="additional_title" t-value="pnsb_product.name"/>
+            <section class="pn-section pn-pdp">
+                <div class="pn-container">
+                    <nav class="pn-crumbs pn-reveal" aria-label="Breadcrumb">
+                        <a href="/shop">Products</a><span aria-hidden="true">/</span>
+                        <t t-if="pnsb_category">
+                            <a t-att-href="pnsb_category_url" t-out="pnsb_category.name"/><span aria-hidden="true">/</span>
+                        </t>
+                        <span t-out="pnsb_product.name"/>
+                    </nav>
+                    <div class="pn-pdp__grid">
+                        <div class="pn-pdp__gallery pn-reveal" data-pnsb-gallery="">
+                            <figure class="pn-pdp__media">
+                                <div class="pn-ind__ruler" aria-hidden="true"><span>A</span><span>B</span><span>C</span><span>D</span></div>
+                                <div class="pn-pdp__frame">
+                                    <img t-att-src="website.image_url(pnsb_product, 'image_1024')" t-att-alt="pnsb_product.name"
+                                         width="1024" height="768" data-pnsb-gallery-main=""/>
+                                </div>
+                                <figcaption>
+                                    <span>Fig. <span data-pnsb-gallery-index="">01</span></span><span t-out="pnsb_product.name"/>
+                                </figcaption>
+                            </figure>
+                            <div t-if="len(pnsb_images) &gt; 1" class="pn-pdp__thumbs" role="group" aria-label="Product photos">
+                                <button t-foreach="pnsb_images" t-as="image" type="button" data-pnsb-gallery-thumb=""
+                                        t-attf-class="pn-pdp__thumb #{'is-active' if image_first else ''}"
+                                        t-att-data-src="website.image_url(image, 'image_1024')" t-attf-data-index="#{'%02d' % (image_index + 1)}"
+                                        t-attf-aria-label="Photo #{image_index + 1}">
+                                    <img t-att-src="website.image_url(image, 'image_128')" alt="" loading="lazy" width="128" height="96"/>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="pn-pdp__info">
+                            <p class="pn-label pn-reveal" t-out="(pnsb_category or pnsb_product.public_categ_ids[:1]).name or pnsb_product.categ_id.name"/>
+                            <h1 class="pn-pdp__title pn-reveal" t-out="pnsb_product.name"/>
+                            <p class="pn-pdp__lead pn-reveal" t-out="pnsb_product._pnsb_summary()"/>
+                            <div class="pn-pdp__actions pn-reveal">
+                                <button type="button" class="pn-btn pn-btn--dark pn-btn--lg" data-pnsb-add=""
+                                        t-attf-data-id="#{pnsb_product.id}" t-att-data-name="pnsb_product.name"
+                                        t-att-data-image="pnsb_product._pnsb_image_url(128)">
+                                    <svg class="pn-i"><use href="#pn-i-plus"/></svg><span>Add to enquiry</span>
+                                </button>
+                                <a href="/contact" class="pn-btn pn-btn--outline pn-btn--lg">Request a Quote <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
+                            </div>
+                            <table class="pn-ind__block pn-pdp__block pn-reveal">
+                                <tr t-if="pnsb_product_categories">
+                                    <th>Category</th>
+                                    <td class="pn-pdp__tags">
+                                        <a t-foreach="pnsb_product_categories" t-as="entry" t-att-href="entry['url']" t-out="entry['category'].name"/>
+                                    </td>
+                                </tr>
+                                <tr t-if="pnsb_product_industries">
+                                    <th>Industries</th>
+                                    <td class="pn-pdp__tags">
+                                        <a t-foreach="pnsb_product_industries" t-as="industry" t-att-href="industry.website_url" t-out="industry.name"/>
+                                    </td>
+                                </tr>
+                                <tr><th>Supply</th><td>Made to your drawing or sample</td></tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <t t-set="has_description" t-value="pnsb_product.description_ecommerce and not is_html_empty(pnsb_product.description_ecommerce)"/>
+            <t t-set="has_story" t-value="pnsb_product.pnsb_website_story and not is_html_empty(pnsb_product.pnsb_website_story)"/>
+            <section t-if="has_description or has_story or pnsb_attribute_lines" class="pn-section pn-section--soft">
+                <div t-attf-class="pn-container #{'pn-pdp__text' if (has_description or pnsb_attribute_lines) and has_story else ''}">
+                    <div t-if="has_description or pnsb_attribute_lines">
+                        <div t-if="has_description" class="pn-ihero__content pn-reveal">
+                            <p class="pn-label">Description</p>
+                            <t t-out="pnsb_product.description_ecommerce"/>
+                        </div>
+                        <div t-if="pnsb_attribute_lines" class="pn-pdp__specs pn-reveal">
+                            <p class="pn-label">Specifications</p>
+                            <table class="pn-ind__block pn-pdp__block">
+                                <tr t-foreach="pnsb_attribute_lines" t-as="line">
+                                    <th t-out="line.attribute_id.name"/>
+                                    <td t-out="', '.join(line.value_ids.mapped('name'))"/>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <aside t-if="has_story" class="pn-pdp__story pn-reveal">
+                        <p class="pn-label">Development story</p>
+                        <div class="pn-ihero__content" t-out="pnsb_product.pnsb_website_story"/>
+                    </aside>
+                </div>
+            </section>
+
+            <!-- Free content edited in the website builder (eCommerce's "Description for the website"). -->
+            <div itemprop="description" t-field="product.website_description" class="oe_structure oe_empty pn-pdp__builder"
+                 id="product_full_description"/>
+
+            <section t-if="pnsb_related" class="pn-section">
+                <div class="pn-container">
+                    <div class="pn-head">
+                        <div>
+                            <p class="pn-label pn-reveal">Related products</p>
+                            <h2 class="pn-h2" data-pnsb-split="">You may also need.</h2>
+                        </div>
+                        <a t-att-href="pnsb_category_url" class="pn-link pn-reveal">All products <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
+                    </div>
+                    <div class="pn-products pn-products--4">
+                        <t t-foreach="pnsb_related" t-as="product">
+                            <t t-call="pnsb_website.pn_product_card"/>
+                        </t>
+                    </div>
+                </div>
+            </section>
+
+            <div class="oe_structure" id="pn_product_extra"/>
+            <t t-call="pnsb_website.pn_cta"/>
         </t>
     </template>
 </odoo>

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import json
+import re
 import logging
 import os
 
@@ -99,17 +100,20 @@ class PnsbWebsite(http.Controller):
             industry_total=len(industries), other_industries=industries - industry,
             products=products, pnsb_description=industry.summary))
 
-    @http.route('/products', type='http', auth='public', website=True, sitemap=True)
+    # The catalogue is Odoo eCommerce now (/shop, controllers/shop.py); the old
+    # addresses redirect there.
+    @http.route('/products', type='http', auth='public', website=True, sitemap=False)
     def pnsb_products(self, line='', **kw):
-        categories = self._pnsb_categories()
-        products = self._pnsb_products(categories)
-        counts = {}
-        for product in products:
-            counts[product.categ_id.id] = counts.get(product.categ_id.id, 0) + 1
-        active = categories.filtered(lambda c: c.pnsb_website_key == line)[:1]
-        return request.render('pnsb_website.page_products', self._pnsb_values(
-            'products', categories=categories.filtered(lambda c: counts.get(c.id)), products=products,
-            counts=counts, active_key=active.pnsb_website_key or 'all'))
+        category = self._pnsb_categories().filtered(lambda c: c.pnsb_website_key == line)[:1]
+        return request.redirect(category._pnsb_shop_url() if category else '/shop', code=301)
+
+    @http.route('/products/<string:slug>', type='http', auth='public', website=True, sitemap=False)
+    def pnsb_product(self, slug, **kw):
+        match = re.search(r'(?:^|-)(\d+)$', slug)
+        product = match and request.env['product.template'].sudo().browse(int(match.group(1))).exists()
+        if not product or not product.is_published:
+            raise request.not_found()
+        return request.redirect(product.website_url, code=301)
 
     @http.route('/contact', type='http', auth='public', website=True, sitemap=True)
     def pnsb_contact(self, **kw):

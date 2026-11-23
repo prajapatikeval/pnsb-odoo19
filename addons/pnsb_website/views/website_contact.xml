@@ -57,7 +57,7 @@
                                 <span class="pn-form__done-icon"><svg class="pn-i pn-i--lg"><use href="#pn-i-check"/></svg></span>
                                 <h2 class="pn-h3">Thank you, we have your enquiry.</h2>
                                 <p>Your reference is <strong data-pnsb-ref="">-</strong>. We will get back to you soon.</p>
-                                <a href="/products" class="pn-btn pn-btn--outline">Back to products</a>
+                                <a href="/shop" class="pn-btn pn-btn--outline">Back to products</a>
                             </div>
 
                             <div data-pnsb-form-body="">
@@ -66,12 +66,12 @@
                                 <div class="pn-enq" data-pnsb-enquiry-list="" hidden="hidden">
                                     <div class="pn-enq__head">
                                         <span>Products in your enquiry</span>
-                                        <a href="/products" class="pn-link pn-link--sm">Add more</a>
+                                        <a href="/shop" class="pn-link pn-link--sm">Add more</a>
                                     </div>
                                     <ul class="pn-enq__items" data-pnsb-enquiry-items=""/>
                                 </div>
                                 <p class="pn-enq__hint" data-pnsb-enquiry-hint="">
-                                    Looking for specific parts? <a href="/products">Add products to your enquiry</a>, or just describe what you need below.
+                                    Looking for specific parts? <a href="/shop">Add products to your enquiry</a>, or just describe what you need below.
                                 </p>
 
                                 <div class="pn-form__grid">
@@ -206,7 +206,7 @@
                     <p class="pn-phero__lead">The page may have moved. Let's get you back on track.</p>
                     <div class="pn-hero__actions pn-hero__actions--center">
                         <a href="/" class="pn-btn pn-btn--dark">Back to home</a>
-                        <a href="/products" class="pn-btn pn-btn--outline">See our products</a>
+                        <a href="/shop" class="pn-btn pn-btn--outline">See our products</a>
                     </div>
                 </div>
             </section>

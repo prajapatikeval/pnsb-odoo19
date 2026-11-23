@@ -21,6 +21,7 @@ COMPANY_NAME = 'PNSB Machinery Industries LLP'
 CONTACT_VERSION = '2026-10'
 CONTACT_MARKER = 'pnsb_website.contact_version'
 INDUSTRY_PRODUCTS_MARKER = 'pnsb_website.industry_products_linked'
+SHOP_SETUP_MARKER = 'pnsb_website.shop_setup_v1'
 COMPANY_ADDRESS = {
     'street': '350/4 Ahmedabad Udhyogic Vasahat, Near Punmaji Estate',
     'street2': 'Dhobi Ghaat Road, Dudheshwar',
@@ -220,6 +221,27 @@ class Website(models.Model):
         if not params.get_param(INDUSTRY_PRODUCTS_MARKER):
             self._pnsb_link_industry_products()
             params.set_param(INDUSTRY_PRODUCTS_MARKER, '1')
+        if not params.get_param(SHOP_SETUP_MARKER):
+            self._pnsb_setup_shop()
+            params.set_param(SHOP_SETUP_MARKER, '1')
+
+    @api.model
+    def _pnsb_setup_shop(self):
+        """Once per database: eCommerce categories copied from the website's product
+        lines (same names and order), products assigned to them, and all products on
+        one shop page. Afterwards the categories are managed in eCommerce."""
+        Public = self.env['product.public.category']
+        lines = self.env['product.category'].search(
+            [('pnsb_website_published', '=', True)], order='pnsb_website_sequence, name')
+        for line in lines:
+            public = Public.search([('name', '=', line.name), ('parent_id', '=', False)], limit=1)
+            if not public:
+                public = Public.create({'name': line.name, 'sequence': line.pnsb_website_sequence})
+            products = self.env['product.template'].with_context(active_test=False).search(
+                [('categ_id', '=', line.id)])
+            products.write({'public_categ_ids': [(4, public.id)]})
+        for website in self.search([('shop_ppg', '<', 60)]):
+            website.shop_ppg = 60
 
     @api.model
     def _pnsb_link_industry_products(self):

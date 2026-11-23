@@ -11,15 +11,15 @@ PNSB Machinery Industries website
 =================================
 * Clean, responsive company website: Home, About, Services, Industries,
   Products & Work, Contact and a branded 404 page.
-* Catalogue built on standard Odoo Products and Product Categories. No
-  prices, no product pages. Industries (with one page each), products,
+* Catalogue on Odoo eCommerce (/shop and its product pages) with PNSB
+  templates: no prices, no cart; visitors build an enquiry list instead. Industries (with one page each), products,
   product lines and website enquiries are managed from the PNSB Machinery menu.
 * Visitors build an enquiry list; enquiries with products become draft
   Sales quotations, other messages become CRM leads, with uploaded drawings
   attached.
 """,
-    'version': '19.0.3.3.0',
-    'depends': ['website', 'sale_management', 'crm'],
+    'version': '19.0.4.0.0',
+    'depends': ['website', 'website_sale', 'sale_management', 'crm'],
     'data': [
         'security/ir.model.access.csv',
         'views/backend_views.xml',

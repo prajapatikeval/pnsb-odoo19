@@ -14,6 +14,8 @@
               action="sale.product_template_action" sequence="20"/>
     <menuitem id="menu_pnsb_product_categories" name="Product Categories" parent="menu_pnsb_website"
               action="product.product_category_action_form" sequence="30"/>
+    <menuitem id="menu_pnsb_ecommerce_categories" name="eCommerce Categories" parent="menu_pnsb_website"
+              action="website_sale.product_public_category_action" sequence="40"/>
 
     <menuitem id="menu_pnsb_sales" name="Sales" parent="menu_pnsb_root" sequence="20"/>
     <menuitem id="menu_pnsb_quotations" name="Quotations" parent="menu_pnsb_sales"

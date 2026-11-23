@@ -48,6 +48,12 @@ class ProductCategory(models.Model):
         ]).categ_id
         return candidates.filtered(lambda c: c in with_products)[:TOP_CATEGORY_LIMIT]
 
+    def _pnsb_shop_url(self):
+        """Shop page of the eCommerce category with the same name, else /shop."""
+        self.ensure_one()
+        public = self.env['product.public.category'].sudo().search([('name', '=', self.name)], limit=1)
+        return '/shop/category/%s' % self.env['ir.http']._slug(public) if public else '/shop'
+
     def _pnsb_top_problem(self):
         """Why this top category would not appear on the home page (or False)."""
         self.ensure_one()
@@ -93,10 +99,13 @@ class ProductTemplate(models.Model):
     """
     _inherit = 'product.template'
 
+    # Same switch as eCommerce's "Published": the shop, the home page and the
+    # industry pages all follow it.
     pnsb_website_published = fields.Boolean(
-        string='Show on Website', default=False, copy=False,
-        help="List this product on the website's Products page.")
-    pnsb_website_sequence = fields.Integer(string='Website Sequence', default=10)
+        string='Show on Website', related='is_published', readonly=False, store=True,
+        help="Publish this product on the website (same as the eCommerce \"Published\" switch).")
+    pnsb_website_sequence = fields.Integer(string='Listing Order', default=10,
+        help="Order of the product on the PNSB pages (home showcase, industry pages).")
     pnsb_website_summary = fields.Text(
         string='Website Summary', translate=True,
         help="Short public description. Keep confidential details (client names, "
@@ -112,6 +121,11 @@ class ProductTemplate(models.Model):
     def _pnsb_summary(self):
         self.ensure_one()
         return self.pnsb_website_summary or html2plaintext(self.description_sale or '')[:220]
+
+    def _pnsb_url(self):
+        """The product's page: Odoo eCommerce's own product URL (/shop/<slug>)."""
+        self.ensure_one()
+        return self.website_url
 
     def _pnsb_image_url(self, size=1024):
         """Public URL of the product image (served by the website controller

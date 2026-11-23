@@ -740,4 +740,42 @@ export class PnsbIndustries extends Interaction {
 }
 interactions.add("pnsb_website.industries", PnsbIndustries);
 
+/** Product page: thumbnails switch the main photo. */
+export class PnsbGallery extends Interaction {
+    static selector = "[data-pnsb-gallery]";
+    dynamicContent = {
+        "[data-pnsb-gallery-thumb]": {
+            "t-on-click": (ev) => this.show(ev.currentTarget),
+            "t-att-class": (el) => ({ "is-active": el === this.current }),
+        },
+    };
+
+    setup() {
+        this.main = this.el.querySelector("[data-pnsb-gallery-main]");
+        this.index = this.el.querySelector("[data-pnsb-gallery-index]");
+        this.current = this.el.querySelector("[data-pnsb-gallery-thumb].is-active");
+        this.original = this.main?.getAttribute("src");
+    }
+
+    show(thumb) {
+        this.current = thumb;
+        if (this.main) {
+            this.main.setAttribute("src", thumb.dataset.src);
+        }
+        if (this.index) {
+            this.index.textContent = thumb.dataset.index;
+        }
+    }
+
+    destroy() {
+        if (this.main && this.original) {
+            this.main.setAttribute("src", this.original);
+        }
+        if (this.index) {
+            this.index.textContent = "01";
+        }
+    }
+}
+interactions.add("pnsb_website.gallery", PnsbGallery);
+
 
