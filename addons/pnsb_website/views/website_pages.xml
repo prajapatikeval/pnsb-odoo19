@@ -368,7 +368,7 @@
                             <p class="pn-label pn-reveal">Products</p>
                             <h2 class="pn-h2" data-pnsb-split="">Parts we make for <em t-out="industry.name"/>.</h2>
                         </div>
-                        <a href="/products" class="pn-link pn-reveal">All products <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
+                        <a href="/shop" class="pn-link pn-reveal">All products <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
                     </div>
                     <div class="pn-products">
                         <t t-foreach="products" t-as="product">

@@ -25,8 +25,13 @@ README.md              human deployment guide
 
 ## Hard rules (the owner asked for these)
 
-1. **No product detail pages.** Products appear only in listings (home showcase, `/products`
-   with client-side line filter). Cards must not link to a per-product page.
+1. **Products use Odoo eCommerce** (owner's request, 2026-11-23): the products page is `/shop`
+   and each product's page is eCommerce's own `/shop/<slug>`, rendered with PNSB templates
+   (`controllers/shop.py` swaps the lazy response's template). **Enquiry only**: no prices,
+   no cart or checkout (`/shop/cart` redirects to `/contact`); visitors use "Add to enquiry".
+   Product pages show photo + extra images, eCommerce Description, attribute specifications,
+   development story, the builder-editable `website_description`, categories and industries;
+   never client names, drawings or confidential specifications.
 2. **No fabricated claims** on the live site: no fake testimonials, certifications, founding
    year, customer counts, countries or statistics. Company copy comes from PNSB's own texts
    (company profile; "Machining Excellence, Delivering Reliability.", "Precision ideas. Real
@@ -47,11 +52,14 @@ README.md              human deployment guide
    `#1f52c4`. Drawing-sheet details (zone markers, title blocks) are part of the identity.
    Copy comes from the PDFs and is aimed at US/overseas B2B buyers (US spelling, "Request a
    Quote", IST time zone). Logo = cleaned PNG from the client's JPEG.
-10. **3D shows only parts PNSB makes** (company profile): timing pulley, shaft/bearings, chain
-   sprocket, mechanical seal, honeycomb air-straightening panel. No generic gears/bolts.
+10. **3D shows only parts PNSB makes** (company profile and the client's photos): timing pulley,
+   shaft/bearings, chain sprocket, mechanical seal, honeycomb air-straightening panel, and on the
+   home hero (client's order, 2026-11) small pin & turning items, large machine items,
+   fabrication with assembly, surface treatment with assembly. No generic gears/bolts.
 11. **One backend app menu only: "PNSB Machinery"** (owner's request, 2026-10-31) that groups
    the website configuration: Website › Industries / Products / Product Categories, Sales ›
-   Quotations / Orders, CRM › Pipeline / Leads, Configuration › Website & Contact Details.
+   Quotations / Orders, CRM › Pipeline / Leads, Configuration › Website & Contact Details,
+   plus Website › eCommerce Categories.
    Except Industries, every entry reuses Odoo's own action (all standard views and filters);
    don't add custom actions or other menus, and keep using base views for product/category fields.
 6. **Header has a Log in button** (`/web/login?redirect=/odoo`; "Dashboard" when logged in,
@@ -101,14 +109,18 @@ Operational answers:
 
 ## Module map (`addons/pnsb_website`)
 
-Depends on `website`, `sale_management`, `crm` (installing these also pulls `l10n_in`).
+Depends on `website`, `website_sale`, `sale_management`, `crm` (installing these also pulls
+`l10n_in`, payment and delivery; the first deploy that adds `website_sale` installs it at boot).
 
 Backend:
-- `product.template` + fields `pnsb_website_published` ("Show on Website" = the site's publish
-  switch; website_sale is not installed), `_sequence`, `_summary`, `_highlight` ("Is Recently
+- `product.template` + fields `pnsb_website_published` ("Show on Website", related to eCommerce's
+  `is_published`; migration 19.0.4.0.0 copied the old values), `_sequence` ("Listing Order"), `_summary`, `_highlight` ("Is Recently
   Developed": home Recent developments, max 6, no fallback), `_story` (optional expandable case
-  study); **Website** tab on the product form (groups Website / Home Page); menu Sales ›
-  Products › Website Products.
+  study); `_pnsb_url()` = eCommerce `website_url`; **Website** tab on the product form
+  (groups Website / Home Page). eCommerce categories (`product.public.category`) drive the
+  /shop filter: created once from the website product lines (`_pnsb_setup_shop`, marker
+  `pnsb_website.shop_setup_v1`, also sets `shop_ppg` to 60); `product.category._pnsb_shop_url()`
+  links a product line to the eCommerce category of the same name.
 - `product.category` + `pnsb_website_published`, `_sequence`, `_description`, `_top` ("Is Top
   Product Category": home Our Top Products, max `TOP_CATEGORY_LIMIT` = 5 by sequence, only with
   published products; the form warns when a ticked category won't show); categories are
@@ -138,7 +150,9 @@ Backend:
 Routes (`controllers/main.py`): `/industrial` (home, served on `/`), `/about`, `/services`,
 `/industries`, `/industries/<url_key>` (industry page: drawing-sheet hero, optional content and
 photo via `/pnsb/industry-image/<id>`, its published products, other industries; in the
-sitemap), `/products` (`?line=<key>`), `/contact`, `/contact/thank-you`,
+sitemap), `/shop`, `/shop/category/<slug>`, `/shop/<product slug>` (eCommerce routes, PNSB templates
+`shop_products` / `shop_product`), old `/products` (`?line=`) and `/products/<name>-<id>`
+301-redirect to the shop, `/contact`, `/contact/thank-you`,
 `/pnsb/image/<product_id>/<size>` (public images of published products only; visitors have
 no ACL on product.template), `POST /pnsb/enquiry` (CSRF, honeypot `website_url`, max 5 files ×
 15 MB, extension whitelist, JSON reply when `Accept: application/json`, redirect otherwise).
@@ -162,6 +176,7 @@ Frontend:
   and effects ported from the previous site on one rAF ticker: `PnsbWordFill`
   (`data-pnsb-words`), `PnsbCases` (recent developments: sticky image crossfades to the
   project in view, caption bar).
+  `PnsbGallery` (product page thumbnails).
   `PnsbIndustries` (/industries: big industry list drives a sticky drawing sheet; the row at
   ~40% of the viewport is active, mouse movement or click selects; one fixed quote button).
   **No scroll pinning / scroll-jacking** (the client found pinned sections "stuck").
@@ -171,8 +186,10 @@ Frontend:
   so anything that hides content must live here (CSS failsafe shows it after 3 s otherwise).
 - `static/src/three/pnsb3d.js` (native ES module, dynamically imported so it never delays
   `load`) + vendored `static/lib/three/three.module.min.js` (three.js r160, MIT). Scenes on
-  `[data-pnsb-3d]`: `turntable` (home hero: PNSB's parts, auto-advances, drag to rotate, part
-  list `[data-pnsb-part]`), `process` (how we work, driven by clickable auto-playing
+  `[data-pnsb-3d]`: `turntable` (home hero: `smallTurnedItems`, `largeMachinedItems`,
+  `fabricatedFrame`, `surfaceTreatedItems` built from lathe profiles / extruded sheet shapes;
+  each model sets `userData.view` so the camera rises for flat layouts; part list
+  `[data-pnsb-part]`; fallback photo `static/src/img/hero/01-small-turning.jpg`), `process` (how we work, driven by clickable auto-playing
   `[data-pnsb-step]` items), `seal`, `sprocket`, `honeycomb`, `pulley`. The fallback photo is
   shown only with `html.pn-no3d` / without JS (never flashes on load); a "Loading 3D model"
   line shows meanwhile. Procedural geometry, studio env

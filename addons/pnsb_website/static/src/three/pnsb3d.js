@@ -6,14 +6,17 @@
  * [data-pnsb-3d] and toggles classes; it never runs inside the website
  * builder (iframe) so nothing it does can be saved into a page.
  *
- *   data-pnsb-3d="turntable" home hero: PNSB's parts on a turntable, drag to
- *                            rotate, part list in [data-pnsb-turntable]
+ *   data-pnsb-3d="turntable" home hero: PNSB's work on a turntable (small turned
+ *                            pins, large machined shafts, a fabricated frame,
+ *                            surface-treated parts), drag to rotate, part list
+ *                            in [data-pnsb-turntable]
  *   data-pnsb-3d="process"   how we work: concept -> prototype -> production,
  *                            driven by the [data-pnsb-step] items (auto-plays)
  *   data-pnsb-3d="seal" | "sprocket" | "honeycomb" | "pulley"   single parts
  *
- * Every part is one PNSB makes (company profile): timing pulleys, chain
- * sprockets, mechanical seals, shafts, honeycomb air-straightening screens.
+ * Every part is one PNSB makes (company profile and the client's photos):
+ * timing pulleys, chain sprockets, mechanical seals, shafts, honeycomb
+ * air-straightening screens, turned pins, sheet-metal frames, plated parts.
  */
 import * as THREE from "../../lib/three/three.module.min.js";
 
@@ -47,6 +50,9 @@ function makeMaterials() {
         bronze: new THREE.MeshPhysicalMaterial({ color: 0xa08560, metalness: 1, roughness: 0.46 }),
         ptfe: new THREE.MeshPhysicalMaterial({ color: 0xf3f1ec, metalness: 0, roughness: 0.55, clearcoat: 0.2 }),
         clay: new THREE.MeshStandardMaterial({ color: 0xd3d9e2, metalness: 0, roughness: 0.85 }),
+        copper: new THREE.MeshPhysicalMaterial({ color: 0xc9805a, metalness: 1, roughness: 0.3 }),
+        gold: new THREE.MeshPhysicalMaterial({ color: 0xe3b552, metalness: 1, roughness: 0.22 }),
+        hole: new THREE.MeshStandardMaterial({ color: 0x151a22, metalness: 0.2, roughness: 0.8, side: THREE.DoubleSide }),
     };
 }
 
@@ -399,6 +405,264 @@ function honeycombPanel(materials) {
     return group;
 }
 
+// --- Hero models (client's order, 2026-11) ----------------------------------
+// Turned part: profile [[radius, y], ...] from the bottom face to the top face,
+// revolved around Y.
+function turned(profile, material) {
+    const geo = new THREE.LatheGeometry(profile.map(([r, y]) => new THREE.Vector2(r, y)), CURVE * 2);
+    geo.computeVertexNormals();
+    return new THREE.Mesh(geo, material);
+}
+
+// Thread crests (a saw-tooth profile) on radius r between y0 and y1.
+function thread(r, y0, y1, pitch = 0.05, depth = 0.022) {
+    const pts = [];
+    for (let y = y0; y < y1 - pitch / 2; y += pitch) {
+        pts.push([r - depth, y], [r, y + pitch / 2]);
+    }
+    pts.push([r - depth, y1]);
+    return pts;
+}
+
+// A drilled hole seen on a surface (dark disc); faces +Z unless rotated.
+function holeDisc(materials, r) {
+    return new THREE.Mesh(new THREE.CircleGeometry(r, 24), materials.hole);
+}
+
+function roundedRect(x, y, w, h, r, path = new THREE.Path()) {
+    path.moveTo(x + r, y);
+    path.lineTo(x + w - r, y);
+    path.absarc(x + w - r, y + r, r, -Math.PI / 2, 0, false);
+    path.lineTo(x + w, y + h - r);
+    path.absarc(x + w - r, y + h - r, r, 0, Math.PI / 2, false);
+    path.lineTo(x + r, y + h);
+    path.absarc(x + r, y + h - r, r, Math.PI / 2, Math.PI, false);
+    path.lineTo(x, y + r);
+    path.absarc(x + r, y + r, r, Math.PI, Math.PI * 1.5, false);
+    return path;
+}
+
+// Rounded window centred on (cx, cy).
+const windowPath = (cx, cy, w, h, r) => roundedRect(cx - w / 2, cy - h / 2, w, h, r);
+
+function rectShape(x0, y0, x1, y1) {
+    const s = new THREE.Shape();
+    s.moveTo(x0, y0);
+    s.lineTo(x1, y0);
+    s.lineTo(x1, y1);
+    s.lineTo(x0, y1);
+    s.closePath();
+    return s;
+}
+
+// Flat part cut from plate: shape in XY, laid on the ground (thickness up).
+function plate(shape, thickness, material, spin = 0) {
+    const mesh = new THREE.Mesh(extrude(shape, thickness, 0.012), material);
+    mesh.rotation.set(-Math.PI / 2, 0, spin);
+    mesh.position.y = thickness / 2;
+    return mesh;
+}
+
+/** 01 Small pin & turning items: pins, studs and threaded parts standing in a row. */
+function smallTurnedItems(m) {
+    const g = new THREE.Group();
+    const stand = (profile, material, x, z) => {
+        const mesh = turned(profile, material);
+        mesh.position.set(x, 0, z);
+        g.add(mesh);
+        return mesh;
+    };
+    // Stepped sleeve pin with a bore in the top.
+    stand([[0, 0], [0.15, 0], [0.165, 0.015], [0.165, 0.85], [0.15, 0.87], [0.12, 0.9], [0.12, 2.24],
+        [0.11, 2.28], [0.06, 2.28], [0.06, 2.18], [0, 2.18]], m.steel, -0.95, -0.05);
+    // Flanged bolt, threaded end.
+    stand([[0, 0], [0.2, 0], [0.21, 0.02], [0.21, 0.08], [0.19, 0.1], [0.12, 0.11], [0.12, 1.5],
+        ...thread(0.12, 1.52, 1.98, 0.06, 0.024), [0.1, 2.0], [0.08, 2.02], [0, 2.02]], m.steel, -0.48, -0.3);
+    // Stud with a grooved collar.
+    stand([[0, 0], [0.2, 0], [0.22, 0.03], [0.22, 0.15], [0.13, 0.26], [0.22, 0.37], [0.24, 0.4], [0.24, 0.52],
+        [0.22, 0.54], [0.09, 0.58], [0.09, 0.92], [0.11, 0.94], ...thread(0.11, 0.96, 1.5),
+        [0.09, 1.52], [0, 1.53]], m.steel, 0.02, -0.38);
+    // Slim black-oxide pin.
+    stand([[0, 0], [0.1, 0], [0.105, 0.02], [0.105, 0.1], [0.075, 0.12], [0.075, 1.18],
+        ...thread(0.075, 1.2, 1.56, 0.045, 0.018), [0.055, 1.58], [0, 1.58]], m.graphite, 0.48, -0.25);
+    // Bullet nozzle with a cross hole.
+    const dome = [];
+    for (let i = 1; i <= 8; i++) {
+        const a = (i / 8) * (Math.PI / 2);
+        dome.push([0.13 * Math.cos(a), 0.42 + 0.16 * Math.sin(a)]);
+    }
+    stand([[0, 0], [0.12, 0], [0.13, 0.02], [0.13, 0.42], ...dome], m.steel, 0.92, -0.02);
+    const cross = holeDisc(m, 0.035);
+    cross.position.set(0.92, 0.14, 0.131);
+    g.add(cross);
+    // Double-ended stud with a hex collar, lying in front.
+    const stud = new THREE.Group();
+    stud.add(turned([[0, 0], [0.07, 0], ...thread(0.07, 0.02, 0.56, 0.04, 0.016), [0.06, 0.58], [0.06, 0.68],
+        ...thread(0.07, 0.7, 1.22, 0.04, 0.016), [0.05, 1.24], [0, 1.24]], m.steel));
+    const hex = new THREE.Mesh(new THREE.CylinderGeometry(0.13, 0.13, 0.12, 6), m.steel);
+    hex.position.y = 0.63;
+    stud.add(hex);
+    stud.rotation.z = Math.PI / 2;
+    stud.position.set(0.62, 0.13, 0.6);
+    g.add(stud);
+    g.scale.setScalar(1.15);
+    g.position.y = -1.2;
+    g.userData.view = { el: 0.16, y: 0.05 };
+    return g;
+}
+
+/** One large turned shaft: hex end, shoulder, long neck, collar with cross holes, flange head. */
+function largeShaft(m) {
+    const g = new THREE.Group();
+    g.add(turned([[0, 0.36], [0.2, 0.36], [0.26, 0.38], [0.26, 0.7], [0.24, 0.72], [0.17, 0.75], [0.17, 1.45],
+        [0.2, 1.47], [0.45, 1.5], [0.47, 1.52], [0.47, 1.85], [0.45, 1.87], [0.4, 1.88], [0.4, 1.95],
+        [0.45, 1.96], [0.5, 1.98], [0.5, 2.3], [0.48, 2.32], [0.13, 2.34], [0.13, 2.22], [0, 2.22]], m.steel));
+    const hex = new THREE.Mesh(new THREE.CylinderGeometry(0.24, 0.24, 0.36, 6), m.steel);
+    hex.position.y = 0.18;
+    g.add(hex);
+    const bore = holeDisc(m, 0.08);
+    bore.rotation.x = Math.PI / 2;
+    bore.position.y = -0.002;
+    const cross = holeDisc(m, 0.07);
+    cross.rotation.y = Math.PI / 2;
+    cross.position.set(0.472, 1.68, 0);
+    const pin = holeDisc(m, 0.045);
+    pin.position.set(0, 2.14, 0.502);
+    g.add(bore, cross, pin);
+    return g;
+}
+
+/** 02 Large machine items: two large machined shafts lying crossed. */
+function largeMachinedItems(m) {
+    const g = new THREE.Group();
+    const lay = (dir, x, z, turn) => {
+        const holder = new THREE.Group();
+        const shaft = largeShaft(m);
+        shaft.rotation.z = dir * Math.PI / 2;
+        shaft.position.set(dir * 1.17, 0.5, 0);
+        holder.add(shaft);
+        holder.rotation.y = turn;
+        holder.position.set(x, 0, z);
+        g.add(holder);
+    };
+    lay(1, -0.1, 0.5, 0.2);
+    lay(-1, 0.15, -0.55, -0.35);
+    g.scale.setScalar(0.74);
+    g.position.y = -0.5;
+    g.userData.view = { el: 0.34, y: -0.1 };
+    return g;
+}
+
+/** Sheet panel in XY (bottom edge on y = 0) with cut-outs, `t` thick along Z. */
+function sheetPanel(w, h, holes, material, t = 0.04) {
+    const s = rectShape(-w / 2, 0, w / 2, h);
+    holes.forEach((hole) => s.holes.push(hole));
+    return new THREE.Mesh(extrude(s, t, 0.006), material);
+}
+
+/** 03 Fabrication with assembly: open sheet-metal frame with cut-outs on a base plate. */
+function fabricatedFrame(m) {
+    const g = new THREE.Group();
+    const W = 2.5;
+    const D = 1.4;
+    const H = 1.05;
+    const base = rectShape(-1.65, -1.05, 1.65, 1.05);
+    [-1.4, -0.7, 0, 0.7, 1.4].forEach((x) => {
+        base.holes.push(circlePath(0.035, x, 0.93), circlePath(0.035, x, -0.93));
+    });
+    g.add(plate(base, 0.05, m.steelDark));
+    const y0 = 0.05;
+    const small = (x, y) => circlePath(0.035, x, y);
+    const front = sheetPanel(W, H, [
+        windowPath(-0.75, 0.5, 0.5, 0.62, 0.06), windowPath(-0.15, 0.55, 0.2, 0.55, 0.05),
+        windowPath(0.25, 0.9, 0.5, 0.06, 0.03), circlePath(0.17, 0.82, 0.55), circlePath(0.1, 0.82, 0.2),
+        small(0.35, 0.25), small(0.35, 0.55), small(1.1, 0.9), small(1.1, 0.15), small(-1.1, 0.9), small(-1.1, 0.15),
+    ], m.steel);
+    front.position.set(0, y0, D / 2);
+    const back = sheetPanel(W, H, [
+        windowPath(-0.55, 0.92, 1.1, 0.06, 0.03), windowPath(0.6, 0.92, 0.7, 0.06, 0.03),
+        windowPath(0, 0.45, 1.6, 0.45, 0.08), small(1.1, 0.15), small(-1.1, 0.15),
+    ], m.steel);
+    back.position.set(0, y0, -D / 2);
+    g.add(front, back);
+    [-1, 1].forEach((side) => {
+        const end = sheetPanel(D, H, [
+            windowPath(0, 0.5, 0.62, 0.5, 0.08), circlePath(0.11, -0.47, 0.78), circlePath(0.11, 0.47, 0.78),
+            circlePath(0.08, -0.47, 0.25), circlePath(0.08, 0.47, 0.25),
+        ], m.steel);
+        end.rotation.y = Math.PI / 2;
+        end.position.set(side * W / 2, y0, 0);
+        g.add(end);
+        // Bent-over top lips.
+        const lipLong = new THREE.Mesh(new THREE.BoxGeometry(W, 0.04, 0.2), m.steel);
+        lipLong.position.set(0, y0 + H, side * (D / 2 - 0.1));
+        const lipEnd = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.04, D - 0.4), m.steel);
+        lipEnd.position.set(side * (W / 2 - 0.1), y0 + H, 0);
+        g.add(lipLong, lipEnd);
+    });
+    g.position.y = -0.62;
+    g.userData.view = { el: 0.5, y: -0.12 };
+    return g;
+}
+
+/** 04 Surface treatment with assembly: copper, gold-plated and steel parts laid out. */
+function surfaceTreatedItems(m) {
+    const g = new THREE.Group();
+    const add = (mesh, x, z, y = mesh.position.y) => {
+        mesh.position.set(x, y, z);
+        g.add(mesh);
+        return mesh;
+    };
+    // Copper cylinder with a square pocket and four tapped holes.
+    const cyl = new THREE.Shape();
+    cyl.absarc(0, 0, 0.55, 0, TAU, false);
+    cyl.holes.push(windowPath(0, 0, 0.42, 0.42, 0.04));
+    for (let i = 0; i < 4; i++) {
+        const a = Math.PI / 4 + (i * Math.PI) / 2;
+        cyl.holes.push(circlePath(0.05, 0.43 * Math.cos(a), 0.43 * Math.sin(a)));
+    }
+    add(plate(cyl, 0.75, m.copper, 0.3), -0.85, -0.35);
+    // Gold-plated block with a window and tapped holes, standing.
+    const block = rectShape(-0.38, 0, 0.38, 0.86);
+    block.holes.push(windowPath(0, 0.43, 0.42, 0.36, 0.04));
+    [[-0.27, 0.12], [0.27, 0.12], [-0.27, 0.74], [0.27, 0.74]].forEach(([x, y]) => block.holes.push(circlePath(0.05, x, y)));
+    const blockMesh = new THREE.Mesh(extrude(block, 0.46, 0.015), m.gold);
+    blockMesh.rotation.y = -0.3;
+    add(blockMesh, 0.1, -0.6, 0);
+    // Steel flanged bushing.
+    const flange = new THREE.Shape();
+    flange.absarc(0, 0, 0.6, 0, TAU, false);
+    flange.holes.push(circlePath(0.26));
+    for (let i = 0; i < 4; i++) {
+        const a = Math.PI / 4 + (i * Math.PI) / 2;
+        flange.holes.push(circlePath(0.06, 0.45 * Math.cos(a), 0.45 * Math.sin(a)));
+    }
+    add(plate(flange, 0.12, m.steel), 1.0, -0.15);
+    add(turned([[0.25, 0.12], [0.34, 0.12], [0.34, 1.0], [0.32, 1.02], [0.25, 1.02], [0.25, 0.12]], m.steel), 1.0, -0.15, 0);
+    // Gold-plated star wheel with a threaded bore.
+    const star = new THREE.Mesh(gearGeometry({ teeth: 6, radius: 0.36, toothDepth: 0.14, bore: 0.11, depth: 0.2 }), m.gold);
+    star.rotation.set(-Math.PI / 2, 0, 0.4);
+    add(star, 0.05, 0.42, 0.1);
+    // Copper block with six tapped holes.
+    const bar = rectShape(-0.45, -0.26, 0.45, 0.26);
+    [-0.28, 0, 0.28].forEach((x) => bar.holes.push(circlePath(0.06, x, 0.11), circlePath(0.06, x, -0.11)));
+    add(plate(bar, 0.32, m.copper, 0.15), -0.85, 0.65);
+    // Steel plate bracket.
+    const bracket = new THREE.Shape();
+    bracket.moveTo(-0.6, -0.32);
+    bracket.lineTo(0.62, -0.32);
+    bracket.lineTo(0.62, -0.06);
+    bracket.lineTo(0.05, 0.48);
+    bracket.lineTo(-0.6, 0.48);
+    bracket.closePath();
+    bracket.holes.push(circlePath(0.17, -0.2, 0.08), windowPath(0.32, -0.12, 0.32, 0.22, 0.06),
+        circlePath(0.06, -0.45, 0.33), circlePath(0.06, -0.45, -0.18));
+    add(plate(bracket, 0.08, m.steel, -0.2), 0.9, 0.62);
+    g.position.y = -0.58;
+    g.userData.view = { el: 0.55, y: -0.15 };
+    return g;
+}
+
 // Wireframe (CAD) twins for every mesh of an object, used by the
 // Concept / Prototype / Production views.
 function addEdges(obj, color = 0x1f52c4) {
@@ -539,9 +803,10 @@ function dragRotate(container, target, onGrab) {
 // Scenes
 // ---------------------------------------------------------------------------
 /**
- * Home hero: PNSB's own parts on a turntable. Auto-advances through the
- * parts, each one drawn in as a blue wireframe before turning to metal.
- * Visitors can drag to rotate or pick a part from the list.
+ * Home hero: PNSB's work on a turntable. Auto-advances through the four
+ * models, each one drawn in as a blue wireframe before turning to metal; the
+ * camera rises for the flat layouts. Visitors can drag to rotate or pick an
+ * item from the list.
  */
 function turntableScene(container) {
     const wrap = container.closest("[data-pnsb-turntable]") || container;
@@ -553,39 +818,10 @@ function turntableScene(container) {
     pivot.position.y = 0.15;
     stage.scene.add(pivot);
 
-    const builders = [
-        () => {
-            const p = pulleyParts(m, 1.12);
-            const g = new THREE.Group();
-            p.shaft.scale.set(0.7, 0.7, 0.42);
-            g.add(p.pulley, p.shaft);
-            g.rotation.set(-0.35, 0.5, 0);
-            g.userData.spin = (dt) => {
-                p.pulley.rotation.z += dt * 0.5;
-                p.shaft.rotation.z = p.pulley.rotation.z;
-            };
-            return g;
-        },
-        () => {
-            const g = sprocket(m);
-            g.scale.setScalar(1.02);
-            g.rotation.set(-0.4, 0.45, 0);
-            g.userData.spin = (dt) => (g.children.forEach((c) => (c.rotation.z += dt * 0.45)));
-            return g;
-        },
-        () => {
-            const g = mechanicalSeal(m, 1);
-            g.rotation.set(-0.45, 0.9, 0);
-            g.userData.spin = (dt) => g.userData.rotating.forEach((o) => (o.rotation.z += dt * 0.6));
-            return g;
-        },
-        () => {
-            const g = honeycombPanel(m);
-            g.scale.setScalar(0.66);
-            g.rotation.set(-0.25, 0.45, 0);
-            return g;
-        },
-    ];
+    // Order and names match the part list in website_home.xml.
+    const builders = [smallTurnedItems, largeMachinedItems, fabricatedFrame, surfaceTreatedItems].map(
+        (build) => () => build(m)
+    );
     const models = builders.map((build) => {
         const holder = new THREE.Group();
         const model = build();
@@ -600,6 +836,9 @@ function turntableScene(container) {
     const shadow = contactShadow(4.4, 0.22);
     shadow.position.y = -1.75;
     stage.scene.add(shadow);
+    // Camera elevation (radians) and look-at height follow the active model.
+    const DIST = 7.4;
+    const view = { el: 0.16, y: 0.05 };
     // Invisible body while the wireframe draws in (edges are children of the mesh).
     const ghost = m.clay.clone();
     ghost.transparent = true;
@@ -655,6 +894,14 @@ function turntableScene(container) {
         // Entry: wireframe draws in, then the metal part fades through.
         enter = Math.min(1, enter + dt / 1.1);
         const holder = models[current];
+        const model = holder.userData.model;
+        const target = model.userData.view || { el: 0.08, y: 0 };
+        const ease = REDUCED ? 1 : Math.min(1, dt * 2.4);
+        view.el += (target.el - view.el) * ease;
+        view.y += (target.y - view.y) * ease;
+        stage.camera.position.set(0, Math.sin(view.el) * DIST, Math.cos(view.el) * DIST);
+        stage.camera.lookAt(0, view.y, 0);
+        shadow.position.y += (0.14 + model.position.y - shadow.position.y) * ease;
         const e = 1 - Math.pow(1 - enter, 3);
         holder.scale.setScalar(0.82 + 0.18 * e);
         holder.userData.meshes.forEach((mesh) => {

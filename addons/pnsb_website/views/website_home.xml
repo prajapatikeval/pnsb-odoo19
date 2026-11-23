@@ -3,14 +3,15 @@
     <template id="page_home" name="PNSB: Home">
         <t t-call="pnsb_website.pn_layout">
             <t t-set="additional_title">Design, Development &amp; Manufacturing</t>
+            <!-- Hero 3D models, in the client's order (2026-11); see turntableScene in pnsb3d.js. -->
             <t t-set="turntable_parts" t-value="[
-                ('Timing pulley', 'Machined to your pitch, width and bore, and produced in batches.'),
-                ('Chain sprocket', 'Sprockets for drives and conveyors, made to sample or drawing.'),
-                ('Mechanical seal', 'Seal assemblies and replacement seal parts, supplied as complete units.'),
-                ('Honeycomb screen', 'Air straightening unit for the textile field, built on a honeycomb screen.'),
+                ('Small pin &amp; turning items', 'Small pins, shafts and threaded parts turned and grooved to your drawing or sample.'),
+                ('Large machine items', 'Larger turned and milled components for machinery, machined to drawing.'),
+                ('Fabrication with assembly', 'Sheet-metal frames and housings cut, bent, welded and assembled as complete units.'),
+                ('Surface treatment with assembly', 'Copper, brass and steel parts with plated and treated finishes, supplied ready to assemble.'),
             ]"/>
 
-            <!-- Hero: PNSB's parts on a 3D turntable -->
+            <!-- Hero: PNSB's work as 3D models on a turntable -->
             <section class="pn-hero" data-pnsb-turntable="">
                 <div class="pn-container pn-hero__grid">
                     <div class="pn-hero__copy">
@@ -23,7 +24,7 @@
                         </p>
                         <div class="pn-hero__actions pn-reveal">
                             <a href="/contact" class="pn-btn pn-btn--dark pn-btn--lg">Request a Quote <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
-                            <a href="/products" class="pn-btn pn-btn--outline pn-btn--lg">See our work</a>
+                            <a href="/shop" class="pn-btn pn-btn--outline pn-btn--lg">See our work</a>
                         </div>
                         <dl class="pn-facts pn-reveal">
                             <div><dt>Scope</dt><dd>Concept to production</dd></div>
@@ -34,8 +35,8 @@
 
                     <div class="pn-turntable pn-reveal">
                         <div class="pn-3d pn-turntable__stage" data-pnsb-3d="turntable">
-                            <img class="pn-3d__fallback" src="/pnsb_website/static/src/img/work/timing-pulley.jpg"
-                                 alt="Timing pulleys made by PNSB" width="524" height="393"/>
+                            <img class="pn-3d__fallback" src="/pnsb_website/static/src/img/hero/01-small-turning.jpg"
+                                 alt="Small pins and turned parts made by PNSB" width="1080" height="894"/>
                             <span class="pn-3d__loading" aria-hidden="true">Loading 3D model</span>
                             <span class="pn-turntable__hint" aria-hidden="true">Drag to rotate</span>
                         </div>
@@ -43,7 +44,7 @@
                             <p t-foreach="turntable_parts" t-as="part" data-pnsb-part-caption=""
                                t-attf-class="pn-turntable__caption #{'is-active' if part_first else ''}" t-out="part[1]"/>
                         </div>
-                        <div class="pn-turntable__parts" role="group" aria-label="Parts we make">
+                        <div class="pn-turntable__parts" role="group" aria-label="What we make">
                             <button t-foreach="turntable_parts" t-as="part" type="button" data-pnsb-part=""
                                     t-attf-class="pn-turntable__part #{'is-active' if part_first else ''}"
                                     t-att-aria-pressed="'true' if part_first else 'false'">
@@ -132,13 +133,13 @@
                             <p class="pn-label pn-reveal">03 · What we make</p>
                             <h2 class="pn-h2" data-pnsb-split="">Our Top Products</h2>
                         </div>
-                        <a href="/products" class="pn-link pn-reveal">All products <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
+                        <a href="/shop" class="pn-link pn-reveal">All products <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
                     </div>
                     <ol class="pn-index__list">
                         <t t-foreach="categories" t-as="category">
                             <t t-set="line_products" t-value="products.filtered(lambda p: p.categ_id == category)"/>
                             <li t-if="line_products" class="pn-reveal">
-                                <a t-attf-href="/products?line=#{category.pnsb_website_key}" class="pn-index__row">
+                                <a t-att-href="category._pnsb_shop_url()" class="pn-index__row">
                                     <span class="pn-index__num" t-out="'%02d' % (category_index + 1)"/>
                                     <img class="pn-index__thumb" t-att-src="line_products[0]._pnsb_image_url(512)"
                                          t-att-alt="category.name" loading="lazy" width="512" height="384"/>
@@ -161,7 +162,7 @@
                             <p class="pn-label pn-reveal">04 · Recent developments</p>
                             <h2 class="pn-h2" data-pnsb-split="">Problems we have solved for clients.</h2>
                         </div>
-                        <a href="/products" class="pn-link pn-reveal">All products <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
+                        <a href="/shop" class="pn-link pn-reveal">All products <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
                     </div>
                     <div class="pn-cases__grid">
                         <div class="pn-cases__media">
@@ -189,11 +190,14 @@
                                     <t t-if="product.pnsb_website_story and not is_html_empty(product.pnsb_website_story)" t-out="product.pnsb_website_story"/>
                                     <p t-else="" t-out="product._pnsb_summary()"/>
                                 </div>
-                                <button type="button" class="pn-btn pn-btn--sm pn-btn--outline" data-pnsb-add=""
-                                        t-attf-data-id="#{product.id}" t-att-data-name="product.name"
-                                        t-att-data-image="product._pnsb_image_url(128)">
-                                    <svg class="pn-i"><use href="#pn-i-plus"/></svg><span>Add to enquiry</span>
-                                </button>
+                                <div class="pn-cases__actions">
+                                    <a t-att-href="product._pnsb_url()" class="pn-btn pn-btn--sm pn-btn--dark">View details <svg class="pn-i"><use href="#pn-i-arrow"/></svg></a>
+                                    <button type="button" class="pn-btn pn-btn--sm pn-btn--outline" data-pnsb-add=""
+                                            t-attf-data-id="#{product.id}" t-att-data-name="product.name"
+                                            t-att-data-image="product._pnsb_image_url(128)">
+                                        <svg class="pn-i"><use href="#pn-i-plus"/></svg><span>Add to enquiry</span>
+                                    </button>
+                                </div>
                             </li>
                         </ol>
                     </div>

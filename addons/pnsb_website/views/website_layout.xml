@@ -53,21 +53,22 @@
     <template id="pn_product_card" name="PNSB: Product Card">
         <article class="pn-product pn-reveal" t-att-data-line="product.categ_id.pnsb_website_key"
                  t-att-data-search="('%s %s %s' % (product.name, product.categ_id.name, product._pnsb_summary())).lower()">
-            <div class="pn-product__media">
+            <a t-att-href="product._pnsb_url()" class="pn-product__media" tabindex="-1" aria-hidden="true">
                 <img t-att-src="product._pnsb_image_url(512)"
                      t-att-srcset="'%s 512w, %s 1024w' % (product._pnsb_image_url(512), product._pnsb_image_url(1024))"
                      sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 33vw"
                      t-att-alt="product.name" loading="lazy" decoding="async" width="512" height="384"/>
-            </div>
+            </a>
             <div class="pn-product__body">
                 <span class="pn-product__line" t-out="product.categ_id.name"/>
-                <h3 class="pn-product__title" t-out="product.name"/>
+                <h3 class="pn-product__title"><a t-att-href="product._pnsb_url()" t-out="product.name"/></h3>
                 <p class="pn-product__summary" t-out="product._pnsb_summary()"/>
                 <details t-if="product.pnsb_website_story and not is_html_empty(product.pnsb_website_story)" class="pn-product__story">
                     <summary>Development story <svg class="pn-i"><use href="#pn-i-plus"/></svg></summary>
                     <div class="pn-product__story-body" t-out="product.pnsb_website_story"/>
                 </details>
                 <div class="pn-product__actions">
+                    <a t-att-href="product._pnsb_url()" class="pn-btn pn-btn--sm pn-btn--dark">View details</a>
                     <button type="button" class="pn-btn pn-btn--sm pn-btn--outline" data-pnsb-add=""
                             t-attf-data-id="#{product.id}" t-att-data-name="product.name"
                             t-att-data-image="product._pnsb_image_url(128)">
@@ -128,7 +129,7 @@
             ('/about', 'About', 'about'),
             ('/services', 'Services', 'services'),
             ('/industries', 'Industries', 'industries'),
-            ('/products', 'Products', 'products'),
+            ('/shop', 'Products', 'products'),
             ('/contact', 'Contact', 'contact'),
         ]"/>
         <t t-set="pn_user" t-value="request.env.user"/>
@@ -186,7 +187,7 @@
             ('/about', 'About', 'about'),
             ('/services', 'Services', 'services'),
             ('/industries', 'Industries', 'industries'),
-            ('/products', 'Products', 'products'),
+            ('/shop', 'Products', 'products'),
             ('/contact', 'Contact', 'contact'),
         ]"/>
         <footer class="pn-footer">
