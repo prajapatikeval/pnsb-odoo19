@@ -1,0 +1,1687 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Products from the client's "Work for Site" Drive folder (2026-11). Demo texts are
+         generic and should be reviewed by the client. noupdate: backend edits are kept. -->
+    <data noupdate="1">
+        <record id="categ_electrical" model="product.category">
+            <field name="name">Electrical Components</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">60</field>
+            <field name="pnsb_website_description">Copper bus bars and connection links, plain or plated, made to your drawing.</field>
+        </record>
+        <record id="categ_laboratory" model="product.category">
+            <field name="name">Laboratory &amp; Surgical Equipment</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">70</field>
+            <field name="pnsb_website_description">Laboratory apparatus, stainless steel enclosures, surgical instrument spares and fittings.</field>
+        </record>
+        <record id="categ_plastic" model="product.category">
+            <field name="name">Plastic &amp; Composite Parts</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">80</field>
+            <field name="pnsb_website_description">Machined Delrin, FR4 and engineering-plastic brackets, guides and turned parts.</field>
+        </record>
+        <record id="categ_rubber" model="product.category">
+            <field name="name">Rubber &amp; Moulded Parts</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">90</field>
+            <field name="pnsb_website_description">Moulded rubber pads, inserts, bellows and custom rubber parts.</field>
+        </record>
+        <record id="categ_brass" model="product.category">
+            <field name="name">Brass Fittings &amp; Hoses</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">100</field>
+            <field name="pnsb_website_description">Brass nuts, connectors, valve spindles and hose assemblies for safety and fluid lines.</field>
+        </record>
+        <record id="categ_bearings" model="product.category">
+            <field name="name">Bearings &amp; Ball Transfer Units</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">110</field>
+            <field name="pnsb_website_description">Combined roller bearings, ball transfer units, cages, seals and shields.</field>
+        </record>
+        <record id="categ_forged" model="product.category">
+            <field name="name">Forged Hardware</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">120</field>
+            <field name="pnsb_website_description">Forged long screws, hardware and forged blanks supplied in batches.</field>
+        </record>
+        <record id="categ_finishing" model="product.category">
+            <field name="name">Surface Finishing</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">130</field>
+            <field name="pnsb_website_description">Machined parts finished by plating, anodizing, bead blasting, polishing or passivation.</field>
+        </record>
+        <record id="attr_material" model="product.attribute">
+            <field name="name">Material</field>
+            <field name="create_variant">no_variant</field>
+            <field name="display_type">pills</field>
+            <field name="sequence">10</field>
+        </record>
+        <record id="attr_val_material_aluminium" model="product.attribute.value">
+            <field name="name">Aluminium</field>
+            <field name="attribute_id" ref="attr_material"/>
+            <field name="sequence">1</field>
+        </record>
+        <record id="attr_val_material_stainless_steel" model="product.attribute.value">
+            <field name="name">Stainless Steel</field>
+            <field name="attribute_id" ref="attr_material"/>
+            <field name="sequence">2</field>
+        </record>
+        <record id="attr_val_material_mild_steel" model="product.attribute.value">
+            <field name="name">Mild Steel</field>
+            <field name="attribute_id" ref="attr_material"/>
+            <field name="sequence">3</field>
+        </record>
+        <record id="attr_val_material_alloy_steel" model="product.attribute.value">
+            <field name="name">Alloy Steel</field>
+            <field name="attribute_id" ref="attr_material"/>
+            <field name="sequence">4</field>
+        </record>
+        <record id="attr_val_material_copper" model="product.attribute.value">
+            <field name="name">Copper</field>
+            <field name="attribute_id" ref="attr_material"/>
+            <field name="sequence">5</field>
+        </record>
+        <record id="attr_val_material_brass" model="product.attribute.value">
+            <field name="name">Brass</field>
+            <field name="attribute_id" ref="attr_material"/>
+            <field name="sequence">6</field>
+        </record>
+        <record id="attr_val_material_bronze" model="product.attribute.value">
+            <field name="name">Bronze</field>
+            <field name="attribute_id" ref="attr_material"/>
+            <field name="sequence">7</field>
+        </record>
+        <record id="attr_val_material_ceramic" model="product.attribute.value">
+            <field name="name">Ceramic</field>
+            <field name="attribute_id" ref="attr_material"/>
+            <field name="sequence">8</field>
+        </record>
+        <record id="attr_val_material_fr4_glass_epoxy" model="product.attribute.value">
+            <field name="name">FR4 Glass Epoxy</field>
+            <field name="attribute_id" ref="attr_material"/>
+            <field name="sequence">9</field>
+        </record>
+        <record id="attr_val_material_delrin_pom" model="product.attribute.value">
+            <field name="name">Delrin (POM)</field>
+            <field name="attribute_id" ref="attr_material"/>
+            <field name="sequence">10</field>
+        </record>
+        <record id="attr_val_material_engineering_plastic" model="product.attribute.value">
+            <field name="name">Engineering Plastic</field>
+            <field name="attribute_id" ref="attr_material"/>
+            <field name="sequence">11</field>
+        </record>
+        <record id="attr_val_material_rubber" model="product.attribute.value">
+            <field name="name">Rubber</field>
+            <field name="attribute_id" ref="attr_material"/>
+            <field name="sequence">12</field>
+        </record>
+        <record id="attr_val_material_silicone_rubber" model="product.attribute.value">
+            <field name="name">Silicone Rubber</field>
+            <field name="attribute_id" ref="attr_material"/>
+            <field name="sequence">13</field>
+        </record>
+        <record id="attr_val_material_stainless_steel_wire_mesh" model="product.attribute.value">
+            <field name="name">Stainless Steel Wire Mesh</field>
+            <field name="attribute_id" ref="attr_material"/>
+            <field name="sequence">14</field>
+        </record>
+        <record id="attr_val_material_bearing_steel" model="product.attribute.value">
+            <field name="name">Bearing Steel</field>
+            <field name="attribute_id" ref="attr_material"/>
+            <field name="sequence">15</field>
+        </record>
+        <record id="attr_val_material_cast_iron" model="product.attribute.value">
+            <field name="name">Cast Iron</field>
+            <field name="attribute_id" ref="attr_material"/>
+            <field name="sequence">16</field>
+        </record>
+        <record id="attr_process" model="product.attribute">
+            <field name="name">Process</field>
+            <field name="create_variant">no_variant</field>
+            <field name="display_type">pills</field>
+            <field name="sequence">11</field>
+        </record>
+        <record id="attr_val_process_cnc_turning" model="product.attribute.value">
+            <field name="name">CNC Turning</field>
+            <field name="attribute_id" ref="attr_process"/>
+            <field name="sequence">1</field>
+        </record>
+        <record id="attr_val_process_vmc_milling" model="product.attribute.value">
+            <field name="name">VMC Milling</field>
+            <field name="attribute_id" ref="attr_process"/>
+            <field name="sequence">2</field>
+        </record>
+        <record id="attr_val_process_drilling_and_tapping" model="product.attribute.value">
+            <field name="name">Drilling and Tapping</field>
+            <field name="attribute_id" ref="attr_process"/>
+            <field name="sequence">3</field>
+        </record>
+        <record id="attr_val_process_sheet_metal_fabrication" model="product.attribute.value">
+            <field name="name">Sheet Metal Fabrication</field>
+            <field name="attribute_id" ref="attr_process"/>
+            <field name="sequence">4</field>
+        </record>
+        <record id="attr_val_process_laser_cutting" model="product.attribute.value">
+            <field name="name">Laser Cutting</field>
+            <field name="attribute_id" ref="attr_process"/>
+            <field name="sequence">5</field>
+        </record>
+        <record id="attr_val_process_bending_and_welding" model="product.attribute.value">
+            <field name="name">Bending and Welding</field>
+            <field name="attribute_id" ref="attr_process"/>
+            <field name="sequence">6</field>
+        </record>
+        <record id="attr_val_process_forging" model="product.attribute.value">
+            <field name="name">Forging</field>
+            <field name="attribute_id" ref="attr_process"/>
+            <field name="sequence">7</field>
+        </record>
+        <record id="attr_val_process_moulding" model="product.attribute.value">
+            <field name="name">Moulding</field>
+            <field name="attribute_id" ref="attr_process"/>
+            <field name="sequence">8</field>
+        </record>
+        <record id="attr_val_process_assembly" model="product.attribute.value">
+            <field name="name">Assembly</field>
+            <field name="attribute_id" ref="attr_process"/>
+            <field name="sequence">9</field>
+        </record>
+        <record id="attr_val_process_gear_cutting" model="product.attribute.value">
+            <field name="name">Gear Cutting</field>
+            <field name="attribute_id" ref="attr_process"/>
+            <field name="sequence">10</field>
+        </record>
+        <record id="attr_val_process_wire_mesh_forming" model="product.attribute.value">
+            <field name="name">Wire Mesh Forming</field>
+            <field name="attribute_id" ref="attr_process"/>
+            <field name="sequence">11</field>
+        </record>
+        <record id="attr_finish" model="product.attribute">
+            <field name="name">Finish</field>
+            <field name="create_variant">no_variant</field>
+            <field name="display_type">pills</field>
+            <field name="sequence">12</field>
+        </record>
+        <record id="attr_val_finish_natural" model="product.attribute.value">
+            <field name="name">Natural</field>
+            <field name="attribute_id" ref="attr_finish"/>
+            <field name="sequence">1</field>
+        </record>
+        <record id="attr_val_finish_tin_plated" model="product.attribute.value">
+            <field name="name">Tin Plated</field>
+            <field name="attribute_id" ref="attr_finish"/>
+            <field name="sequence">2</field>
+        </record>
+        <record id="attr_val_finish_nickel_plated" model="product.attribute.value">
+            <field name="name">Nickel Plated</field>
+            <field name="attribute_id" ref="attr_finish"/>
+            <field name="sequence">3</field>
+        </record>
+        <record id="attr_val_finish_zinc_plated" model="product.attribute.value">
+            <field name="name">Zinc Plated</field>
+            <field name="attribute_id" ref="attr_finish"/>
+            <field name="sequence">4</field>
+        </record>
+        <record id="attr_val_finish_powder_coated" model="product.attribute.value">
+            <field name="name">Powder Coated</field>
+            <field name="attribute_id" ref="attr_finish"/>
+            <field name="sequence">5</field>
+        </record>
+        <record id="attr_val_finish_black_oxide" model="product.attribute.value">
+            <field name="name">Black Oxide</field>
+            <field name="attribute_id" ref="attr_finish"/>
+            <field name="sequence">6</field>
+        </record>
+        <record id="attr_val_finish_polished" model="product.attribute.value">
+            <field name="name">Polished</field>
+            <field name="attribute_id" ref="attr_finish"/>
+            <field name="sequence">7</field>
+        </record>
+        <record id="attr_val_finish_anodized" model="product.attribute.value">
+            <field name="name">Anodized</field>
+            <field name="attribute_id" ref="attr_finish"/>
+            <field name="sequence">8</field>
+        </record>
+        <record id="attr_val_finish_bead_blasted" model="product.attribute.value">
+            <field name="name">Bead Blasted</field>
+            <field name="attribute_id" ref="attr_finish"/>
+            <field name="sequence">9</field>
+        </record>
+        <record id="attr_val_finish_passivated" model="product.attribute.value">
+            <field name="name">Passivated</field>
+            <field name="attribute_id" ref="attr_finish"/>
+            <field name="sequence">10</field>
+        </record>
+        <record id="product_aluminium_bobbins" model="product.template">
+            <field name="name">Aluminium Bobbins</field>
+            <field name="default_code">PNSB-TX-001</field>
+            <field name="seo_name">aluminium-bobbins</field>
+            <field name="categ_id" ref="categ_textile"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">300</field>
+            <field name="pnsb_website_summary">Turned aluminium bobbins and flanged spools for yarn winding, balanced for smooth running.</field>
+            <field name="description_sale">Turned aluminium bobbins and flanged spools for yarn winding, balanced for smooth running. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Turned aluminium bobbins and flanged spools for yarn winding, balanced for smooth running.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Aluminium</li><li>Process: cnc turning</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/aluminium-bobbins-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_textile')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_aluminium')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_cnc_turning')])]})]"/>
+        </record>
+        <record id="product_aluminium_bobbins_image_2" model="product.image">
+            <field name="name">Aluminium Bobbins 2</field>
+            <field name="product_tmpl_id" ref="product_aluminium_bobbins"/>
+            <field name="sequence">2</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/aluminium-bobbins-2.jpg"/>
+        </record>
+        <record id="product_bobbin_holder" model="product.template">
+            <field name="name">Bobbin Holder</field>
+            <field name="default_code">PNSB-TX-002</field>
+            <field name="seo_name">bobbin-holder</field>
+            <field name="categ_id" ref="categ_textile"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">310</field>
+            <field name="pnsb_website_summary">Spring-loaded bobbin holder rod with grip arms for creels and winding frames.</field>
+            <field name="description_sale">Spring-loaded bobbin holder rod with grip arms for creels and winding frames. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Spring-loaded bobbin holder rod with grip arms for creels and winding frames.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Stainless Steel, Engineering Plastic</li><li>Process: cnc turning, assembly</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/bobbin-holder-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_textile')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_stainless_steel'), ref('attr_val_material_engineering_plastic')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_cnc_turning'), ref('attr_val_process_assembly')])]})]"/>
+        </record>
+        <record id="product_single_bobbin_holder" model="product.template">
+            <field name="name">Single Bobbin Holder</field>
+            <field name="default_code">PNSB-TX-003</field>
+            <field name="seo_name">single-bobbin-holder</field>
+            <field name="categ_id" ref="categ_textile"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">320</field>
+            <field name="pnsb_website_summary">Single bobbin holder with mounting clamp, spring and adjustable stops.</field>
+            <field name="description_sale">Single bobbin holder with mounting clamp, spring and adjustable stops. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Single bobbin holder with mounting clamp, spring and adjustable stops.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Aluminium, Mild Steel</li><li>Process: cnc turning, assembly</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/single-bobbin-holder-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_textile')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_aluminium'), ref('attr_val_material_mild_steel')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_cnc_turning'), ref('attr_val_process_assembly')])]})]"/>
+        </record>
+        <record id="product_ceramic_guide_bracket" model="product.template">
+            <field name="name">Ceramic Guide Bracket</field>
+            <field name="default_code">PNSB-TX-004</field>
+            <field name="seo_name">ceramic-guide-bracket</field>
+            <field name="categ_id" ref="categ_textile"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">330</field>
+            <field name="pnsb_website_summary">Powder-coated bracket with a ceramic yarn guide and tension assembly.</field>
+            <field name="description_sale">Powder-coated bracket with a ceramic yarn guide and tension assembly. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Powder-coated bracket with a ceramic yarn guide and tension assembly.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Mild Steel, Ceramic</li><li>Process: sheet metal fabrication, assembly</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/ceramic-guide-bracket-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_textile')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_mild_steel'), ref('attr_val_material_ceramic')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_sheet_metal_fabrication'), ref('attr_val_process_assembly')])]}), (0, 0, {'attribute_id': ref('attr_finish'), 'value_ids': [(6, 0, [ref('attr_val_finish_powder_coated')])]})]"/>
+        </record>
+        <record id="product_cutter_assembly" model="product.template">
+            <field name="name">Cutter and Cutter Rod Assembly</field>
+            <field name="default_code">PNSB-TX-005</field>
+            <field name="seo_name">cutter-and-cutter-rod-assembly</field>
+            <field name="categ_id" ref="categ_textile"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">340</field>
+            <field name="pnsb_website_summary">Yarn cutter block with brass jaw and the complete cutter rod linkage.</field>
+            <field name="description_sale">Yarn cutter block with brass jaw and the complete cutter rod linkage. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Yarn cutter block with brass jaw and the complete cutter rod linkage.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Mild Steel, Brass</li><li>Process: vmc milling, assembly</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/cutter-and-cutter-rod-assembly-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_textile')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_mild_steel'), ref('attr_val_material_brass')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_vmc_milling'), ref('attr_val_process_assembly')])]}), (0, 0, {'attribute_id': ref('attr_finish'), 'value_ids': [(6, 0, [ref('attr_val_finish_black_oxide')])]})]"/>
+        </record>
+        <record id="product_cutter_assembly_image_2" model="product.image">
+            <field name="name">Cutter and Cutter Rod Assembly 2</field>
+            <field name="product_tmpl_id" ref="product_cutter_assembly"/>
+            <field name="sequence">2</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/cutter-and-cutter-rod-assembly-2.jpg"/>
+        </record>
+        <record id="product_eight_bobbin_stand" model="product.template">
+            <field name="name">Eight Bobbin Stand</field>
+            <field name="default_code">PNSB-TX-006</field>
+            <field name="seo_name">eight-bobbin-stand</field>
+            <field name="categ_id" ref="categ_textile"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">350</field>
+            <field name="pnsb_website_summary">Eight-position bobbin stand with spring holders, built as a complete unit.</field>
+            <field name="description_sale">Eight-position bobbin stand with spring holders, built as a complete unit. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Eight-position bobbin stand with spring holders, built as a complete unit.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Mild Steel, Engineering Plastic</li><li>Process: sheet metal fabrication, assembly</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/eight-bobbin-stand-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_textile')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_mild_steel'), ref('attr_val_material_engineering_plastic')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_sheet_metal_fabrication'), ref('attr_val_process_assembly')])]})]"/>
+        </record>
+        <record id="product_four_bobbin_stand" model="product.template">
+            <field name="name">Four Bobbin Stand</field>
+            <field name="default_code">PNSB-TX-007</field>
+            <field name="seo_name">four-bobbin-stand</field>
+            <field name="categ_id" ref="categ_textile"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">360</field>
+            <field name="pnsb_website_summary">Compact four-position bobbin stand with adjustable holders.</field>
+            <field name="description_sale">Compact four-position bobbin stand with adjustable holders. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Compact four-position bobbin stand with adjustable holders.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Mild Steel, Engineering Plastic</li><li>Process: sheet metal fabrication, assembly</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/four-bobbin-stand-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_textile')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_mild_steel'), ref('attr_val_material_engineering_plastic')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_sheet_metal_fabrication'), ref('attr_val_process_assembly')])]})]"/>
+        </record>
+        <record id="product_leno_guide" model="product.template">
+            <field name="name">Leno Guide</field>
+            <field name="default_code">PNSB-TX-008</field>
+            <field name="seo_name">leno-guide</field>
+            <field name="categ_id" ref="categ_textile"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">370</field>
+            <field name="pnsb_website_summary">Leno guide rod assembly with end fittings for selvedge forming.</field>
+            <field name="description_sale">Leno guide rod assembly with end fittings for selvedge forming. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Leno guide rod assembly with end fittings for selvedge forming.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Stainless Steel</li><li>Process: cnc turning, assembly</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/leno-guide-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_textile')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_stainless_steel')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_cnc_turning'), ref('attr_val_process_assembly')])]})]"/>
+        </record>
+        <record id="product_spinner_cone" model="product.template">
+            <field name="name">Perforated Spinner Cone</field>
+            <field name="default_code">PNSB-TX-009</field>
+            <field name="seo_name">perforated-spinner-cone</field>
+            <field name="categ_id" ref="categ_textile"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">380</field>
+            <field name="pnsb_website_summary">Perforated stainless steel spinner cone with mounting flange.</field>
+            <field name="description_sale">Perforated stainless steel spinner cone with mounting flange. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Perforated stainless steel spinner cone with mounting flange.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Stainless Steel</li><li>Process: sheet metal fabrication, laser cutting</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/perforated-spinner-cone-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_textile')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_stainless_steel')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_sheet_metal_fabrication'), ref('attr_val_process_laser_cutting')])]})]"/>
+        </record>
+        <record id="product_creel_stand_ceramic" model="product.template">
+            <field name="name">Creel Stand with Ceramic Guides</field>
+            <field name="default_code">PNSB-TX-010</field>
+            <field name="seo_name">creel-stand-with-ceramic-guides</field>
+            <field name="categ_id" ref="categ_textile"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">390</field>
+            <field name="pnsb_website_summary">Fabricated creel stand with ceramic guides, tension rods and bobbin holders, supplied assembled.</field>
+            <field name="description_sale">Fabricated creel stand with ceramic guides, tension rods and bobbin holders, supplied assembled. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Fabricated creel stand with ceramic guides, tension rods and bobbin holders, supplied assembled.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Mild Steel, Ceramic</li><li>Process: sheet metal fabrication, bending and welding, assembly</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/creel-stand-with-ceramic-guides-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_textile')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_mild_steel'), ref('attr_val_material_ceramic')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_sheet_metal_fabrication'), ref('attr_val_process_bending_and_welding'), ref('attr_val_process_assembly')])]}), (0, 0, {'attribute_id': ref('attr_finish'), 'value_ids': [(6, 0, [ref('attr_val_finish_powder_coated')])]})]"/>
+        </record>
+        <record id="product_creel_stand_ceramic_image_2" model="product.image">
+            <field name="name">Creel Stand with Ceramic Guides 2</field>
+            <field name="product_tmpl_id" ref="product_creel_stand_ceramic"/>
+            <field name="sequence">2</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/creel-stand-with-ceramic-guides-2.jpg"/>
+        </record>
+        <record id="product_copper_bus_bars" model="product.template">
+            <field name="name">Copper Bus Bars</field>
+            <field name="default_code">PNSB-EL-001</field>
+            <field name="seo_name">copper-bus-bars</field>
+            <field name="categ_id" ref="categ_electrical"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">400</field>
+            <field name="pnsb_website_summary">Copper bus bars and links cut, punched and bent to your drawing for panels and power systems.</field>
+            <field name="description_sale">Copper bus bars and links cut, punched and bent to your drawing for panels and power systems. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Copper bus bars and links cut, punched and bent to your drawing for panels and power systems.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Copper</li><li>Process: laser cutting, bending and welding, drilling and tapping</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/copper-bus-bars-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_petroleum')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_copper')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_laser_cutting'), ref('attr_val_process_bending_and_welding'), ref('attr_val_process_drilling_and_tapping')])]}), (0, 0, {'attribute_id': ref('attr_finish'), 'value_ids': [(6, 0, [ref('attr_val_finish_natural')])]})]"/>
+        </record>
+        <record id="product_copper_bus_bars_image_2" model="product.image">
+            <field name="name">Copper Bus Bars 2</field>
+            <field name="product_tmpl_id" ref="product_copper_bus_bars"/>
+            <field name="sequence">2</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/copper-bus-bars-2.jpg"/>
+        </record>
+        <record id="product_copper_bus_bars_image_3" model="product.image">
+            <field name="name">Copper Bus Bars 3</field>
+            <field name="product_tmpl_id" ref="product_copper_bus_bars"/>
+            <field name="sequence">3</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/copper-bus-bars-3.jpg"/>
+        </record>
+        <record id="product_copper_bus_bars_image_4" model="product.image">
+            <field name="name">Copper Bus Bars 4</field>
+            <field name="product_tmpl_id" ref="product_copper_bus_bars"/>
+            <field name="sequence">4</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/copper-bus-bars-4.jpg"/>
+        </record>
+        <record id="product_copper_bus_bars_image_5" model="product.image">
+            <field name="name">Copper Bus Bars 5</field>
+            <field name="product_tmpl_id" ref="product_copper_bus_bars"/>
+            <field name="sequence">5</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/copper-bus-bars-5.jpg"/>
+        </record>
+        <record id="product_copper_bus_bars_image_6" model="product.image">
+            <field name="name">Copper Bus Bars 6</field>
+            <field name="product_tmpl_id" ref="product_copper_bus_bars"/>
+            <field name="sequence">6</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/copper-bus-bars-6.jpg"/>
+        </record>
+        <record id="product_copper_bus_bars_image_7" model="product.image">
+            <field name="name">Copper Bus Bars 7</field>
+            <field name="product_tmpl_id" ref="product_copper_bus_bars"/>
+            <field name="sequence">7</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/copper-bus-bars-7.jpg"/>
+        </record>
+        <record id="product_plated_bus_bars" model="product.template">
+            <field name="name">Plated Copper Bus Bars</field>
+            <field name="default_code">PNSB-EL-002</field>
+            <field name="seo_name">plated-copper-bus-bars</field>
+            <field name="categ_id" ref="categ_electrical"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">410</field>
+            <field name="pnsb_website_summary">Copper bus bars with full or selective plating on the contact areas.</field>
+            <field name="description_sale">Copper bus bars with full or selective plating on the contact areas. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Copper bus bars with full or selective plating on the contact areas.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Copper</li><li>Process: bending and welding, drilling and tapping</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/plated-copper-bus-bars-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_petroleum')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_copper')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_bending_and_welding'), ref('attr_val_process_drilling_and_tapping')])]}), (0, 0, {'attribute_id': ref('attr_finish'), 'value_ids': [(6, 0, [ref('attr_val_finish_tin_plated'), ref('attr_val_finish_nickel_plated')])]})]"/>
+        </record>
+        <record id="product_plated_bus_bars_image_2" model="product.image">
+            <field name="name">Plated Copper Bus Bars 2</field>
+            <field name="product_tmpl_id" ref="product_plated_bus_bars"/>
+            <field name="sequence">2</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/plated-copper-bus-bars-2.jpg"/>
+        </record>
+        <record id="product_filter_cages" model="product.template">
+            <field name="name">Filter Cages</field>
+            <field name="default_code">PNSB-FL-001</field>
+            <field name="seo_name">filter-cages</field>
+            <field name="categ_id" ref="categ_filtration"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">420</field>
+            <field name="pnsb_website_summary">Welded stainless steel filter cages and support cores for cartridge filters.</field>
+            <field name="description_sale">Welded stainless steel filter cages and support cores for cartridge filters. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Welded stainless steel filter cages and support cores for cartridge filters.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Stainless Steel</li><li>Process: wire mesh forming, bending and welding</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/filter-cages-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_petroleum')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_stainless_steel')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_wire_mesh_forming'), ref('attr_val_process_bending_and_welding')])]})]"/>
+        </record>
+        <record id="product_filter_discs" model="product.template">
+            <field name="name">Filter Discs</field>
+            <field name="default_code">PNSB-FL-002</field>
+            <field name="seo_name">filter-discs</field>
+            <field name="categ_id" ref="categ_filtration"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">430</field>
+            <field name="pnsb_website_summary">Rimmed wire mesh filter discs cut to the diameter you need.</field>
+            <field name="description_sale">Rimmed wire mesh filter discs cut to the diameter you need. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Rimmed wire mesh filter discs cut to the diameter you need.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Stainless Steel Wire Mesh</li><li>Process: wire mesh forming</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/filter-discs-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_petroleum')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_stainless_steel_wire_mesh')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_wire_mesh_forming')])]})]"/>
+        </record>
+        <record id="product_knitted_mesh_filters" model="product.template">
+            <field name="name">Knitted Wire Mesh Filters</field>
+            <field name="default_code">PNSB-FL-003</field>
+            <field name="seo_name">knitted-wire-mesh-filters</field>
+            <field name="categ_id" ref="categ_filtration"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">440</field>
+            <field name="pnsb_website_summary">Knitted wire mesh rings and pads for separation and damping.</field>
+            <field name="description_sale">Knitted wire mesh rings and pads for separation and damping. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Knitted wire mesh rings and pads for separation and damping.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Stainless Steel Wire Mesh</li><li>Process: wire mesh forming</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/knitted-wire-mesh-filters-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_petroleum')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_stainless_steel_wire_mesh')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_wire_mesh_forming')])]})]"/>
+        </record>
+        <record id="product_wire_mesh_pads" model="product.template">
+            <field name="name">Wire Mesh Pads</field>
+            <field name="default_code">PNSB-FL-004</field>
+            <field name="seo_name">wire-mesh-pads</field>
+            <field name="categ_id" ref="categ_filtration"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">450</field>
+            <field name="pnsb_website_summary">Woven wire mesh pads for strainers and process filtration.</field>
+            <field name="description_sale">Woven wire mesh pads for strainers and process filtration. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Woven wire mesh pads for strainers and process filtration.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Stainless Steel Wire Mesh</li><li>Process: wire mesh forming</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/wire-mesh-pads-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_petroleum')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_stainless_steel_wire_mesh')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_wire_mesh_forming')])]})]"/>
+        </record>
+        <record id="product_mesh_filter_cartridges" model="product.template">
+            <field name="name">Wire Mesh Filter Cartridges</field>
+            <field name="default_code">PNSB-FL-005</field>
+            <field name="seo_name">wire-mesh-filter-cartridges</field>
+            <field name="categ_id" ref="categ_filtration"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">460</field>
+            <field name="pnsb_website_summary">Perforated cartridge filters with wire mesh lining and machined end caps.</field>
+            <field name="description_sale">Perforated cartridge filters with wire mesh lining and machined end caps. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Perforated cartridge filters with wire mesh lining and machined end caps.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Stainless Steel, Stainless Steel Wire Mesh</li><li>Process: wire mesh forming, bending and welding, assembly</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/wire-mesh-filter-cartridges-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_petroleum')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_stainless_steel'), ref('attr_val_material_stainless_steel_wire_mesh')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_wire_mesh_forming'), ref('attr_val_process_bending_and_welding'), ref('attr_val_process_assembly')])]})]"/>
+        </record>
+        <record id="product_flanges_fittings" model="product.template">
+            <field name="name">Flanges and Fittings</field>
+            <field name="default_code">PNSB-PM-001</field>
+            <field name="seo_name">flanges-and-fittings</field>
+            <field name="categ_id" ref="categ_machined"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">470</field>
+            <field name="pnsb_website_summary">Machined flanges, collars and fitting bodies for process equipment.</field>
+            <field name="description_sale">Machined flanges, collars and fitting bodies for process equipment. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Machined flanges, collars and fitting bodies for process equipment.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Stainless Steel</li><li>Process: cnc turning, vmc milling, drilling and tapping</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/flanges-and-fittings-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_petroleum')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_stainless_steel')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_cnc_turning'), ref('attr_val_process_vmc_milling'), ref('attr_val_process_drilling_and_tapping')])]})]"/>
+        </record>
+        <record id="product_precision_turned_parts" model="product.template">
+            <field name="name">Precision Turned Parts</field>
+            <field name="default_code">PNSB-PM-002</field>
+            <field name="seo_name">precision-turned-parts</field>
+            <field name="categ_id" ref="categ_machined"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">480</field>
+            <field name="pnsb_website_summary">Threaded, grooved and cross-drilled turned parts made to close tolerances.</field>
+            <field name="description_sale">Threaded, grooved and cross-drilled turned parts made to close tolerances. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Threaded, grooved and cross-drilled turned parts made to close tolerances.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Stainless Steel</li><li>Process: cnc turning, drilling and tapping</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/precision-turned-parts-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_petroleum')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_stainless_steel')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_cnc_turning'), ref('attr_val_process_drilling_and_tapping')])]})]"/>
+        </record>
+        <record id="product_ss_enclosures" model="product.template">
+            <field name="name">Stainless Steel Enclosures</field>
+            <field name="default_code">PNSB-LB-001</field>
+            <field name="seo_name">stainless-steel-enclosures</field>
+            <field name="categ_id" ref="categ_laboratory"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">490</field>
+            <field name="pnsb_website_summary">Stainless steel enclosures and cabinets with viewing windows, fabricated to size.</field>
+            <field name="description_sale">Stainless steel enclosures and cabinets with viewing windows, fabricated to size. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Stainless steel enclosures and cabinets with viewing windows, fabricated to size.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Stainless Steel</li><li>Process: sheet metal fabrication, bending and welding, assembly</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/stainless-steel-enclosures-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_surgical')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_stainless_steel')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_sheet_metal_fabrication'), ref('attr_val_process_bending_and_welding'), ref('attr_val_process_assembly')])]}), (0, 0, {'attribute_id': ref('attr_finish'), 'value_ids': [(6, 0, [ref('attr_val_finish_polished')])]})]"/>
+        </record>
+        <record id="product_ss_enclosures_image_2" model="product.image">
+            <field name="name">Stainless Steel Enclosures 2</field>
+            <field name="product_tmpl_id" ref="product_ss_enclosures"/>
+            <field name="sequence">2</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/stainless-steel-enclosures-2.jpg"/>
+        </record>
+        <record id="product_vibrating_table" model="product.template">
+            <field name="name">Concrete Mould Vibrating Table</field>
+            <field name="default_code">PNSB-LB-002</field>
+            <field name="seo_name">concrete-mould-vibrating-table</field>
+            <field name="categ_id" ref="categ_laboratory"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">500</field>
+            <field name="pnsb_website_summary">Vibrating table for compacting concrete test moulds, built as a complete unit.</field>
+            <field name="description_sale">Vibrating table for compacting concrete test moulds, built as a complete unit. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Vibrating table for compacting concrete test moulds, built as a complete unit.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Mild Steel</li><li>Process: sheet metal fabrication, bending and welding, assembly</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/concrete-mould-vibrating-table-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_surgical')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_mild_steel')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_sheet_metal_fabrication'), ref('attr_val_process_bending_and_welding'), ref('attr_val_process_assembly')])]}), (0, 0, {'attribute_id': ref('attr_finish'), 'value_ids': [(6, 0, [ref('attr_val_finish_powder_coated')])]})]"/>
+        </record>
+        <record id="product_vibrating_table_image_2" model="product.image">
+            <field name="name">Concrete Mould Vibrating Table 2</field>
+            <field name="product_tmpl_id" ref="product_vibrating_table"/>
+            <field name="sequence">2</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/concrete-mould-vibrating-table-2.jpg"/>
+        </record>
+        <record id="product_laboratory_oven" model="product.template">
+            <field name="name">Laboratory Electric Oven</field>
+            <field name="default_code">PNSB-LB-003</field>
+            <field name="seo_name">laboratory-electric-oven</field>
+            <field name="categ_id" ref="categ_laboratory"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">510</field>
+            <field name="pnsb_website_summary">Laboratory drying oven with insulated chamber, shelves and control panel.</field>
+            <field name="description_sale">Laboratory drying oven with insulated chamber, shelves and control panel. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Laboratory drying oven with insulated chamber, shelves and control panel.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Stainless Steel, Mild Steel</li><li>Process: sheet metal fabrication, assembly</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/laboratory-electric-oven-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_surgical')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_stainless_steel'), ref('attr_val_material_mild_steel')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_sheet_metal_fabrication'), ref('attr_val_process_assembly')])]}), (0, 0, {'attribute_id': ref('attr_finish'), 'value_ids': [(6, 0, [ref('attr_val_finish_powder_coated')])]})]"/>
+        </record>
+        <record id="product_laboratory_oven_image_2" model="product.image">
+            <field name="name">Laboratory Electric Oven 2</field>
+            <field name="product_tmpl_id" ref="product_laboratory_oven"/>
+            <field name="sequence">2</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/laboratory-electric-oven-2.jpg"/>
+        </record>
+        <record id="product_vacuum_oven" model="product.template">
+            <field name="name">Vacuum Oven</field>
+            <field name="default_code">PNSB-LB-004</field>
+            <field name="seo_name">vacuum-oven</field>
+            <field name="categ_id" ref="categ_laboratory"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">520</field>
+            <field name="pnsb_website_summary">Stainless steel vacuum oven with sealed door and gauge panel.</field>
+            <field name="description_sale">Stainless steel vacuum oven with sealed door and gauge panel. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Stainless steel vacuum oven with sealed door and gauge panel.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Stainless Steel</li><li>Process: sheet metal fabrication, bending and welding, assembly</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/vacuum-oven-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_surgical')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_stainless_steel')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_sheet_metal_fabrication'), ref('attr_val_process_bending_and_welding'), ref('attr_val_process_assembly')])]})]"/>
+        </record>
+        <record id="product_vacuum_oven_image_2" model="product.image">
+            <field name="name">Vacuum Oven 2</field>
+            <field name="product_tmpl_id" ref="product_vacuum_oven"/>
+            <field name="sequence">2</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/vacuum-oven-2.jpg"/>
+        </record>
+        <record id="product_thermal_conductivity_apparatus" model="product.template">
+            <field name="name">Hot Plate Thermal Conductivity Apparatus</field>
+            <field name="default_code">PNSB-LB-005</field>
+            <field name="seo_name">hot-plate-thermal-conductivity-apparatus</field>
+            <field name="categ_id" ref="categ_laboratory"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">530</field>
+            <field name="pnsb_website_summary">Guarded hot plate apparatus for thermal conductivity testing, with its control panel.</field>
+            <field name="description_sale">Guarded hot plate apparatus for thermal conductivity testing, with its control panel. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Guarded hot plate apparatus for thermal conductivity testing, with its control panel.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Mild Steel</li><li>Process: sheet metal fabrication, assembly</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/hot-plate-thermal-conductivity-apparatus-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_surgical')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_mild_steel')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_sheet_metal_fabrication'), ref('attr_val_process_assembly')])]}), (0, 0, {'attribute_id': ref('attr_finish'), 'value_ids': [(6, 0, [ref('attr_val_finish_powder_coated')])]})]"/>
+        </record>
+        <record id="product_liquid_chiller" model="product.template">
+            <field name="name">Industrial Liquid Chiller</field>
+            <field name="default_code">PNSB-LB-006</field>
+            <field name="seo_name">industrial-liquid-chiller</field>
+            <field name="categ_id" ref="categ_laboratory"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">540</field>
+            <field name="pnsb_website_summary">Cabinet-type liquid chiller unit, fabricated and assembled.</field>
+            <field name="description_sale">Cabinet-type liquid chiller unit, fabricated and assembled. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Cabinet-type liquid chiller unit, fabricated and assembled.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Mild Steel</li><li>Process: sheet metal fabrication, assembly</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/industrial-liquid-chiller-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_surgical')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_mild_steel')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_sheet_metal_fabrication'), ref('attr_val_process_assembly')])]}), (0, 0, {'attribute_id': ref('attr_finish'), 'value_ids': [(6, 0, [ref('attr_val_finish_powder_coated')])]})]"/>
+        </record>
+        <record id="product_viscosity_bath" model="product.template">
+            <field name="name">Kinematic Viscosity Bath</field>
+            <field name="default_code">PNSB-LB-007</field>
+            <field name="seo_name">kinematic-viscosity-bath</field>
+            <field name="categ_id" ref="categ_laboratory"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">550</field>
+            <field name="pnsb_website_summary">Viscosity bath with viewing window, stirrer mount and control panel.</field>
+            <field name="description_sale">Viscosity bath with viewing window, stirrer mount and control panel. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Viscosity bath with viewing window, stirrer mount and control panel.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Stainless Steel, Mild Steel</li><li>Process: sheet metal fabrication, assembly</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/kinematic-viscosity-bath-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_surgical')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_stainless_steel'), ref('attr_val_material_mild_steel')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_sheet_metal_fabrication'), ref('attr_val_process_assembly')])]}), (0, 0, {'attribute_id': ref('attr_finish'), 'value_ids': [(6, 0, [ref('attr_val_finish_powder_coated')])]})]"/>
+        </record>
+        <record id="product_viscosity_bath_image_2" model="product.image">
+            <field name="name">Kinematic Viscosity Bath 2</field>
+            <field name="product_tmpl_id" ref="product_viscosity_bath"/>
+            <field name="sequence">2</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/kinematic-viscosity-bath-2.jpg"/>
+        </record>
+        <record id="product_surgical_spares" model="product.template">
+            <field name="name">Surgical Instrument Spares</field>
+            <field name="default_code">PNSB-LB-008</field>
+            <field name="seo_name">surgical-instrument-spares</field>
+            <field name="categ_id" ref="categ_laboratory"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">560</field>
+            <field name="pnsb_website_summary">Small precision spares, attachments and holders for surgical and laboratory instruments.</field>
+            <field name="description_sale">Small precision spares, attachments and holders for surgical and laboratory instruments. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Small precision spares, attachments and holders for surgical and laboratory instruments.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Stainless Steel</li><li>Process: cnc turning, vmc milling, assembly</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/surgical-instrument-spares-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_surgical')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_stainless_steel')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_cnc_turning'), ref('attr_val_process_vmc_milling'), ref('attr_val_process_assembly')])]}), (0, 0, {'attribute_id': ref('attr_finish'), 'value_ids': [(6, 0, [ref('attr_val_finish_polished')])]})]"/>
+        </record>
+        <record id="product_surgical_spares_image_2" model="product.image">
+            <field name="name">Surgical Instrument Spares 2</field>
+            <field name="product_tmpl_id" ref="product_surgical_spares"/>
+            <field name="sequence">2</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/surgical-instrument-spares-2.jpg"/>
+        </record>
+        <record id="product_surgical_spares_image_3" model="product.image">
+            <field name="name">Surgical Instrument Spares 3</field>
+            <field name="product_tmpl_id" ref="product_surgical_spares"/>
+            <field name="sequence">3</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/surgical-instrument-spares-3.jpg"/>
+        </record>
+        <record id="product_suction_joints" model="product.template">
+            <field name="name">Suction Joints and Nozzles</field>
+            <field name="default_code">PNSB-LB-009</field>
+            <field name="seo_name">suction-joints-and-nozzles</field>
+            <field name="categ_id" ref="categ_laboratory"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">570</field>
+            <field name="pnsb_website_summary">Turned brass and steel suction joints, nozzles and connectors.</field>
+            <field name="description_sale">Turned brass and steel suction joints, nozzles and connectors. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Turned brass and steel suction joints, nozzles and connectors.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Brass, Stainless Steel</li><li>Process: cnc turning, drilling and tapping</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/suction-joints-and-nozzles-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_surgical')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_brass'), ref('attr_val_material_stainless_steel')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_cnc_turning'), ref('attr_val_process_drilling_and_tapping')])]})]"/>
+        </record>
+        <record id="product_ss_fittings" model="product.template">
+            <field name="name">Stainless Steel Fittings</field>
+            <field name="default_code">PNSB-LB-010</field>
+            <field name="seo_name">stainless-steel-fittings</field>
+            <field name="categ_id" ref="categ_laboratory"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">580</field>
+            <field name="pnsb_website_summary">Hexagon reducers, couplings and threaded fittings in stainless steel.</field>
+            <field name="description_sale">Hexagon reducers, couplings and threaded fittings in stainless steel. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Hexagon reducers, couplings and threaded fittings in stainless steel.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Stainless Steel</li><li>Process: cnc turning, drilling and tapping</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/stainless-steel-fittings-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_surgical')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_stainless_steel')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_cnc_turning'), ref('attr_val_process_drilling_and_tapping')])]})]"/>
+        </record>
+        <record id="product_delrin_brackets" model="product.template">
+            <field name="name">Delrin Machined Brackets</field>
+            <field name="default_code">PNSB-PL-001</field>
+            <field name="seo_name">delrin-machined-brackets</field>
+            <field name="categ_id" ref="categ_plastic"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">590</field>
+            <field name="pnsb_website_summary">Delrin (POM) brackets and links milled to drawing.</field>
+            <field name="description_sale">Delrin (POM) brackets and links milled to drawing. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Delrin (POM) brackets and links milled to drawing.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Delrin (POM)</li><li>Process: vmc milling, drilling and tapping</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/delrin-machined-brackets-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_plastic')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_delrin_pom')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_vmc_milling'), ref('attr_val_process_drilling_and_tapping')])]})]"/>
+        </record>
+        <record id="product_fr4_guides" model="product.template">
+            <field name="name">FR4 Guides</field>
+            <field name="default_code">PNSB-PL-002</field>
+            <field name="seo_name">fr4-guides</field>
+            <field name="categ_id" ref="categ_plastic"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">600</field>
+            <field name="pnsb_website_summary">Slotted FR4 glass-epoxy guide blocks with fixing holes.</field>
+            <field name="description_sale">Slotted FR4 glass-epoxy guide blocks with fixing holes. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Slotted FR4 glass-epoxy guide blocks with fixing holes.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: FR4 Glass Epoxy</li><li>Process: vmc milling, drilling and tapping</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/fr4-guides-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_plastic')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_fr4_glass_epoxy')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_vmc_milling'), ref('attr_val_process_drilling_and_tapping')])]})]"/>
+        </record>
+        <record id="product_fr4_brackets" model="product.template">
+            <field name="name">FR4 Machined Brackets</field>
+            <field name="default_code">PNSB-PL-003</field>
+            <field name="seo_name">fr4-machined-brackets</field>
+            <field name="categ_id" ref="categ_plastic"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">610</field>
+            <field name="pnsb_website_summary">Insulating FR4 brackets and plates machined with slots, pockets and holes.</field>
+            <field name="description_sale">Insulating FR4 brackets and plates machined with slots, pockets and holes. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Insulating FR4 brackets and plates machined with slots, pockets and holes.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: FR4 Glass Epoxy</li><li>Process: vmc milling, drilling and tapping</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/fr4-machined-brackets-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_plastic')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_fr4_glass_epoxy')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_vmc_milling'), ref('attr_val_process_drilling_and_tapping')])]})]"/>
+        </record>
+        <record id="product_fr4_brackets_image_2" model="product.image">
+            <field name="name">FR4 Machined Brackets 2</field>
+            <field name="product_tmpl_id" ref="product_fr4_brackets"/>
+            <field name="sequence">2</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/fr4-machined-brackets-2.jpg"/>
+        </record>
+        <record id="product_fr4_turned_parts" model="product.template">
+            <field name="name">FR4 Turned Threaded Parts</field>
+            <field name="default_code">PNSB-PL-004</field>
+            <field name="seo_name">fr4-turned-threaded-parts</field>
+            <field name="categ_id" ref="categ_plastic"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">620</field>
+            <field name="pnsb_website_summary">Threaded FR4 bushes and spacers turned in batches.</field>
+            <field name="description_sale">Threaded FR4 bushes and spacers turned in batches. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Threaded FR4 bushes and spacers turned in batches.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: FR4 Glass Epoxy</li><li>Process: cnc turning</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/fr4-turned-threaded-parts-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_plastic')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_fr4_glass_epoxy')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_cnc_turning')])]})]"/>
+        </record>
+        <record id="product_plastic_brackets" model="product.template">
+            <field name="name">Machined Plastic Brackets</field>
+            <field name="default_code">PNSB-PL-005</field>
+            <field name="seo_name">machined-plastic-brackets</field>
+            <field name="categ_id" ref="categ_plastic"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">630</field>
+            <field name="pnsb_website_summary">Engineering-plastic brackets and small parts machined and supplied in batches.</field>
+            <field name="description_sale">Engineering-plastic brackets and small parts machined and supplied in batches. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Engineering-plastic brackets and small parts machined and supplied in batches.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Engineering Plastic</li><li>Process: vmc milling</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/machined-plastic-brackets-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_plastic')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_engineering_plastic')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_vmc_milling')])]})]"/>
+        </record>
+        <record id="product_plastic_brackets_image_2" model="product.image">
+            <field name="name">Machined Plastic Brackets 2</field>
+            <field name="product_tmpl_id" ref="product_plastic_brackets"/>
+            <field name="sequence">2</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/machined-plastic-brackets-2.jpg"/>
+        </record>
+        <record id="product_perforated_plate" model="product.template">
+            <field name="name">Perforated Composite Plate</field>
+            <field name="default_code">PNSB-PL-006</field>
+            <field name="seo_name">perforated-composite-plate</field>
+            <field name="categ_id" ref="categ_plastic"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">640</field>
+            <field name="pnsb_website_summary">Perforated composite plate with profiled edges, drilled to pattern.</field>
+            <field name="description_sale">Perforated composite plate with profiled edges, drilled to pattern. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Perforated composite plate with profiled edges, drilled to pattern.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: FR4 Glass Epoxy</li><li>Process: vmc milling, drilling and tapping</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/perforated-composite-plate-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_plastic')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_fr4_glass_epoxy')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_vmc_milling'), ref('attr_val_process_drilling_and_tapping')])]})]"/>
+        </record>
+        <record id="product_moulded_inserts" model="product.template">
+            <field name="name">Moulded Insert Parts</field>
+            <field name="default_code">PNSB-RB-001</field>
+            <field name="seo_name">moulded-insert-parts</field>
+            <field name="categ_id" ref="categ_rubber"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">650</field>
+            <field name="pnsb_website_summary">Rubber parts moulded around threaded metal inserts.</field>
+            <field name="description_sale">Rubber parts moulded around threaded metal inserts. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Rubber parts moulded around threaded metal inserts.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Rubber, Brass</li><li>Process: moulding</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/moulded-insert-parts-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_rubber')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_rubber'), ref('attr_val_material_brass')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_moulding')])]})]"/>
+        </record>
+        <record id="product_rubber_pads" model="product.template">
+            <field name="name">Rubber Pads</field>
+            <field name="default_code">PNSB-RB-002</field>
+            <field name="seo_name">rubber-pads</field>
+            <field name="categ_id" ref="categ_rubber"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">660</field>
+            <field name="pnsb_website_summary">Moulded rubber pads and buffers for machine mounting.</field>
+            <field name="description_sale">Moulded rubber pads and buffers for machine mounting. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Moulded rubber pads and buffers for machine mounting.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Rubber</li><li>Process: moulding</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/rubber-pads-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_rubber')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_rubber')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_moulding')])]})]"/>
+        </record>
+        <record id="product_silicone_bellows" model="product.template">
+            <field name="name">Silicone Bellows</field>
+            <field name="default_code">PNSB-RB-003</field>
+            <field name="seo_name">silicone-bellows</field>
+            <field name="categ_id" ref="categ_rubber"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">670</field>
+            <field name="pnsb_website_summary">Silicone bellows and boots for vibrating shafts, in several sizes.</field>
+            <field name="description_sale">Silicone bellows and boots for vibrating shafts, in several sizes. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Silicone bellows and boots for vibrating shafts, in several sizes.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Silicone Rubber</li><li>Process: moulding</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/silicone-bellows-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_rubber')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_silicone_rubber')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_moulding')])]})]"/>
+        </record>
+        <record id="product_rubber_moulded_parts" model="product.template">
+            <field name="name">Rubber Moulded Parts</field>
+            <field name="default_code">PNSB-RB-004</field>
+            <field name="seo_name">rubber-moulded-parts</field>
+            <field name="categ_id" ref="categ_rubber"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">680</field>
+            <field name="pnsb_website_summary">Custom rubber discs and moulded parts made from your sample.</field>
+            <field name="description_sale">Custom rubber discs and moulded parts made from your sample. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Custom rubber discs and moulded parts made from your sample.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Rubber</li><li>Process: moulding</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/rubber-moulded-parts-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_rubber')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_rubber')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_moulding')])]})]"/>
+        </record>
+        <record id="product_brass_blanking_nuts" model="product.template">
+            <field name="name">Brass Blanking Nuts</field>
+            <field name="default_code">PNSB-BR-001</field>
+            <field name="seo_name">brass-blanking-nuts</field>
+            <field name="categ_id" ref="categ_brass"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">690</field>
+            <field name="pnsb_website_summary">Brass blanking nuts with sealing washers for hose and valve outlets.</field>
+            <field name="description_sale">Brass blanking nuts with sealing washers for hose and valve outlets. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Brass blanking nuts with sealing washers for hose and valve outlets.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Brass, Rubber</li><li>Process: cnc turning, drilling and tapping</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/brass-blanking-nuts-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_fire_safety')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_brass'), ref('attr_val_material_rubber')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_cnc_turning'), ref('attr_val_process_drilling_and_tapping')])]})]"/>
+        </record>
+        <record id="product_brass_reducer_bushes" model="product.template">
+            <field name="name">Brass Reducer Bushes</field>
+            <field name="default_code">PNSB-BR-002</field>
+            <field name="seo_name">brass-reducer-bushes</field>
+            <field name="categ_id" ref="categ_brass"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">700</field>
+            <field name="pnsb_website_summary">Hexagon brass reducer bushes with threaded bores.</field>
+            <field name="description_sale">Hexagon brass reducer bushes with threaded bores. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Hexagon brass reducer bushes with threaded bores.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Brass</li><li>Process: cnc turning, drilling and tapping</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/brass-reducer-bushes-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_fire_safety')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_brass')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_cnc_turning'), ref('attr_val_process_drilling_and_tapping')])]})]"/>
+        </record>
+        <record id="product_brass_safety_parts" model="product.template">
+            <field name="name">Brass Safety Valve Parts</field>
+            <field name="default_code">PNSB-BR-003</field>
+            <field name="seo_name">brass-safety-valve-parts</field>
+            <field name="categ_id" ref="categ_brass"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">710</field>
+            <field name="pnsb_website_summary">Turned brass bodies and nozzles for safety and relief valves.</field>
+            <field name="description_sale">Turned brass bodies and nozzles for safety and relief valves. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Turned brass bodies and nozzles for safety and relief valves.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Brass</li><li>Process: cnc turning, drilling and tapping</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/brass-safety-valve-parts-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_fire_safety')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_brass')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_cnc_turning'), ref('attr_val_process_drilling_and_tapping')])]})]"/>
+        </record>
+        <record id="product_brass_connectors" model="product.template">
+            <field name="name">Brass Connectors</field>
+            <field name="default_code">PNSB-BR-004</field>
+            <field name="seo_name">brass-connectors</field>
+            <field name="categ_id" ref="categ_brass"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">720</field>
+            <field name="pnsb_website_summary">Threaded brass connectors and adaptors.</field>
+            <field name="description_sale">Threaded brass connectors and adaptors. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Threaded brass connectors and adaptors.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Brass</li><li>Process: cnc turning, drilling and tapping</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/brass-connectors-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_fire_safety')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_brass')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_cnc_turning'), ref('attr_val_process_drilling_and_tapping')])]})]"/>
+        </record>
+        <record id="product_brass_flare_nuts" model="product.template">
+            <field name="name">Brass Flare Nuts</field>
+            <field name="default_code">PNSB-BR-005</field>
+            <field name="seo_name">brass-flare-nuts</field>
+            <field name="categ_id" ref="categ_brass"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">730</field>
+            <field name="pnsb_website_summary">Long-pattern brass flare nuts for tube connections.</field>
+            <field name="description_sale">Long-pattern brass flare nuts for tube connections. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Long-pattern brass flare nuts for tube connections.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Brass</li><li>Process: cnc turning, drilling and tapping</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/brass-flare-nuts-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_fire_safety')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_brass')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_cnc_turning'), ref('attr_val_process_drilling_and_tapping')])]})]"/>
+        </record>
+        <record id="product_knurled_grip_nuts" model="product.template">
+            <field name="name">Knurled Grip Nuts</field>
+            <field name="default_code">PNSB-BR-006</field>
+            <field name="seo_name">knurled-grip-nuts</field>
+            <field name="categ_id" ref="categ_brass"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">740</field>
+            <field name="pnsb_website_summary">Knurled brass grip nuts and caps.</field>
+            <field name="description_sale">Knurled brass grip nuts and caps. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Knurled brass grip nuts and caps.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Brass</li><li>Process: cnc turning</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/knurled-grip-nuts-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_fire_safety')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_brass')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_cnc_turning')])]})]"/>
+        </record>
+        <record id="product_valve_spindles" model="product.template">
+            <field name="name">Valve Spindles</field>
+            <field name="default_code">PNSB-BR-007</field>
+            <field name="seo_name">valve-spindles</field>
+            <field name="categ_id" ref="categ_brass"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">750</field>
+            <field name="pnsb_website_summary">Turned brass valve spindles with sealing washers.</field>
+            <field name="description_sale">Turned brass valve spindles with sealing washers. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Turned brass valve spindles with sealing washers.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Brass, Rubber</li><li>Process: cnc turning, assembly</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/valve-spindles-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_fire_safety')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_brass'), ref('attr_val_material_rubber')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_cnc_turning'), ref('attr_val_process_assembly')])]})]"/>
+        </record>
+        <record id="product_camlock_hoses" model="product.template">
+            <field name="name">Hose Assemblies with Cam-Lock Couplings</field>
+            <field name="default_code">PNSB-BR-008</field>
+            <field name="seo_name">hose-assemblies-with-cam-lock-couplings</field>
+            <field name="categ_id" ref="categ_brass"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">760</field>
+            <field name="pnsb_website_summary">Hose assemblies fitted with brass cam-lock couplings.</field>
+            <field name="description_sale">Hose assemblies fitted with brass cam-lock couplings. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Hose assemblies fitted with brass cam-lock couplings.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Brass, Rubber</li><li>Process: assembly</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/hose-assemblies-with-cam-lock-couplings-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_fire_safety')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_brass'), ref('attr_val_material_rubber')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_assembly')])]})]"/>
+        </record>
+        <record id="product_braided_hoses" model="product.template">
+            <field name="name">Braided Hose Assemblies</field>
+            <field name="default_code">PNSB-BR-009</field>
+            <field name="seo_name">braided-hose-assemblies</field>
+            <field name="categ_id" ref="categ_brass"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">770</field>
+            <field name="pnsb_website_summary">Stainless wire-braided hoses with male and female end connections.</field>
+            <field name="description_sale">Stainless wire-braided hoses with male and female end connections. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Stainless wire-braided hoses with male and female end connections.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Stainless Steel</li><li>Process: assembly</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/braided-hose-assemblies-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_fire_safety')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_stainless_steel')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_assembly')])]})]"/>
+        </record>
+        <record id="product_braided_hoses_image_2" model="product.image">
+            <field name="name">Braided Hose Assemblies 2</field>
+            <field name="product_tmpl_id" ref="product_braided_hoses"/>
+            <field name="sequence">2</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/braided-hose-assemblies-2.jpg"/>
+        </record>
+        <record id="product_combined_roller_bearings" model="product.template">
+            <field name="name">Combined Roller Bearings</field>
+            <field name="default_code">PNSB-BG-001</field>
+            <field name="seo_name">combined-roller-bearings</field>
+            <field name="categ_id" ref="categ_bearings"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">780</field>
+            <field name="pnsb_website_summary">Combined roller bearings with a radial roller and an adjustable side roller.</field>
+            <field name="description_sale">Combined roller bearings with a radial roller and an adjustable side roller. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Combined roller bearings with a radial roller and an adjustable side roller.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Bearing Steel</li><li>Process: cnc turning, assembly</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/combined-roller-bearings-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_bearings')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_bearing_steel')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_cnc_turning'), ref('attr_val_process_assembly')])]})]"/>
+        </record>
+        <record id="product_combined_roller_bearings_image_2" model="product.image">
+            <field name="name">Combined Roller Bearings 2</field>
+            <field name="product_tmpl_id" ref="product_combined_roller_bearings"/>
+            <field name="sequence">2</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/combined-roller-bearings-2.jpg"/>
+        </record>
+        <record id="product_combined_roller_bearings_image_3" model="product.image">
+            <field name="name">Combined Roller Bearings 3</field>
+            <field name="product_tmpl_id" ref="product_combined_roller_bearings"/>
+            <field name="sequence">3</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/combined-roller-bearings-3.jpg"/>
+        </record>
+        <record id="product_combined_roller_bearings_image_4" model="product.image">
+            <field name="name">Combined Roller Bearings 4</field>
+            <field name="product_tmpl_id" ref="product_combined_roller_bearings"/>
+            <field name="sequence">4</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/combined-roller-bearings-4.jpg"/>
+        </record>
+        <record id="product_combined_roller_bearings_image_5" model="product.image">
+            <field name="name">Combined Roller Bearings 5</field>
+            <field name="product_tmpl_id" ref="product_combined_roller_bearings"/>
+            <field name="sequence">5</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/combined-roller-bearings-5.jpg"/>
+        </record>
+        <record id="product_ball_transfer_units" model="product.template">
+            <field name="name">Heavy-Duty Ball Transfer Units</field>
+            <field name="default_code">PNSB-BG-002</field>
+            <field name="seo_name">heavy-duty-ball-transfer-units</field>
+            <field name="categ_id" ref="categ_bearings"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">790</field>
+            <field name="pnsb_website_summary">Ball transfer units with a main ball on a bed of support balls, stud or flange mounted.</field>
+            <field name="description_sale">Ball transfer units with a main ball on a bed of support balls, stud or flange mounted. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Ball transfer units with a main ball on a bed of support balls, stud or flange mounted.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Bearing Steel, Mild Steel</li><li>Process: cnc turning, assembly</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/heavy-duty-ball-transfer-units-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_bearings')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_bearing_steel'), ref('attr_val_material_mild_steel')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_cnc_turning'), ref('attr_val_process_assembly')])]}), (0, 0, {'attribute_id': ref('attr_finish'), 'value_ids': [(6, 0, [ref('attr_val_finish_black_oxide')])]})]"/>
+        </record>
+        <record id="product_ball_transfer_units_image_2" model="product.image">
+            <field name="name">Heavy-Duty Ball Transfer Units 2</field>
+            <field name="product_tmpl_id" ref="product_ball_transfer_units"/>
+            <field name="sequence">2</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/heavy-duty-ball-transfer-units-2.jpg"/>
+        </record>
+        <record id="product_ball_transfer_units_image_3" model="product.image">
+            <field name="name">Heavy-Duty Ball Transfer Units 3</field>
+            <field name="product_tmpl_id" ref="product_ball_transfer_units"/>
+            <field name="sequence">3</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/heavy-duty-ball-transfer-units-3.jpg"/>
+        </record>
+        <record id="product_ball_transfer_units_image_4" model="product.image">
+            <field name="name">Heavy-Duty Ball Transfer Units 4</field>
+            <field name="product_tmpl_id" ref="product_ball_transfer_units"/>
+            <field name="sequence">4</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/heavy-duty-ball-transfer-units-4.jpg"/>
+        </record>
+        <record id="product_ball_transfer_units_image_5" model="product.image">
+            <field name="name">Heavy-Duty Ball Transfer Units 5</field>
+            <field name="product_tmpl_id" ref="product_ball_transfer_units"/>
+            <field name="sequence">5</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/heavy-duty-ball-transfer-units-5.jpg"/>
+        </record>
+        <record id="product_ball_transfer_units_image_6" model="product.image">
+            <field name="name">Heavy-Duty Ball Transfer Units 6</field>
+            <field name="product_tmpl_id" ref="product_ball_transfer_units"/>
+            <field name="sequence">6</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/heavy-duty-ball-transfer-units-6.jpg"/>
+        </record>
+        <record id="product_ball_transfer_units_image_7" model="product.image">
+            <field name="name">Heavy-Duty Ball Transfer Units 7</field>
+            <field name="product_tmpl_id" ref="product_ball_transfer_units"/>
+            <field name="sequence">7</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/heavy-duty-ball-transfer-units-7.jpg"/>
+        </record>
+        <record id="product_ball_transfer_units_image_8" model="product.image">
+            <field name="name">Heavy-Duty Ball Transfer Units 8</field>
+            <field name="product_tmpl_id" ref="product_ball_transfer_units"/>
+            <field name="sequence">8</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/heavy-duty-ball-transfer-units-8.jpg"/>
+        </record>
+        <record id="product_ball_transfer_units_image_9" model="product.image">
+            <field name="name">Heavy-Duty Ball Transfer Units 9</field>
+            <field name="product_tmpl_id" ref="product_ball_transfer_units"/>
+            <field name="sequence">9</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/heavy-duty-ball-transfer-units-9.jpg"/>
+        </record>
+        <record id="product_flanged_roller_units" model="product.template">
+            <field name="name">Flanged Roller Units</field>
+            <field name="default_code">PNSB-BG-003</field>
+            <field name="seo_name">flanged-roller-units</field>
+            <field name="categ_id" ref="categ_bearings"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">800</field>
+            <field name="pnsb_website_summary">Flanged roller units with grease nipples, ready to bolt on.</field>
+            <field name="description_sale">Flanged roller units with grease nipples, ready to bolt on. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Flanged roller units with grease nipples, ready to bolt on.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Bearing Steel</li><li>Process: cnc turning, assembly</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/flanged-roller-units-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_bearings')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_bearing_steel')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_cnc_turning'), ref('attr_val_process_assembly')])]})]"/>
+        </record>
+        <record id="product_bearing_cage" model="product.template">
+            <field name="name">Roller Bearing Cages</field>
+            <field name="default_code">PNSB-BG-004</field>
+            <field name="seo_name">roller-bearing-cages</field>
+            <field name="categ_id" ref="categ_bearings"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">810</field>
+            <field name="pnsb_website_summary">Machined steel cages for large roller bearings.</field>
+            <field name="description_sale">Machined steel cages for large roller bearings. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Machined steel cages for large roller bearings.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Alloy Steel</li><li>Process: cnc turning, vmc milling</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/roller-bearing-cages-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_bearings')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_alloy_steel')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_cnc_turning'), ref('attr_val_process_vmc_milling')])]})]"/>
+        </record>
+        <record id="product_bearing_seals" model="product.template">
+            <field name="name">Bearing Seals and Shields</field>
+            <field name="default_code">PNSB-BG-005</field>
+            <field name="seo_name">bearing-seals-and-shields</field>
+            <field name="categ_id" ref="categ_bearings"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">820</field>
+            <field name="pnsb_website_summary">Pressed steel seals, shields and rubber-coated caps for bearings, supplied in batches.</field>
+            <field name="description_sale">Pressed steel seals, shields and rubber-coated caps for bearings, supplied in batches. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Pressed steel seals, shields and rubber-coated caps for bearings, supplied in batches.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Mild Steel, Rubber</li><li>Process: sheet metal fabrication, moulding</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/bearing-seals-and-shields-1.jpg"/>
+            <field name="pnsb_industry_ids" eval="[(6, 0, [ref('industry_bearings')])]"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_mild_steel'), ref('attr_val_material_rubber')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_sheet_metal_fabrication'), ref('attr_val_process_moulding')])]})]"/>
+        </record>
+        <record id="product_bearing_seals_image_2" model="product.image">
+            <field name="name">Bearing Seals and Shields 2</field>
+            <field name="product_tmpl_id" ref="product_bearing_seals"/>
+            <field name="sequence">2</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/bearing-seals-and-shields-2.jpg"/>
+        </record>
+        <record id="product_aluminium_pulleys" model="product.template">
+            <field name="name">Aluminium V-Belt Pulleys</field>
+            <field name="default_code">PNSB-MC-001</field>
+            <field name="seo_name">aluminium-v-belt-pulleys</field>
+            <field name="categ_id" ref="categ_mechanical"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">830</field>
+            <field name="pnsb_website_summary">Turned aluminium V-belt pulleys with keyed bores, from single pieces to batches.</field>
+            <field name="description_sale">Turned aluminium V-belt pulleys with keyed bores, from single pieces to batches. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Turned aluminium V-belt pulleys with keyed bores, from single pieces to batches.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Aluminium</li><li>Process: cnc turning</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/aluminium-v-belt-pulleys-1.jpg"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_aluminium')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_cnc_turning')])]})]"/>
+        </record>
+        <record id="product_aluminium_pulleys_image_2" model="product.image">
+            <field name="name">Aluminium V-Belt Pulleys 2</field>
+            <field name="product_tmpl_id" ref="product_aluminium_pulleys"/>
+            <field name="sequence">2</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/aluminium-v-belt-pulleys-2.jpg"/>
+        </record>
+        <record id="product_timing_gears" model="product.template">
+            <field name="name">Timing Gears</field>
+            <field name="default_code">PNSB-MC-002</field>
+            <field name="seo_name">timing-gears</field>
+            <field name="categ_id" ref="categ_mechanical"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">840</field>
+            <field name="pnsb_website_summary">Small timing gears and pinions with hubs, cut and finished in batches.</field>
+            <field name="description_sale">Small timing gears and pinions with hubs, cut and finished in batches. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Small timing gears and pinions with hubs, cut and finished in batches.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Alloy Steel</li><li>Process: cnc turning, gear cutting</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/timing-gears-1.jpg"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_alloy_steel')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_cnc_turning'), ref('attr_val_process_gear_cutting')])]}), (0, 0, {'attribute_id': ref('attr_finish'), 'value_ids': [(6, 0, [ref('attr_val_finish_zinc_plated')])]})]"/>
+        </record>
+        <record id="product_gear_racks" model="product.template">
+            <field name="name">Gear Racks</field>
+            <field name="default_code">PNSB-MC-003</field>
+            <field name="seo_name">gear-racks</field>
+            <field name="categ_id" ref="categ_mechanical"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">850</field>
+            <field name="pnsb_website_summary">Gear racks cut to length with fixing holes, for linear drives.</field>
+            <field name="description_sale">Gear racks cut to length with fixing holes, for linear drives. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Gear racks cut to length with fixing holes, for linear drives.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Alloy Steel</li><li>Process: gear cutting, drilling and tapping</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/gear-racks-1.jpg"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_alloy_steel')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_gear_cutting'), ref('attr_val_process_drilling_and_tapping')])]})]"/>
+        </record>
+        <record id="product_gear_racks_image_2" model="product.image">
+            <field name="name">Gear Racks 2</field>
+            <field name="product_tmpl_id" ref="product_gear_racks"/>
+            <field name="sequence">2</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/gear-racks-2.jpg"/>
+        </record>
+        <record id="product_gear_racks_image_3" model="product.image">
+            <field name="name">Gear Racks 3</field>
+            <field name="product_tmpl_id" ref="product_gear_racks"/>
+            <field name="sequence">3</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/gear-racks-3.jpg"/>
+        </record>
+        <record id="product_gear_racks_image_4" model="product.image">
+            <field name="name">Gear Racks 4</field>
+            <field name="product_tmpl_id" ref="product_gear_racks"/>
+            <field name="sequence">4</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/gear-racks-4.jpg"/>
+        </record>
+        <record id="product_bronze_bushes" model="product.template">
+            <field name="name">Brass and Bronze Bushes</field>
+            <field name="default_code">PNSB-MC-004</field>
+            <field name="seo_name">brass-and-bronze-bushes</field>
+            <field name="categ_id" ref="categ_mechanical"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">860</field>
+            <field name="pnsb_website_summary">Turned brass and bronze bushes and sleeves in batch quantities.</field>
+            <field name="description_sale">Turned brass and bronze bushes and sleeves in batch quantities. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Turned brass and bronze bushes and sleeves in batch quantities.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Brass, Bronze</li><li>Process: cnc turning</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/brass-and-bronze-bushes-1.jpg"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_brass'), ref('attr_val_material_bronze')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_cnc_turning')])]})]"/>
+        </record>
+        <record id="product_bronze_bushes_image_2" model="product.image">
+            <field name="name">Brass and Bronze Bushes 2</field>
+            <field name="product_tmpl_id" ref="product_bronze_bushes"/>
+            <field name="sequence">2</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/brass-and-bronze-bushes-2.jpg"/>
+        </record>
+        <record id="product_roller_pins" model="product.template">
+            <field name="name">Roller Pins with Sleeves</field>
+            <field name="default_code">PNSB-MC-005</field>
+            <field name="seo_name">roller-pins-with-sleeves</field>
+            <field name="categ_id" ref="categ_mechanical"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">870</field>
+            <field name="pnsb_website_summary">Steel pins fitted with sleeves, turned and assembled in batches.</field>
+            <field name="description_sale">Steel pins fitted with sleeves, turned and assembled in batches. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Steel pins fitted with sleeves, turned and assembled in batches.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Mild Steel, Brass</li><li>Process: cnc turning, assembly</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/roller-pins-with-sleeves-1.jpg"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_mild_steel'), ref('attr_val_material_brass')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_cnc_turning'), ref('attr_val_process_assembly')])]})]"/>
+        </record>
+        <record id="product_forged_screws" model="product.template">
+            <field name="name">Forged Long Screws</field>
+            <field name="default_code">PNSB-FG-001</field>
+            <field name="seo_name">forged-long-screws</field>
+            <field name="categ_id" ref="categ_forged"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">880</field>
+            <field name="pnsb_website_summary">Long forged screws and bolts with threaded ends, made to length.</field>
+            <field name="description_sale">Long forged screws and bolts with threaded ends, made to length. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Long forged screws and bolts with threaded ends, made to length.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Mild Steel</li><li>Process: forging, cnc turning</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/forged-long-screws-1.jpg"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_mild_steel')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_forging'), ref('attr_val_process_cnc_turning')])]})]"/>
+        </record>
+        <record id="product_forged_screws_image_2" model="product.image">
+            <field name="name">Forged Long Screws 2</field>
+            <field name="product_tmpl_id" ref="product_forged_screws"/>
+            <field name="sequence">2</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/forged-long-screws-2.jpg"/>
+        </record>
+        <record id="product_forged_screws_image_3" model="product.image">
+            <field name="name">Forged Long Screws 3</field>
+            <field name="product_tmpl_id" ref="product_forged_screws"/>
+            <field name="sequence">3</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/forged-long-screws-3.jpg"/>
+        </record>
+        <record id="product_forged_screws_image_4" model="product.image">
+            <field name="name">Forged Long Screws 4</field>
+            <field name="product_tmpl_id" ref="product_forged_screws"/>
+            <field name="sequence">4</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/forged-long-screws-4.jpg"/>
+        </record>
+        <record id="product_forged_blanks" model="product.template">
+            <field name="name">Forged Blanks</field>
+            <field name="default_code">PNSB-FG-002</field>
+            <field name="seo_name">forged-blanks</field>
+            <field name="categ_id" ref="categ_forged"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">890</field>
+            <field name="pnsb_website_summary">Forged and cast blanks supplied ready for machining.</field>
+            <field name="description_sale">Forged and cast blanks supplied ready for machining. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Forged and cast blanks supplied ready for machining.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Cast Iron</li><li>Process: forging</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/forged-blanks-1.jpg"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_cast_iron')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_forging')])]})]"/>
+        </record>
+        <record id="product_cnc_turned_milled_parts" model="product.template">
+            <field name="name">CNC Turned and Milled Parts</field>
+            <field name="default_code">PNSB-PM-003</field>
+            <field name="seo_name">cnc-turned-and-milled-parts</field>
+            <field name="categ_id" ref="categ_machined"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">900</field>
+            <field name="pnsb_website_summary">Turned and milled housings, collars and connectors with cross holes and slots.</field>
+            <field name="description_sale">Turned and milled housings, collars and connectors with cross holes and slots. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Turned and milled housings, collars and connectors with cross holes and slots.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Stainless Steel, Aluminium</li><li>Process: cnc turning, vmc milling, drilling and tapping</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/cnc-turned-and-milled-parts-1.jpg"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_stainless_steel'), ref('attr_val_material_aluminium')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_cnc_turning'), ref('attr_val_process_vmc_milling'), ref('attr_val_process_drilling_and_tapping')])]})]"/>
+        </record>
+        <record id="product_small_turned_parts" model="product.template">
+            <field name="name">Small Precision Turned Parts</field>
+            <field name="default_code">PNSB-PM-004</field>
+            <field name="seo_name">small-precision-turned-parts</field>
+            <field name="categ_id" ref="categ_machined"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">910</field>
+            <field name="pnsb_website_summary">Small pins, spacers, nuts and threaded parts in steel, brass and aluminium.</field>
+            <field name="description_sale">Small pins, spacers, nuts and threaded parts in steel, brass and aluminium. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Small pins, spacers, nuts and threaded parts in steel, brass and aluminium.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Stainless Steel, Brass, Aluminium</li><li>Process: cnc turning, drilling and tapping</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/small-precision-turned-parts-1.jpg"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_stainless_steel'), ref('attr_val_material_brass'), ref('attr_val_material_aluminium')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_cnc_turning'), ref('attr_val_process_drilling_and_tapping')])]})]"/>
+        </record>
+        <record id="product_small_turned_parts_image_2" model="product.image">
+            <field name="name">Small Precision Turned Parts 2</field>
+            <field name="product_tmpl_id" ref="product_small_turned_parts"/>
+            <field name="sequence">2</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/small-precision-turned-parts-2.jpg"/>
+        </record>
+        <record id="product_small_turned_parts_image_3" model="product.image">
+            <field name="name">Small Precision Turned Parts 3</field>
+            <field name="product_tmpl_id" ref="product_small_turned_parts"/>
+            <field name="sequence">3</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/small-precision-turned-parts-3.jpg"/>
+        </record>
+        <record id="product_small_turned_parts_image_4" model="product.image">
+            <field name="name">Small Precision Turned Parts 4</field>
+            <field name="product_tmpl_id" ref="product_small_turned_parts"/>
+            <field name="sequence">4</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/small-precision-turned-parts-4.jpg"/>
+        </record>
+        <record id="product_sheet_metal_brackets" model="product.template">
+            <field name="name">Sheet Metal Brackets and Pressed Parts</field>
+            <field name="default_code">PNSB-FB-001</field>
+            <field name="seo_name">sheet-metal-brackets-and-pressed-parts</field>
+            <field name="categ_id" ref="categ_fabrication"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">920</field>
+            <field name="pnsb_website_summary">Laser-cut and bent brackets, clips and pressed sheet metal parts.</field>
+            <field name="description_sale">Laser-cut and bent brackets, clips and pressed sheet metal parts. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Laser-cut and bent brackets, clips and pressed sheet metal parts.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Mild Steel, Stainless Steel, Aluminium</li><li>Process: laser cutting, bending and welding</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/sheet-metal-brackets-and-pressed-parts-1.jpg"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_mild_steel'), ref('attr_val_material_stainless_steel'), ref('attr_val_material_aluminium')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_laser_cutting'), ref('attr_val_process_bending_and_welding')])]})]"/>
+        </record>
+        <record id="product_sheet_metal_brackets_image_2" model="product.image">
+            <field name="name">Sheet Metal Brackets and Pressed Parts 2</field>
+            <field name="product_tmpl_id" ref="product_sheet_metal_brackets"/>
+            <field name="sequence">2</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/sheet-metal-brackets-and-pressed-parts-2.jpg"/>
+        </record>
+        <record id="product_surface_treated_parts" model="product.template">
+            <field name="name">Surface Treated Machined Parts</field>
+            <field name="default_code">PNSB-SF-001</field>
+            <field name="seo_name">surface-treated-machined-parts</field>
+            <field name="categ_id" ref="categ_finishing"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="pnsb_website_published" eval="True"/>
+            <field name="pnsb_website_sequence">930</field>
+            <field name="pnsb_website_summary">Machined parts finished by plating, anodizing, bead blasting, polishing or passivation.</field>
+            <field name="description_sale">Machined parts finished by plating, anodizing, bead blasting, polishing or passivation. Made to drawing or sample.</field>
+            <field name="description_ecommerce" type="html"><p>Machined parts finished by plating, anodizing, bead blasting, polishing or passivation.</p><ul><li>Made to your drawing, sample or specification</li><li>Material: Aluminium, Stainless Steel, Brass</li><li>Process: cnc turning, vmc milling</li><li>Prototype, single pieces or repeat batches</li><li>Quotation on request: send your drawing or sample</li></ul></field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/surface-treated-machined-parts-1.jpg"/>
+            <field name="attribute_line_ids" eval="[(0, 0, {'attribute_id': ref('attr_material'), 'value_ids': [(6, 0, [ref('attr_val_material_aluminium'), ref('attr_val_material_stainless_steel'), ref('attr_val_material_brass')])]}), (0, 0, {'attribute_id': ref('attr_process'), 'value_ids': [(6, 0, [ref('attr_val_process_cnc_turning'), ref('attr_val_process_vmc_milling')])]}), (0, 0, {'attribute_id': ref('attr_finish'), 'value_ids': [(6, 0, [ref('attr_val_finish_anodized'), ref('attr_val_finish_bead_blasted'), ref('attr_val_finish_polished'), ref('attr_val_finish_passivated'), ref('attr_val_finish_nickel_plated')])]})]"/>
+        </record>
+        <record id="product_surface_treated_parts_image_2" model="product.image">
+            <field name="name">Surface Treated Machined Parts 2</field>
+            <field name="product_tmpl_id" ref="product_surface_treated_parts"/>
+            <field name="sequence">2</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/surface-treated-machined-parts-2.jpg"/>
+        </record>
+        <record id="product_surface_treated_parts_image_3" model="product.image">
+            <field name="name">Surface Treated Machined Parts 3</field>
+            <field name="product_tmpl_id" ref="product_surface_treated_parts"/>
+            <field name="sequence">3</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/surface-treated-machined-parts-3.jpg"/>
+        </record>
+        <record id="timing_pulleys_batch_image" model="product.image">
+            <field name="name">Timing pulleys in batch</field>
+            <field name="product_tmpl_id" ref="product_timing_pulley"/>
+            <field name="sequence">2</field>
+            <field name="image_1920" type="base64" file="pnsb_website/static/src/img/catalog/timing-pulleys-in-batch.jpg"/>
+        </record>
+    </data>
+</odoo>

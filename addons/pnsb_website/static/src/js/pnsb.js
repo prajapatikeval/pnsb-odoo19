@@ -778,4 +778,17 @@ export class PnsbGallery extends Interaction {
 }
 interactions.add("pnsb_website.gallery", PnsbGallery);
 
+/** Shop sidebar: keep the selected category visible in the scrolling list. */
+export class PnsbShopCategories extends Interaction {
+    static selector = ".pn-shopnav__list";
+
+    start() {
+        const active = this.el.querySelector(".is-active");
+        if (active && this.el.scrollHeight > this.el.clientHeight) {
+            this.el.scrollTop = Math.max(0, active.offsetTop - this.el.offsetTop - this.el.clientHeight / 3);
+        }
+    }
+}
+interactions.add("pnsb_website.shop_categories", PnsbShopCategories);
+
 

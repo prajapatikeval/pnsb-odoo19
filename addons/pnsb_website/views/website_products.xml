@@ -17,8 +17,8 @@
             <section class="pn-section pn-section--tight">
                 <div class="pn-container">
                     <div class="pn-catalog">
-                        <aside class="pn-catalog__side" aria-label="Find products">
-                            <form method="get" t-att-action="pnsb_shop_path" class="pn-catalog__search" role="search">
+                        <aside class="pn-catalog__side pn-shopnav" aria-label="Find products">
+                            <form method="get" t-att-action="pnsb_shop_path" class="pn-shopnav__search" role="search">
                                 <label class="pn-catalog__label" for="pn-shop-search">Search</label>
                                 <span class="pn-catalog__field">
                                     <svg class="pn-i"><use href="#pn-i-search"/></svg>
@@ -26,19 +26,24 @@
                                            placeholder="Part name or application"/>
                                 </span>
                             </form>
-                            <div class="pn-catalog__lines">
-                                <span class="pn-catalog__label">Product categories</span>
-                                <nav class="pn-catalog__links" aria-label="Product categories">
-                                    <a href="/shop" t-attf-class="pn-filter #{'' if category else 'is-active'}">
-                                        <span>All products</span><span class="pn-filter__count" t-out="pnsb_total"/>
-                                    </a>
-                                    <a t-foreach="pnsb_shop_categories" t-as="entry" t-att-href="entry['url']"
-                                       t-attf-class="pn-filter #{'is-active' if category and category.id == entry['category'].id else ''}">
-                                        <span t-out="entry['category'].name"/><span class="pn-filter__count" t-out="entry['count']"/>
-                                    </a>
-                                </nav>
+                            <div class="pn-shopnav__head">
+                                <span>Product categories</span>
+                                <span t-out="'%02d' % len(pnsb_shop_categories)"/>
                             </div>
-                            <p class="pn-catalog__result"><t t-out="search_count"/> <t t-out="'product' if search_count == 1 else 'products'"/> shown</p>
+                            <nav class="pn-shopnav__list" aria-label="Product categories">
+                                <a href="/shop" t-attf-class="pn-shopnav__item #{'' if category else 'is-active'}">
+                                    <span class="pn-shopnav__name">All products</span>
+                                    <span class="pn-shopnav__count" t-out="pnsb_total"/>
+                                </a>
+                                <a t-foreach="pnsb_shop_categories" t-as="entry" t-att-href="entry['url']"
+                                   t-attf-class="pn-shopnav__item #{'is-active' if category and category.id == entry['category'].id else ''}">
+                                    <span class="pn-shopnav__name" t-out="entry['category'].name"/>
+                                    <span class="pn-shopnav__count" t-out="entry['count']"/>
+                                </a>
+                            </nav>
+                            <p class="pn-shopnav__foot">
+                                <span t-out="search_count"/> <t t-out="'product' if search_count == 1 else 'products'"/> shown
+                            </p>
                         </aside>
 
                         <div class="pn-catalog__main">

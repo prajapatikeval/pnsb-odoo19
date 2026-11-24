@@ -18,7 +18,7 @@ PNSB Machinery Industries website
   Sales quotations, other messages become CRM leads, with uploaded drawings
   attached.
 """,
-    'version': '19.0.4.0.0',
+    'version': '19.0.4.1.0',
     'depends': ['website', 'website_sale', 'sale_management', 'crm'],
     'data': [
         'security/ir.model.access.csv',
@@ -32,6 +32,7 @@ PNSB Machinery Industries website
         'views/website_contact.xml',
         'data/product_data.xml',
         'data/industry_data.xml',
+        'data/product_catalog_data.xml',
         'data/website_setup_data.xml',
     ],
     'assets': {

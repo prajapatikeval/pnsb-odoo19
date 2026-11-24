@@ -57,9 +57,9 @@ README.md              human deployment guide
    home hero (client's order, 2026-11) small pin & turning items, large machine items,
    fabrication with assembly, surface treatment with assembly. No generic gears/bolts.
 11. **One backend app menu only: "PNSB Machinery"** (owner's request, 2026-10-31) that groups
-   the website configuration: Website › Industries / Products / Product Categories, Sales ›
-   Quotations / Orders, CRM › Pipeline / Leads, Configuration › Website & Contact Details,
-   plus Website › eCommerce Categories.
+   the website configuration: Website › Industries / Product Categories / eCommerce Categories,
+   Sales › Quotations / Orders / Products, CRM › Pipeline / Leads, Configuration › Website &
+   Contact Details.
    Except Industries, every entry reuses Odoo's own action (all standard views and filters);
    don't add custom actions or other menus, and keep using base views for product/category fields.
 6. **Header has a Log in button** (`/web/login?redirect=/odoo`; "Dashboard" when logged in,
@@ -144,6 +144,13 @@ Backend:
   96246 84555) are applied once per database (marker `pnsb_website.contact_version`); bump
   `CONTACT_VERSION` in models/website.py to push new ones.
 - `data/product_data.xml` (noupdate): 5 categories, 21 products with photos from the PDFs.
+- `data/product_catalog_data.xml` (noupdate, generated from the client's "Work for Site" Drive
+  folder, 2026-11): 8 more categories, 64 products with photos in `static/src/img/catalog/`
+  (main photo + `product.image` gallery), internal references `PNSB-<line>-NNN`, `seo_name` for
+  clean /shop URLs, industry links, summary / sales / eCommerce descriptions (generic demo
+  texts for the client to review) and Material / Process / Finish specifications
+  (`product.attribute`, no variants). The shop setup marker is `pnsb_website.shop_setup_v2`
+  (eCommerce categories for the new lines; `shop_ppg` 120).
 - `migrations/19.0.3.0.0/end-remove_industrial_models.py`: drops the old `industrial_*`
   tables and leftovers of version <= 19.0.2.
 

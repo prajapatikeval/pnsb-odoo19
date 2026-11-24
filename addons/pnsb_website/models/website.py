@@ -21,7 +21,8 @@ COMPANY_NAME = 'PNSB Machinery Industries LLP'
 CONTACT_VERSION = '2026-10'
 CONTACT_MARKER = 'pnsb_website.contact_version'
 INDUSTRY_PRODUCTS_MARKER = 'pnsb_website.industry_products_linked'
-SHOP_SETUP_MARKER = 'pnsb_website.shop_setup_v1'
+# v2: run again for the product lines added from the client's Drive photos (2026-11).
+SHOP_SETUP_MARKER = 'pnsb_website.shop_setup_v2'
 COMPANY_ADDRESS = {
     'street': '350/4 Ahmedabad Udhyogic Vasahat, Near Punmaji Estate',
     'street2': 'Dhobi Ghaat Road, Dudheshwar',
@@ -229,7 +230,7 @@ class Website(models.Model):
     def _pnsb_setup_shop(self):
         """Once per database: eCommerce categories copied from the website's product
         lines (same names and order), products assigned to them, and all products on
-        one shop page. Afterwards the categories are managed in eCommerce."""
+        one shop page (120 products). Afterwards the categories are managed in eCommerce."""
         Public = self.env['product.public.category']
         lines = self.env['product.category'].search(
             [('pnsb_website_published', '=', True)], order='pnsb_website_sequence, name')
@@ -240,8 +241,8 @@ class Website(models.Model):
             products = self.env['product.template'].with_context(active_test=False).search(
                 [('categ_id', '=', line.id)])
             products.write({'public_categ_ids': [(4, public.id)]})
-        for website in self.search([('shop_ppg', '<', 60)]):
-            website.shop_ppg = 60
+        for website in self.search([('shop_ppg', '<', 120)]):
+            website.shop_ppg = 120
 
     @api.model
     def _pnsb_link_industry_products(self):
