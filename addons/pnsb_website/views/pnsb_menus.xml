@@ -10,8 +10,6 @@
     <menuitem id="menu_pnsb_website" name="Website" parent="menu_pnsb_root" sequence="10"/>
     <menuitem id="menu_pnsb_industries" name="Industries" parent="menu_pnsb_website"
               action="action_pnsb_industry" sequence="10"/>
-    <menuitem id="menu_pnsb_products" name="Products" parent="menu_pnsb_website"
-              action="sale.product_template_action" sequence="20"/>
     <menuitem id="menu_pnsb_product_categories" name="Product Categories" parent="menu_pnsb_website"
               action="product.product_category_action_form" sequence="30"/>
     <menuitem id="menu_pnsb_ecommerce_categories" name="eCommerce Categories" parent="menu_pnsb_website"
@@ -22,6 +20,8 @@
               action="sale.action_quotations_with_onboarding" sequence="10"/>
     <menuitem id="menu_pnsb_orders" name="Orders" parent="menu_pnsb_sales"
               action="sale.action_orders" sequence="20"/>
+    <menuitem id="menu_pnsb_products" name="Products" parent="menu_pnsb_sales"
+              action="sale.product_template_action" sequence="30"/>
 
     <menuitem id="menu_pnsb_crm" name="CRM" parent="menu_pnsb_root" sequence="30"/>
     <menuitem id="menu_pnsb_pipeline" name="Pipeline" parent="menu_pnsb_crm"
