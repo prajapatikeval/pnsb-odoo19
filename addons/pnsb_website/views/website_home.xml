@@ -3,16 +3,16 @@
     <template id="page_home" name="PNSB: Home">
         <t t-call="pnsb_website.pn_layout">
             <t t-set="additional_title">Design, Development &amp; Manufacturing</t>
-            <!-- Hero 3D models, in the client's order (2026-11); see turntableScene in pnsb3d.js. -->
+            <!-- Hero images (client's cut-outs, in the client's order, 2026-11). -->
             <t t-set="turntable_parts" t-value="[
-                ('Small pin &amp; turning items', 'Small pins, shafts and threaded parts turned and grooved to your drawing or sample.'),
-                ('Large machine items', 'Larger turned and milled components for machinery, machined to drawing.'),
-                ('Fabrication with assembly', 'Sheet-metal frames and housings cut, bent, welded and assembled as complete units.'),
-                ('Surface treatment with assembly', 'Copper, brass and steel parts with plated and treated finishes, supplied ready to assemble.'),
+                ('Small pin &amp; turning items', 'Small pins, shafts and threaded parts turned and grooved to your drawing or sample.', '01-small-turning.webp', 1190, 932),
+                ('Large machine items', 'Larger turned and milled components for machinery, machined to drawing.', '02-large-machining.webp', 1200, 663),
+                ('Fabrication with assembly', 'Sheet-metal frames and housings cut, bent, welded and assembled as complete units.', '03-fabrication.webp', 1200, 804),
+                ('Surface treatment with assembly', 'Copper, brass and steel parts with plated and treated finishes, supplied ready to assemble.', '04-surface-treatment.webp', 1200, 885),
             ]"/>
 
-            <!-- Hero: PNSB's work as 3D models on a turntable -->
-            <section class="pn-hero" data-pnsb-turntable="">
+            <!-- Hero: PNSB's work, auto-advancing images with a selectable list -->
+            <section class="pn-hero" data-pnsb-hero-slides="">
                 <div class="pn-container pn-hero__grid">
                     <div class="pn-hero__copy">
                         <p class="pn-hero__tagline pn-reveal">Machining Excellence, Delivering Reliability.</p>
@@ -34,11 +34,15 @@
                     </div>
 
                     <div class="pn-turntable pn-reveal">
-                        <div class="pn-3d pn-turntable__stage" data-pnsb-3d="turntable">
-                            <img class="pn-3d__fallback" src="/pnsb_website/static/src/img/hero/01-small-turning.jpg"
-                                 alt="Small pins and turned parts made by PNSB" width="1080" height="894"/>
-                            <span class="pn-3d__loading" aria-hidden="true">Loading 3D model</span>
-                            <span class="pn-turntable__hint" aria-hidden="true">Drag to rotate</span>
+                        <div class="pn-turntable__stage pn-hero__slides">
+                            <img t-foreach="turntable_parts" t-as="part" data-pnsb-slide=""
+                                 t-attf-class="pn-hero__slide #{'is-active' if part_first else ''}"
+                                 t-attf-src="/pnsb_website/static/src/img/hero/#{part[2]}" t-att-alt="part[0]"
+                                 t-attf-width="#{part[3]}" t-attf-height="#{part[4]}"
+                                 t-att-fetchpriority="'high' if part_first else None" decoding="async"/>
+                            <span class="pn-turntable__hint pn-hero__counter" aria-hidden="true">
+                                Fig. <span data-pnsb-slide-index="">01</span> / <t t-out="'%02d' % len(turntable_parts)"/>
+                            </span>
                         </div>
                         <div class="pn-turntable__captions" aria-live="polite">
                             <p t-foreach="turntable_parts" t-as="part" data-pnsb-part-caption=""

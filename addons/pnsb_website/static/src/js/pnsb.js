@@ -778,6 +778,54 @@ export class PnsbGallery extends Interaction {
 }
 interactions.add("pnsb_website.gallery", PnsbGallery);
 
+/**
+ * Home hero: images of PNSB's work. The active button's progress bar (a CSS
+ * animation) times each image; when it ends the next one shows. Clicking a
+ * button picks an image; hovering the hero pauses. No autoplay without motion.
+ */
+export class PnsbHeroSlides extends Interaction {
+    static selector = "[data-pnsb-hero-slides]";
+    dynamicContent = {
+        _root: {
+            "t-on-pointerenter.noUpdate": () => this.el.classList.add("is-paused"),
+            "t-on-pointerleave.noUpdate": () => this.el.classList.remove("is-paused"),
+            "t-att-class": () => ({ "is-playing": this.playing }),
+        },
+        "[data-pnsb-part]": {
+            "t-on-click": (ev) => this.show(this.buttons.indexOf(ev.currentTarget)),
+            "t-on-animationend": (ev) => {
+                if (ev.animationName === "pn-hero-progress") {
+                    this.show((this.current + 1) % this.buttons.length);
+                }
+            },
+            "t-att-class": (el) => ({ "is-active": this.buttons.indexOf(el) === this.current }),
+            "t-att-aria-pressed": (el) => String(this.buttons.indexOf(el) === this.current),
+        },
+        "[data-pnsb-part-caption]": {
+            "t-att-class": (el) => ({ "is-active": this.captions.indexOf(el) === this.current }),
+        },
+        "[data-pnsb-slide]": {
+            "t-att-class": (el) => ({ "is-active": this.slides.indexOf(el) === this.current }),
+        },
+        "[data-pnsb-slide-index]": {
+            "t-out": () => String(this.current + 1).padStart(2, "0"),
+        },
+    };
+
+    setup() {
+        this.buttons = [...this.el.querySelectorAll("[data-pnsb-part]")];
+        this.captions = [...this.el.querySelectorAll("[data-pnsb-part-caption]")];
+        this.slides = [...this.el.querySelectorAll("[data-pnsb-slide]")];
+        this.current = 0;
+        this.playing = motionAllowed() && this.slides.length > 1;
+    }
+
+    show(index) {
+        this.current = index < 0 ? 0 : index;
+    }
+}
+interactions.add("pnsb_website.hero_slides", PnsbHeroSlides);
+
 /** Shop sidebar: keep the selected category visible in the scrolling list. */
 export class PnsbShopCategories extends Interaction {
     static selector = ".pn-shopnav__list";

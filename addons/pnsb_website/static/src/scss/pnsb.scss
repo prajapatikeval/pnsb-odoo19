@@ -567,6 +567,29 @@ html.pn-menu-open .pn-root {
     }
     .pn-turntable__part.is-active .pn-turntable__bar span { transform: scaleX(var(--p, 0)); }
 
+    // Home hero images: transparent cut-outs on the drawing grid; the active one
+    // fades in with a slow settle.
+    .pn-hero__slides { position: relative; overflow: hidden; cursor: default; }
+    .pn-hero__slide {
+        position: absolute;
+        inset: 28px 28px 12px;
+        width: calc(100% - 56px);
+        height: calc(100% - 40px);
+        object-fit: contain;
+        opacity: 0;
+        transform: scale(0.96) translateY(8px);
+        transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+        &.is-active { opacity: 1; transform: none; }
+    }
+    .pn-hero__counter { z-index: 1; opacity: 1; }
+    // The active button's progress bar times each image (see PnsbHeroSlides).
+    [data-pnsb-hero-slides].is-playing .pn-turntable__part.is-active .pn-turntable__bar span {
+        animation: pn-hero-progress 6s linear forwards;
+    }
+    [data-pnsb-hero-slides].is-paused .pn-turntable__part.is-active .pn-turntable__bar span {
+        animation-play-state: paused;
+    }
+
 
     // 3D stages: a photo until WebGL is ready, then the live canvas fades in.
     .pn-3d { position: relative; }
@@ -2409,6 +2432,7 @@ body.editor_enable .pn-root {
 }
 html.pn-motion:not(.pn-booted) .pn-root .pn-reveal { animation: pn-failsafe 0.01s 3s forwards; }
 @keyframes pn-failsafe { to { opacity: 1; transform: none; } }
+@keyframes pn-hero-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 html.pn-motion .pn-root .pn-ind__panel.is-active .pn-ind__art { animation: pn-draw 1.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
 @keyframes pn-draw { from { stroke-dasharray: 100; stroke-dashoffset: 100; } to { stroke-dasharray: 100; stroke-dashoffset: 0; } }
 

@@ -53,9 +53,8 @@ README.md              human deployment guide
    Copy comes from the PDFs and is aimed at US/overseas B2B buyers (US spelling, "Request a
    Quote", IST time zone). Logo = cleaned PNG from the client's JPEG.
 10. **3D shows only parts PNSB makes** (company profile and the client's photos): timing pulley,
-   shaft/bearings, chain sprocket, mechanical seal, honeycomb air-straightening panel, and on the
-   home hero (client's order, 2026-11) small pin & turning items, large machine items,
-   fabrication with assembly, surface treatment with assembly. No generic gears/bolts.
+   shaft/bearings, chain sprocket, mechanical seal, honeycomb air-straightening panel. No generic
+   gears/bolts. The home hero shows the client's four static cut-out images (2026-11-25), not 3D.
 11. **One backend app menu only: "PNSB Machinery"** (owner's request, 2026-10-31) that groups
    the website configuration: Website › Industries / Product Categories / eCommerce Categories,
    Sales › Quotations / Orders / Products, CRM › Pipeline / Leads, Configuration › Website &
@@ -183,6 +182,10 @@ Frontend:
   and effects ported from the previous site on one rAF ticker: `PnsbWordFill`
   (`data-pnsb-words`), `PnsbCases` (recent developments: sticky image crossfades to the
   project in view, caption bar).
+  `PnsbHeroSlides` (home hero: the client's 4 transparent cut-out images,
+  `static/src/img/hero/0N-*.webp`, in order small pin & turning items, large machine items,
+  fabrication with assembly, surface treatment with assembly; the active button's CSS progress
+  bar times each image, click picks, hover pauses, no autoplay without motion).
   `PnsbGallery` (product page thumbnails).
   `PnsbIndustries` (/industries: big industry list drives a sticky drawing sheet; the row at
   ~40% of the viewport is active, mouse movement or click selects; one fixed quote button).
@@ -193,10 +196,9 @@ Frontend:
   so anything that hides content must live here (CSS failsafe shows it after 3 s otherwise).
 - `static/src/three/pnsb3d.js` (native ES module, dynamically imported so it never delays
   `load`) + vendored `static/lib/three/three.module.min.js` (three.js r160, MIT). Scenes on
-  `[data-pnsb-3d]`: `turntable` (home hero: `smallTurnedItems`, `largeMachinedItems`,
-  `fabricatedFrame`, `surfaceTreatedItems` built from lathe profiles / extruded sheet shapes;
-  each model sets `userData.view` so the camera rises for flat layouts; part list
-  `[data-pnsb-part]`; fallback photo `static/src/img/hero/01-small-turning.jpg`), `process` (how we work, driven by clickable auto-playing
+  `[data-pnsb-3d]`: `turntable` (currently unused: the home hero uses static images; the scene
+  and its models `smallTurnedItems`, `largeMachinedItems`, `fabricatedFrame`,
+  `surfaceTreatedItems` are kept in case 3D is wanted again), `process` (how we work, driven by clickable auto-playing
   `[data-pnsb-step]` items), `seal`, `sprocket`, `honeycomb`, `pulley`. The fallback photo is
   shown only with `html.pn-no3d` / without JS (never flashes on load); a "Loading 3D model"
   line shows meanwhile. Procedural geometry, studio env
